@@ -1,0 +1,53 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.Washer">
+        <property name="Version" type="q" access="read"/>        
+        <property name="OperationCycle" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedOperationCycles" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="CycleStage" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="NumberofRinse" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="MaxNumberOfRinse" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="WaterTemperatureLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedWaterTemperatureLevels" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SpinSpeedLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedSpinSpeedLevels" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SoilLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedSoilLevels" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetOperationCycle">
+             <arg name="operationCycle" type="y" direction="in"/>
+        </method>
+        <method name="SetNumberOfRinse">
+            <arg name="numberOfRinse" type="y" direction="in"/>
+        </method>
+        <method name="SetWaterTemperature">
+            <arg name="waterTemperatureLevel" type="y" direction="in"/>
+        </method>
+        <method name="SetSpinSpeed">
+            <arg name="spinSpeedLevel" type="y" direction="in"/>
+        </method>        
+        <method name="SetSoilLevel">
+            <arg name="soilLevel" type="y" direction="in"/>
+        </method>        
+    </interface>
+</node>
