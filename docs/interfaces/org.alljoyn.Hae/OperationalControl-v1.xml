@@ -1,0 +1,18 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.OperationalControl">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <property name="Version" type="q" access="read"/>                    
+        <property name="OperationalState" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedOperationalStates" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="SupportedOperationalCommands" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <method name="ExecuteOperationalCommand" >
+            <arg name="OperationalCommand" type="y" direction="in"/> 
+        </method>    
+    </interface>
+</node>
