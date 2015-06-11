@@ -26,6 +26,24 @@ documentation, we ask that you adhere to the following guidelines:
     smart equivalents are _not_ part of the allowed character set.
   * Supporting visuals (architecture diagrams, sequence diagrams) should be
     included as separate images in PNG format.
+  * Intra-repository links require some extra attention:
+
+    * links to other markdown files:
+
+      * *must leave off the `.md` extension*
+      * can be either relative (if in the same directory) or absolute.
+
+      For example, `org.alljoyn.Bus.Security/Application-v1.md` can link to
+      `org.alljoyn.Bus.Security/ManagedApplication-v1.md` as either
+      `ManagedApplication-v1` (relative) or
+      `/org.alljoyn.Bus.Security/ManagedApplication-v1` (absolute).
+
+    * links to supporting files (pictures, XML descriptions):
+      * place the files in the same directory as the markdown file they refer to
+        (do not use a separate `files/` directory hierarchy like the webdocs
+        project does).
+      * refer to them with a relative link (just the file name, basically),
+        *including the file's extension*.
 
 ## Theory of Operation
 
@@ -45,6 +63,7 @@ Provide information that helps explain the interface. Typically, this includes
 
 ## Specification
 
+|                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
 | Version               | 1                                                                     |
 | Annotation            | org.alljoyn.Bus.Secure = true                                         |
@@ -53,10 +72,11 @@ Provide information that helps explain the interface. Typically, this includes
 
 #### ComplexProperty
 
+|                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
 | Type                  | Baz                                                                   |
 | Access                | read-only                                                             |
-| Annotation            | org.freedesktop.DBus.PropertyChanged.EmitsChangedSignal = true        |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
 | Introduced in version | n (only add this line for n > 1)                                      |
 
 There is room for a long, tedious and incredibly detailed explanation of the property
@@ -64,10 +84,11 @@ here, in multiple paragraphs and with lists if needed.
 
 #### SimpleProperty
 
+|                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
 | Type                  | int32                                                                 |
 | Access                | read-write                                                            |
-| Annotation            | org.freedesktop.DBus.PropertyChanged.EmitsChangedSignal = invalidates |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = invalidates        |
 | Introduced in version | n (only add this line for n > 1)                                      |
 
 There is room for a long, tedious and incredibly detailed explanation of the property
@@ -75,10 +96,11 @@ here, in multiple paragraphs and with lists if needed.
 
 #### z
 
+|                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
 | Type                  | string                                                                |
 | Access                | read-write                                                            |
-| Annotation            | org.freedesktop.DBus.PropertyChanged.EmitsChangedSignal = false       |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = false              |
 | Introduced in version | n (only add this line for n > 1)                                      |
 
 Descriptions can be short and sweet, too.
@@ -88,6 +110,7 @@ Descriptions can be short and sweet, too.
 
 #### DoSomething(in1) -> (out1)
 
+|                       |                                             |
 |-----------------------|---------------------------------------------|
 | Introduced in version | n (only add this line for n > 1)            |
 
@@ -109,6 +132,7 @@ Errors raised by this method:
 
 #### DoNothing()
 
+|                       |                                             |
 |-----------------------|---------------------------------------------|
 | Introduced in version | n (only add this line for n > 1)            |
 | Annotation            | org.freedesktop.DBus.Method.NoReply = true  |
@@ -120,6 +144,7 @@ no errors. So we can leave out all those sections below.
 
 #### SomethingHasBeenDone -> (what)
 
+|                       |                                   |
 |-----------------------|-----------------------------------|
 | Introduced in version | n (only add this line for n > 1)  |
 | Signal Type           | sessioncast                       |
