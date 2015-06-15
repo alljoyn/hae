@@ -1,0 +1,12 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.AirPurifier">
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
+        <property name="Version" type="q" access="read"/>
+        <property name="TurboMode" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="ChangeTurboMode">
+             <arg name="turboMode" type="y" direction="in"/>
+        </method>
+    </interface>
+</node>
