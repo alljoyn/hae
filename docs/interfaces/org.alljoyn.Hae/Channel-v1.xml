@@ -1,0 +1,28 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Channel">
+        <struct name="ChannelInfoRecord">
+            <field name="channelID" type="s"/>
+            <field name="channelMode" type="y"/>
+            <field name="channelNumber" type="s"/>
+            <field name="channelNumber" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+		<property name="ChannelId" type="s" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+		<property name="TotalNumberOfChannels" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="GetChannelList">
+             <arg name="startingRecord" type="q" direction="in"/>
+             <arg name="numRecords" type="q" direction="in"/>
+             <arg name="listOfChannelInfoRecords" type="a[ChannelInfoRecord]" direction="out"/>
+        </method>
+		<method name="UpChannel"/>
+		<method name="DownChannel"/>
+        <method name="ChangeChannel">
+             <arg name="channelId" type="s" direction="in"/>
+        </method>
+		<signal name="ChannelListChanged" sessionless="false"/>
+    </interface>
+</node>
