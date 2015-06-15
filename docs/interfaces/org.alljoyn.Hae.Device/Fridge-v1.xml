@@ -1,0 +1,11 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.Fridge">
+        <property name="Version" type="q" access="read"/>
+        <property name="SuperMode" type="b" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetSuperMode">
+            <arg name="SetSuperMode" type="b" direction="in"/>
+        </method>
+    </interface>
+</node>
