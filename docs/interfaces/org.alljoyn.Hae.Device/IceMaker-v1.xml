@@ -1,0 +1,20 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.IceMaker">
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
+        <struct name="OperationalCycleDescriptor">
+            <field name="cyclePhase" type="y"/>
+            <field name="name" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="CyclePhaseId" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedCyclePhasesIds" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <method name="GetCyclePhasesInfo">
+            <arg name="language" type="s" direction="in"/>
+            <arg name="description" type="[CyclePhaseInfo]" direction="out"/>
+        </method>
+    </interface>
+</node>
