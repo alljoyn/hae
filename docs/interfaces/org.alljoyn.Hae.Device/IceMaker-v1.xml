@@ -1,0 +1,14 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.IceMaker">
+        <property name="Version" type="q" access="read"/>
+        <property name="WaterSource" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="MaxWaterLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="WaterLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+    </interface>
+</node>
