@@ -1,0 +1,46 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.Dryer">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <struct name="OperationalCycleDescriptor">
+            <field name="cycleId" type="q"/>
+            <field name="name" type="s"/>
+            <field name="description" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="CyclePhaseId" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="OperationalCycleId" type="q" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedOperationalCycleIds" type="aq" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="SelectableOperationalCycleIds" type="aq" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="MaxHumidityLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="HumidityLevel" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SelectableHumidityLevels" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetOperationalCycleId">
+            <arg name="cycleId" type="q" direction="in"/>
+        </method>
+        <method name="GetOperationalCyclesDescription">
+            <arg name="language" type="s" direction="in"/>
+            <arg name="description" type="[OperationalCycleDescriptor]" direction="out"/>
+        </method>
+        <method name="SetHumidityLevel">
+            <arg name="level" type="y" direction="in"/>
+        </method>
+        <method name="GetHumidityLevelInfo">
+            <arg name="languageTag" type="s" direction="in"/>
+            <arg name="info" type="as" direction="out"/>
+        </method>
+    </interface>
+</node>
