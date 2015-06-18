@@ -1,0 +1,41 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.Oven">
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
+        <struct name="CyclePhaseIdInfo">
+            <field name="phaseId" type="y"/>
+            <field name="name" type="s"/>
+        </struct>
+        <struct name="OperationalCycleDescriptor">
+            <field name="cycleId" type="q"/>
+            <field name="name" type="s"/>
+            <field name="description" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="CyclePhaseId" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedCyclePhaseIds" type="ay" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="OperationalCycleId" type="q" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedOperationalCycleIds" type="aq" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="SelectableOperationalCycleIds" type="aq" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <method name="GetCyclePhaseIdInfo">
+            <arg name="languageTag" type="s" direction="in"/>
+            <arg name="info" type="[CyclePhaseIdInfo]" direction="out"/>
+        </method>
+        <method name="SetOperationalCycleId">
+            <arg name="cycleId" type="q" direction="in"/>
+        </method>
+        <method name="GetOperationalCyclesDescription">
+            <arg name="language" type="s" direction="in"/>
+            <arg name="description" type="[OperationalCycleDescriptor]" direction="out"/>
+        </method>
+    </interface>
+</node>
