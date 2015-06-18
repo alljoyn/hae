@@ -1,0 +1,13 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.RepresentedCh2oConcentration">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <struct name="Ch2oConcentration">
+            <field name="significand" type="q"/>
+            <field name="exponent" type="n"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="RepresentedValue" type="[Ch2oConcentration]" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+    </interface>
+</node>
