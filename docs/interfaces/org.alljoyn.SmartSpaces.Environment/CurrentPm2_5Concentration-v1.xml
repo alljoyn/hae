@@ -1,0 +1,25 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.SmartSpaces.Environment.CurrentPm2_5Concentration">
+        <description language="en">This interface provides capability to represent current concentration of PM2.5.</description>
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
+        <struct name="RepresentedConcentration">
+            <field name="significand" type="q"/>
+            <field name="exponent" type="n"/>
+        </struct>
+        <property name="Version" type="q" access="read">
+            <description language="en"> Interface version</description>		
+		</property>
+        <property name="RepresentedValue" type="[RepresentedConcentration]" access="read">
+            <description language="en"> The represented value of current concentration of PM2.5.</description>		
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="MinValue" type="[RepresentedConcentration]" access="read">
+            <description language="en"> The minimum value allowed for RepresentedValue.</description>	
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="MaxValue" type="[RepresentedConcentration]" access="read">
+            <description language="en"> The maximum value allowed for RepresentedValue.</description>	
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+    </interface>
+</node>
