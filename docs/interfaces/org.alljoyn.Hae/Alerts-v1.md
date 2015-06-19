@@ -11,7 +11,7 @@ This information provides the status of the alerts of an appliance.
 | Version               | 1                                                                     |
 | Annotation            | org.alljoyn.Bus.Secure = false                                        |
 
-This interface has no control properties and does not require security.  
+This interface has no control properties and does not require security.
 The interface is designed to be included in a higher level device which can
 provide application layer security.
 
@@ -73,8 +73,7 @@ Enumeration fields and description of **severity**:
   * 0 --- warning --- "e.g. missing polishing in Dish Washer"
     * there is no risk of damage
     * appliance can work anyway without the best performance
-    * it can be removed by user intervention"   
-    
+    * it can be removed by user intervention"
 
   * 1 --- alarm --- "e.g. fridge open door"
     * there is risk of damage of something (e.g. food) after some time
