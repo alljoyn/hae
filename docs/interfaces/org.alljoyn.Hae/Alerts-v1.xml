@@ -4,14 +4,16 @@
         <struct name="AlertRecord">
             <field name="severity" type="y"/>
             <field name="alertCode" type="q"/>
-        </struct> 
-        <property name="Version" type="q" access="read"/>            
+        </struct>
+        <property name="Version" type="q" access="read"/>
         <property name="Alerts" type="a[AlertRecord]" access="read">
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
         <property name="AlertsRequestedAcknowledgement" type="b" access="read">
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <method name="AcknowledgeAlerts" />
+        <method name="AcknowledgeAlerts" >
+            <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
+        </method>
     </interface>
 </node>

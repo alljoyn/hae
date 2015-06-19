@@ -11,9 +11,8 @@ This information provides the status of the alerts of an appliance.
 | Version               | 1                                                                     |
 | Annotation            | org.alljoyn.Bus.Secure = false                                        |
 
-This interface has no control properties and does not require security.  
-The interface is designed to be included in a higher level device which can
-provide application layer security.
+This interface has no information that should be protected so does not require
+security.
 
 ### Properties
 
@@ -62,19 +61,18 @@ No signals are emitted by this interface.
 AlertRecord structure
 
   * **severity** --- byte --- enumeration field
-  * **alertCode** --- uint16 --- the values depend on the specific appliances
+  * **alertCode** --- uint16 --- the allowed values are in the range from 0x8000 to 0xFFFF, their meaning depends on the specific appliances
 
-The purpose in define this type is to standardize only data structure;
-i.e. a common data structure can be used while the values can be not inter
-operable by definition.
+The first purpose in define this type is to standardize only data structure;
+finding also common values to the alerts it is more complex because in principle
+they are manufacturer dependent.
 
 Enumeration fields and description of **severity**:
 
   * 0 --- warning --- "e.g. missing polishing in Dish Washer"
     * there is no risk of damage
     * appliance can work anyway without the best performance
-    * it can be removed by user intervention"   
-    
+    * it can be removed by user intervention"
 
   * 1 --- alarm --- "e.g. fridge open door"
     * there is risk of damage of something (e.g. food) after some time
@@ -86,11 +84,21 @@ Enumeration fields and description of **severity**:
     * service intervention is needed
 
 Note about **alertCode**:
-it is not possible to have interoperability on this codes because they depends
-by the specific manufacturer.
+
+So far it is not possible to have interoperability on this codes because they
+depends by the specific manufacturer and sometimes by the specific appliance
+type.
 To understand the **alertCode** values it is expected that separate
 documentation are provided and maintained by manufacturers.
 This information can be used by _consumers_ to interpret correctly the alerts.
+
+Anyway it is expected that in the future (at the release one of the next
+version of the interface) a list of some basic standard cross-manufacturer
+**alertCode** values will be defined, e.g. for most common alerts like
+Refrigerator Door Open, ...
+For this reason the **alertCode** values are organized in two ranges:
+  * 0x0000-0x7FFF --- standard codes, reserved for future inter-operable alerts codes
+  * 0x8000-0xFFFF --- proprietary codes
 
 ### Interface Errors
 
