@@ -12,6 +12,14 @@ The followings are minimum required shared interfaces for TV.
   * **org.alljoyn.Hae.OperationalControl** --- for control of operation
   * **org.alljoyn.Hae.VolumeControl** --- for control of audio volume
 
+The operation states that TV supports are:
+  * **0** --- **Off**
+  * **2** --- **Working**
+
+The operation commands that TV supports are:
+  * **0** --- **Off**
+  * **1** --- **On**
+
 A typical TV could have some other shared interfaces and the followings are
 examples.
   * **org.alljoyn.Hae.Channel** --- for control of channel selection
@@ -24,7 +32,7 @@ examples.
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Version    | 1                                                              |
-| Annotation | org.alljoyn.Bus.Secure = false                                 |
+| Annotation | org.alljoyn.Bus.Secure = true                                  |
 
 ### Properties
 

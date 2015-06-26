@@ -6,11 +6,19 @@ Set top box(STB) is a home appliance which can receive audio and visual
 contents such as broadcasting program and network streaming and convert them
 for showing on a display device such as TV. This STB interface provides
 capabilities to control and monitor STB specific resources. A controller can
-recognize this device as a STB if object descriptions of the About announcement
-include this interface.
+recognize this device as an STB if object descriptions of the About
+announcement include this interface.
 
 The followings are minimum required shared interfaces for STB.
   * **org.alljoyn.Hae.OperationalControl** --- for control of operation
+
+The operation states that STB supports are:
+  * **0** --- **Off**
+  * **2** --- **Working**
+
+The operation commands that STB supports are:
+  * **0** --- **Off**
+  * **1** --- **On**
 
 A typical STB could have some other shared interfaces and the followings are
 examples.
@@ -23,7 +31,7 @@ examples.
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Version    | 1                                                              |
-| Annotation | org.alljoyn.Bus.Secure = false                                 |
+| Annotation | org.alljoyn.Bus.Secure = true                                  |
 
 ### Properties
 
