@@ -8,7 +8,7 @@ it covers any home appliance who has the function of getting the quantitative
 load or qualitative level of any air pollutants.
 
 The minimum required shared interface for Air Quality Monitor is as follows:
-  * **org.alljoyn.Hae.RepresentedAirQualityLevel** --- for Air Quality Level
+  * **org.alljoyn.Hae.RepresentedAirQualityLevel** -- for Air Quality Level
 
 
 There are many kinds of air pollutants that can be monitored, such as PM2.5,
@@ -28,7 +28,9 @@ interfaces may be implemented:
 |               |                                                       |
 |---------------|-------------------------------------------------------|
 | Version       | 1                                                     |
-| Annotation    | org.alljoyn.Bus.Secure = ture                         |
+| Annotation    | org.alljoyn.Bus.Secure = false                        |
+
+There is no critical information that should be protected.
 
 ## References
 
