@@ -11,9 +11,9 @@
 #### RepresentedValue
 
 |-----------------------|-----------------------------------------------------------------------|
-| Type                  | Ch2oConcentration                                                    |
+| Type                  | Ch2oConcentration                                                     |
 | Access                | read-only                                                             |
-| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
 
 The represented value of current concentration of CH2O.
 The value is expressed in ug/m3.
@@ -35,8 +35,10 @@ Ch2oContration struct express a fixed-point number.
 CH2O concentration reprensenting property(RepresentedValue)
 is defined using a struct where:
   * first element is the significand;
-  * second element is the exponent and base is 10.The actual CH2O concentration value
-  can be represented by significan(10^exponent)
+  * second element is the exponent and base is 10.
+    The actual CH2O concentration value can be represented by 
+    significan(10^exponent)
 ## References
-  * the XML definition of the [RepresentedCh2oConcentration interface] (RepresentedCh2oConcentration-v1.xml)
+  * the XML definition of the [RepresentedCh2oConcentration interface]
+    (RepresentedCh2oConcentration-v1.xml)
 
