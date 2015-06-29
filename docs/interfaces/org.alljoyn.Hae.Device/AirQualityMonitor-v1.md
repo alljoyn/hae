@@ -28,7 +28,7 @@ interfaces may be implemented:
 |               |                                                       |
 |---------------|-------------------------------------------------------|
 | Version       | 1                                                     |
-| Annotation    | org.alljoyn.Bus.Secure = ture                         |
+| Annotation    | org.alljoyn.Bus.Secure = false                        |
 
 ## References
 
