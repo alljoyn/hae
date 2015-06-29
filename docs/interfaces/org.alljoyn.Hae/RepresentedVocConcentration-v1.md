@@ -11,9 +11,9 @@
 #### RepresentedValue
 
 |-----------------------|-----------------------------------------------------------------------|
-| Type                  | VocConcentration                                                    |
+| Type                  | VocConcentration                                                      |
 | Access                | read-only                                                             |
-| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
 
 The represented value of current concentration of VOC.
 The value is expressed in ug/m3.
@@ -35,8 +35,9 @@ VocContration struct express a fixed-point number.
 VOC concentration reprensenting property(RepresentedValue)
 is defined using a struct where:
   * first element is the significand;
-  * second element is the exponent and base is 10.The actual VOC concentration value
-  can be represented by significan(10^exponent)
+  * second element is the exponent and base is 10.The actual VOC concentration 
+    value can be represented by significan(10^exponent)
 ## References
-  * the XML definition of the [RepresentedVocConcentration interface] (RepresentedVocConcentration-v1.xml)
+  * the XML definition of the [RepresentedVocConcentration interface] 
+    (RepresentedVocConcentration-v1.xml)
 
