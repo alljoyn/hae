@@ -1,0 +1,20 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Mouse">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <property name="Version" type="q" access="read"/>
+        <property name="Volume" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="StepValue" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="MaxValue" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="UpVolume"/>
+        <method name="DownVolume"/>
+        <method name="ChangeVolume">
+             <arg name="volume" type="y" direction="in"/>
+        </method>
+    </interface>
+</node>

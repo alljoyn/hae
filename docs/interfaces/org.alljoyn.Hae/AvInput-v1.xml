@@ -1,0 +1,22 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.AvInput">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <struct name="InputSource">
+            <field name="id" type="q"/>
+            <field name="sourceType" type="q"/>
+            <field name="detectedState" type="y"/>
+            <field name="portNumber" type="q"/>
+            <field name="representedName" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="InputSourceId" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedInputSources" type="a[InputSource]" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="ChangeInputSource">
+             <arg name="inputSourceId" type="q" direction="in"/>
+        </method>
+    </interface>
+</node>
