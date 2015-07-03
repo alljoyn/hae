@@ -1,0 +1,15 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae">
+        <property name="Version" type="q" access="read"/>
+        <property name="CountryOfProduction" type="s" access="read"/>
+        <property name="Location" type="s" access="read"/>
+        <property name="CorporateBrand" type="s" access="read"/>
+        <property name="ProductBrand" type="s" access="read"/>
+        <property name="RemoteControl" type="b" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetLocation">
+            <arg name="location" type="string" direction="in"/>
+        </method>
+    </interface>
+</node>
