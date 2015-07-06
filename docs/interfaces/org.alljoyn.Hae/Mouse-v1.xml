@@ -1,0 +1,17 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Mouse">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <method name="MoveMouse">
+             <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
+             <arg name="relativeX" type="n" direction="in"/>
+             <arg name="relativeY" type="n" direction="in"/>
+        </method>
+        <method name="PressMouseButton">
+             <arg name="button" type="y" direction="in"/>
+        </method>
+        <method name="WheelMouse">
+             <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
+             <arg name="scroll" type="y" direction="in"/>
+        </method>
+    </interface>
+</node>
