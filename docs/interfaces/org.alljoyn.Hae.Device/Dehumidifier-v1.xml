@@ -1,0 +1,22 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.Device.Dehumidifier">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <property name="Version" type="q" access="read"/>
+        <property name="OperationalModeId" type="q" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="SupportedOperationalModeIds" type="aq" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="Defrosting" type="b" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetOperationalModeId">
+             <arg name="operationalModeId" type="q" direction="in"/>
+        </method>
+        <method name="GetOperationalModesDescription">
+             <arg name="languageTag" type="s" direction="in"/>
+             <arg name="modesDescription" type="a[OperationalModeDescriptor]" direction="out"/>
+        </method>
+    </interface>
+</node>
