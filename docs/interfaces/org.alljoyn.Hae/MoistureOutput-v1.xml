@@ -1,0 +1,30 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.Hae.MoistureOutput">
+        <annotation name="org.alljoyn.Bus.Secure" value="false"/>
+        <struct name="MoistureOutputRateDescriptor">
+            <field name="moistureOutputRateId" type="n"/>
+            <field name="name" type="s"/>
+            <field name="description" type="s"/>
+        </struct>
+        <property name="Version" type="q" access="read"/>
+        <property name="MoistureOutputRate" type="y" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="MaxMoistureOutputRate" type="y" access="read"/>
+        <property name="AutoMode" type="n" access="read">
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetMoistureOutputRate">
+             <arg name="moistureOutputRate" type="y" direction="in"/>
+        </method>
+        <method name="GetMoistureOutputRateDescription">
+             <arg name="languageTag" type="s" direction="in"/>
+             <arg name="moistureOutputRateDescription" type="a[MoistureOutputRateDescriptor]" direction="out"/>
+        </method>
+        <method name="EnableAutoMode">
+             <arg name="autoMode" type="b" direction="in"/>
+        </method>
+    </interface>
+</node>
+
+
