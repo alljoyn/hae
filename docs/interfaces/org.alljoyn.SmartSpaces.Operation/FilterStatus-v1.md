@@ -27,43 +27,56 @@ use case is outside the scope of AllJoyn HAE).
 |-----------------------|-----------------------------------------------------------------------|
 | Type                  | byte                                                                  |
 | Access                | read-only                                                             |
-| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = false              |
 
 0 = Water
 1 = Air
 
-#### FilterStatusType
+
+#### IsCleanable
+
+|                       |                                                                       |
+|-----------------------|-----------------------------------------------------------------------|
+| Type                  | boolean                                                               |
+| Access                | read-only                                                             |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = false              |
+
+If true a new filter does not need to be ordered, just replace
+
+#### OrderPercent
 
 |                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
 | Type                  | byte                                                                  |
 | Access                | read-only                                                             |
-| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = false              |
 
-0 : Filter Condition
-1 : Day Counter
-2 : % Lifespan Counter 
+If non-zero the lifetime percentage at which ordering is recommended.  
+If 0 filter is cleanable and there is no reason to order.
 
+#### ExpectedDaysLife
+
+|                       |                                                                       |
+|-----------------------|-----------------------------------------------------------------------|
+| Type                  | integer                                                               |
+| Access                | read-only                                                             |
+| Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = false              |
+
+Expected Days Life of filter to turn percent into days remaining.  
+If -1 there is no predicted life.  
+If 0 the life is <1 day
 
 #### FilterStatus
 
 |                       |                                                                       |
 |-----------------------|-----------------------------------------------------------------------|
-| Type                  | uint16                                                                |
+| Type                  | byte                                                                |
 | Access                | read-only                                                             |
 | Annotation            | org.freedesktop.DBus.Property.EmitsChangedSignal = true               |
 
-
-The meaning of the FilterStatus Property depends on the value of the FilterStatusType.
-
-|  Filter Status Type  |   Status Value Meaning                                                                      |
-|----------------------|---------------------------------------------------------------------------------------------|
-| 0                    |  0 - normal condition                                                                       |
-|                      |  1 - need to order:  The filter will expire soon and a new one should be obtained.          |
-|                      |  2 - need to replace:  The filter has reached the end of life and should be replaced.       |
-|                      |  3 - need to clean:  The filter needs to be cleaned, after cleaning it can be reinstalled.  |
-| 1                    | Days remaining.  0 indicates replace/clean.                                                 |
-| 2                    | Lifespan Remaining in percentage (100 - 0).  0 indicates replace/clean.                     |
+Lifespan Remaining in percentage (100 - 0).  0 indicates replace/clean. 
+OrderPercent indicates order.  A simple device may just implement 100/0 or 
+100/OrderPercent/0 instead of implementing the entire range of values
 
 ### Methods
 
