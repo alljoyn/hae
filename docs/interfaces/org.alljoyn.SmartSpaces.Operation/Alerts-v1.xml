@@ -6,6 +6,10 @@
             <field name="severity" type="y"/>
             <field name="alertCode" type="q"/>
         </struct>
+        <struct name="AlertCodesDescriptor">
+            <field name="alertCode" type="q"/>
+            <field name="description" type="s"/>
+        </struct>
         <property name="Version" type="q" access="read"/>
         <property name="Alerts" type="a[AlertRecord]" access="read">
             <description language="en">List of current pending alerts</description>
@@ -15,6 +19,15 @@
             <description language="en">User acknowledgment is requested by pending alerts</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
+        <method name="GetAlertCodesDescription">
+            <description language="en">Get alert codes description</description>
+            <arg name="languageTag" type="s" direction="in">
+                <description language="en">Language to be used in the output strings</description>
+            </arg>
+            <arg name="description" type="[AlertCodesDescriptor]" direction="out">
+                <description language="en">alert codes description</description>
+            </arg>
+        </method>
         <method name="AcknowledgeAlerts">
             <description language="en">Reset a pending user acknowledgment request</description>
         </method>

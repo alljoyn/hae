@@ -8,6 +8,18 @@ When the appliance (the _producer_) detects by itself an improper functioning on
 executing its operations, it can generate some alert messages in order to
 communicate it to the controller app (the _consumer_).
 
+Information about alerts can be send also using the AllJoyn Notification
+Service. Anyway Notifications are not  not sufficient for using in the case of
+appliances because:
+  * Notifications can inform about alerts as events, not as status; i.e. an
+    alert is detected by the _consumer_ only if this one is working and
+    connected at the time the alert happens; it is not possible to know the list
+    of previous alerts even if they are still pending
+  * Notifications don't define a hierarchy based on alerts gravity and user
+    intervention.
+  * Notifications send human readable strings, which are not inter-operable
+  * Notifications are "session-less"
+
 There are three kinds of alerts in term of severity, they are listed and
 described below:
 
@@ -37,6 +49,14 @@ described below:
 
 ### Properties
 
+#### Version
+
+|            |                                                         |
+| ---------- | ------------------------------------------------------- |
+| Type       | uint16                                                  |
+| Access     | read-only                                               |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
+
 #### Alerts
 
 |            |                                                         |
@@ -62,6 +82,24 @@ True means the user acknowledgment is needed.
 
 ### Methods
 
+#### GetAlertCodesDescription (languageTag) -> (description)
+
+Get information about the Alert code which can be provided by the appliance.
+It is used to communicate to _consumer_  descriptions of the alert codes in
+order to give to the user some awareness of it.
+
+Input arguments:
+  * **languageTag** --- string --- language to be used in the output strings
+    using IETF language tags specified by RFC 5646.
+
+Output arguments:
+  * **description** --- AlertCodesDescriptor[] --- the list of alert codes
+    descriptions; it could be empty if the appliance doesn't have any alert code
+    description
+
+Errors raised by this method:
+  * org.alljoyn.LanguageNotSupported --- the language specified is not supported
+
 #### AcknowledgeAlerts()
 
 Reset a pending user acknowledgment request. **AlertsRequestedAcknowledgement**
@@ -83,15 +121,15 @@ No signals are emitted by this interface.
 **AlertRecord** structure
 
   * **severity** --- byte --- enumeration field
-  * **alertCode** --- uint16 --- st the moment the allowed values are in the
+  * **alertCode** --- uint16 --- at the moment the allowed values are in the
     range from 0x8000 to 0xFFFF, their meaning depends on the specific
     appliances
 
-The first purpose in define this type is to standardize only data structure;
-finding also common values to the alerts it is more complex because in principle
-they are manufacturer dependent.
+The first purpose in defining this type is to standardize only the data
+structure; finding also common values for the alerts is more complex because in
+principle they are manufacturer dependent.
 
-Enumeration fields of **severity** are:
+Enumeration values of **severity** are:
 
   * 0 --- **warning** --- see "Theory of Operation"
   * 1 --- **alarm** --- see "Theory of Operation"
@@ -99,7 +137,7 @@ Enumeration fields of **severity** are:
 
 Note about **alertCode**:
 
-So far it is not possible to have interoperability on this codes because they
+So far it is not possible to have interoperability on these codes because they
 depends by the specific manufacturer and sometimes by the specific appliance
 type.
 To understand the **alertCode** values it is expected that separate
@@ -116,6 +154,16 @@ For this reason the **alertCode** values are organized in two ranges:
   * 0x8000-0xFFFF --- vendor-defined codes
 
 At the moment only the vendor-defined codes range is used.
+
+#### struct AlertCodesDescriptor
+
+This structure is used to give added information about alert, using its alert
+code as reference.
+
+  * **alertCode** --- uint16 --- the alert code value of the **AlertRecord**
+    structure
+  * **description** --- string --- description of the alert code;
+    e.g. "missing polishing", "open door", ...
 
 ### Interface Errors
 
