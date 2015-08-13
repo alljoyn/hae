@@ -13,15 +13,32 @@ that has a channel list.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+Interface version
+
 #### ChannelId
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Type       | string                                                         |
-| Access     | read-only                                                      |
+| Access     | read-write                                                     |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 Current channel ID.
+
+Errors raised when setting this property:
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### TotalNumberOfChannels
 
@@ -81,23 +98,6 @@ Input arguments: None.
 Output arguments: None.
 
 Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-#### ChangeChannel (channelId)
-
-Change channel using channelId.
-
-Input arguments:
-  * **channelId** --- sting --- The value corresponds to the unique channel ID
-    in ChannelInfoRecord.
-
-Output arguments: None.
-
-Errors raised by this method:
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
   * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
   if value is not acceptable due to internal state.
   * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote

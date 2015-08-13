@@ -15,6 +15,16 @@ battery level. Remaining battery can be displayed by qualitative level like
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+The interface version.
+
 #### BatteryLevel
 
 |            |                                                                |

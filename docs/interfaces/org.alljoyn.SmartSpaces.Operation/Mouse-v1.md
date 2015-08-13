@@ -11,6 +11,18 @@ and action.
 | Version    | 1                                                              |
 | Annotation | org.alljoyn.Bus.Secure = true                                  |
 
+### Properties
+
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+Interface version
+
 ### Methods
 
 #### MoveMouse (relativeX, relativeY)

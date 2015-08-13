@@ -13,16 +13,33 @@ input source of device such as TV or SetTopBox.
 
 ### Properties
 
-#### InputSourceId
+#### Version
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Type       | uint16                                                         |
 | Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+Interface version
+
+#### InputSourceId
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-write                                                     |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 Activated input source id in the supported input source list. The value
 corresponds to the input source id in InputSource.
+
+Errors raised when setting this property:
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### SupportedInputSources
 
@@ -36,20 +53,7 @@ The list of supported input sources for the given device.
 
 ### Methods
 
-#### ChangeInputSource (inputSourceId)
-
-Change the input source with InputSourceId.
-
-Input arguments:
-  * **inputSourceId** --- uint16 --- The value corresponds to the input source
-  id in InputSource.
-
-Errors raised by this method:
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
+No methods are exposed by this interface.
 
 ### Signals
 
@@ -74,15 +78,15 @@ No signals are emitted by this interface.
     * External Storage : 9
     * Network : 10
   * **detectedState** --- byte --- The enumeration below lists detected state.
-    * Detected : 0
-    * Not detected : 1
-    * Unknown : 2
+    * Unknown : 0
+    * Detected : 1
+    * Not detected : 2
   * **portNumber** --- uint16 --- When the device has plural HDMI input port, it
     could be distinguished by port number.
     ex) HDMI2 : sourceType is 6, portNumber is 2.
-  * **representedName** --- string --- The represented name of input source is
-    a UTF-8 encoded string. The controller should display this field to
-    the end-user. ex) "HDMI-2", "RGB-PC"
+  * **friendlyName** --- string --- The friendly name of input source is a UTF-8
+    encoded string. The controller should display this field to the end-user.
+    ex) "HDMI-2", "RGB-PC"
 
 ### Interface Errors
 

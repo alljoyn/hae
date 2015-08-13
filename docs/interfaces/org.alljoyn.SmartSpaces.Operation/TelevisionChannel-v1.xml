@@ -12,11 +12,11 @@
             <description language="en">Interface version</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
-        <property name="ChannelId" type="s" access="read">
+        <property name="ChannelId" type="s" access="readwrite">
             <description language="en">Current channel id</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="TotalNumberOfChannels" type="y" access="read">
+        <property name="TotalNumberOfChannels" type="q" access="read">
             <description language="en">Total number of scanned channels</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
@@ -31,10 +31,6 @@
         </method>
         <method name="DownChannel">
             <description language="en">Invoke this method to move down to the next available channel</description>
-        </method>
-        <method name="ChangeChannel">
-            <description language="en">Invoke this method to change the channel using channel id</description>
-            <arg name="channelId" type="s" direction="in"/>
         </method>
         <signal name="ChannelListChanged" sessionless="false">
             <description language="en">Emitted this signal if the channel list is changed</description>

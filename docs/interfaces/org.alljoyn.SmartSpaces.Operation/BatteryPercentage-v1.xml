@@ -3,7 +3,7 @@
         <description language="en">This interface provides capability to represent remaining battery percentage.</description>
         <annotation name="org.alljoyn.Bus.Secure" value="true"/>
         <property name="Version" type="q" access="read">
-            <description language="en">Interface version</description>
+            <description language="en">The interface version</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
         <property name="PercentageValue" type="y" access="read">
