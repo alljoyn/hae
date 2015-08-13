@@ -3,10 +3,10 @@
         <description language="en">This interface is for setting target humidity of the HAE devices such as humidifier, dehumidifier, etc.</description>
         <annotation name="org.alljoyn.Bus.Secure" value="true"/>
         <property name="Version" type="q" access="read">
-            <description language="en">Interface version</description>
-            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+            <description language="en">The interface version</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="TargetValue" type="y" access="read">
+        <property name="TargetValue" type="y" access="readwrite">
             <description language="en">Target value for relative humidity</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
@@ -22,9 +22,5 @@
             <description language="en">Step value allowed for the TargetValue setting</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <method name="SetTargetHumidity">
-            <description language="en">Invoke this method to set target value for relative humidity</description>
-            <arg name="humidity" type="y" direction="in"/>
-        </method>
     </interface>
 </node>
