@@ -30,7 +30,15 @@ for an Dehumidifier with water tank.
 
 ### Properties
 
-#### OperationalModeId
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+#### OperationalMode
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -38,16 +46,22 @@ for an Dehumidifier with water tank.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It indicates the currently selected operational mode identifier.
+It indicates the currently selected operational mode.
+An dehumidifier starts its operational mode immediately
+after setting or changing its target operational mode. If the
+device receives an invalid operational mode or can't accept a valid
+operational mode due to its internal state, then an appropriate error shall
+be returned.
 
 The property values are organized in two ranges
-  * 0x0000-0x7FFF --- **standard mode id** : the meaning is shared among
+
+  * 0x0000-0x7FFF --- **standard mode** : the meaning is shared among
     every appliance supporting the Dehumidifier interface
-  * 0x8000-0xFFFE --- **vendor-defined mode id** : the meaning depends on
+  * 0x8000-0xFFFE --- **vendor-defined mode** : the meaning depends on
     manufacturer so different appliances can use the same values with different
     meanings
 
-The enumeration below lists modes of **standard mode id**.
+The enumeration below lists modes of **standard mode**.
 
   * **0** --- **Auto** : The dehumidifier removes the humidity whenever current
     humidity is higher than target humidity. Then, it stops its operation if
@@ -59,10 +73,21 @@ The enumeration below lists modes of **standard mode id**.
     just lets the fan run to clean the air. The wind strength could be
     controlled.
   * **0x7FFF** --- **not supported"** : the reserved special value for
-    "not supported". If there is no supported operational mode ids,
+    "not supported". If there is no supported operational modes,
     this value can be set as 0x7FFF.
 
-#### SupportedOperationalModeIds
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
+  operational mode.
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
+
+
+#### SupportedOperationalModes
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -70,19 +95,18 @@ The enumeration below lists modes of **standard mode id**.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-An array of supported operational mode ids. After getting the list of supported
-operational mode ids, a valid one should be chosen out of the list.
+An array of supported operational modes. After getting the list of supported
+operational modes, a valid one should be chosen out of the list.
 
-It lists the values of operational mode identifiers which are supported by the
+It lists the values of operational modes which are supported by the
 appliance. It is used to know in advance and which are the values that the
-**OperationalModeId** can assume.
+**OperationalMode** can assume.
 
-The elements of the array belongs to the **standard mode id** and
-**vendor-defined mode id** ranges. In case there can be only element of one
-of the range. If the array is empty, OperationalModeId shall be set to 0x7FFF
-for "not supported".
+The elements of the array belongs to the **standard mode** and
+**vendor-defined mode** ranges. If the array is empty, OperationalMode shall
+be set to 0x7FFF for "not supported".
 
-#### SelectableOperationalModeIds
+#### SelectableOperationalModes
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -90,18 +114,18 @@ for "not supported".
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It lists the values of operational mode identifiers of the appliances which can
+It lists the values of operational modes of the appliances which can
 be selected remotely. It is used to know in advance which are the values that
-can be used to set from remote the **OperationalModeId** property using the
-**SetOperationalModeId** method.
+can be used to set from remote the **OperationalMode** property using the
+**SetOperationalMode** method.
 
-The elements of the array belongs to the **standard mode id** and
-**vendor-defined mode id** ranges.
-If the array is empty the operational mode identifier of the appliance can not
+The elements of the array belongs to the **standard mode** and
+**vendor-defined mode** ranges.
+If the array is empty the operational mode of the appliance can not
 be set from remote.
 
-The elements **SelectableOperationalModeIds** shall be a subset of the elements
-of **SupportedOperationalModeIds**.
+The elements **SelectableOperationalModes** shall be a subset of the elements
+of **SupportedOperationalModes**.
 
 
 #### Defrosting
@@ -121,36 +145,14 @@ for monitoring. If defrosting is true, dehumidifier makes free of frost or ice.
 
 ### Methods
 
-#### SetOperationalModeId (operationalModeId)
-
-Set an operational mode id. An dehumidifier starts its operational mode
-immediately after setting or changing its target operational mode id. If the
-device receives an invalid operational mode id or can't accept a valid
-operational mode id due to its internal state, then an appropriate error shall
-be returned.
-
-Input arguments:
-
-  * **operationalModeId** --- uint16 --- an operational mode id to set
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
 #### GetOperationalModesDescription (languageTag) -> (modesDescription)
 
-Get added information about the modes which are supported by the appliance.
+Get additional information about the modes which are supported by the appliance.
 It is used to communicate to controller the names and descriptions of the
-vendor-defined modees supported by the appliance, so they can be available by the
-remote controller.
+vendor-defined modees supported by the appliance, so they can be available by
+the remote controller.
 In principle standard modes have standard names and descriptions which are
-defined at specification level, anyway the method can give information.
+defined at specification level.
 
 Input arguments:
 
@@ -159,8 +161,8 @@ Input arguments:
 
 Output arguments:
 
-  * **modesDescription** --- OperationalModeDescriptor[] --- the list of mode
-    descriptions, they contain only **vendor-defined mode id**
+  * **modesDescription** --- OperationalModeDescription[] --- the list of mode
+    descriptions, they contain only **vendor-defined mode**
 
 Errors raised by this method:
 
@@ -173,12 +175,12 @@ No signals are emitted by this interface.
 
 ### Named Types
 
-#### struct OperationalModeDescriptor
+#### struct OperationalModeDescription
 
-This structure is used to give added information about a mode, using its
-operational mode id as reference.
+This structure is used to give additional information about a mode, using its
+operational mode as reference.
 
-  * **modeId** --- uint16 --- operational mode id
+  * **mode** --- uint16 --- operational mode
   * **name** --- string --- name of the operational mode (e.g. "Auto", ...)
   * **description** --- string --- description of the operational mode, it can
     be empty string in case there is no description

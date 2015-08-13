@@ -11,7 +11,7 @@ object descriptions of the About announcement include this interface.
 The followings are minimum required shared interfaces for robot cleaner.
   * **org.alljoyn.SmartSpaces.Operation.Control** --- for control of operation
 
-For example, A relationship betweeen operational state of the OperatoinalControl
+For example, A relationship betweeen operational state of the OperationalControl
 interface and behavior of robot cleaner can express below:
 
   * **Idle** --- The robot cleaner is being charged, but the battery level is
@@ -21,7 +21,7 @@ interface and behavior of robot cleaner can express below:
   automatically.
   * **Working** --- The robot cleaner is in cleaning operation or on the way
   back to the base station.
-  * **Pasued** --- During cleaning operaition, if the robot cleaner receives
+  * **Paused** --- During cleaning operaition, if the robot cleaner receives
   "Pause" command, then it pauses its cleaning operation and waits for "Resume"
   command to resume its cleaning operation.
   * **EndOfCycle** --- The robot cleaner has completed its cleaning operation
@@ -41,7 +41,15 @@ require security.
 
 ### Properties
 
-#### OperationalCycleId
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+#### OperationalCycle
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -49,21 +57,34 @@ require security.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It indicates the currently selected operational cycle identifier. The property
-values are organized in two ranges.
+It indicates the currently selected operational cycle. A robot cleaner starts
+its operational cycle immediately after setting or changing its target
+operational cycle. If the device receives an invalid operational cycle
+or can’t accept a valid operational cycle due to its internal state,
+then an appropriate error shall be returned.
 
-  * 0x0000-0x7FFF --- **standard cycle id** --- the meanings are shared among
+The property values are organized in two ranges.
+
+  * 0x0000-0x7FFF --- **standard cycle** --- the meanings are shared among
     every appliance supporting the RobotCleaner interface
-  * 0x8000-0xFFFE --- **vendor-defined cycle id** --- the meanings depend on
+  * 0x8000-0xFFFE --- **vendor-defined cycle** --- the meanings depend on
     manufacturer so different appliances can use the same values with different
     meanings
   * 0xFFFF --- **not supported** : the reserved special value for
-    "not supported". If there is no supported operational cycle ids,
+    "not supported". If there is no supported operational cycles,
     this value can be set as 0xFFFF.
 
-At the moment the list of **standard cycle ids** is still under discussion.
+Errors raised when setting this property:
 
-#### SupportedOperationalCycleIds
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
+    operational mode.
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+    if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+    control is disabled.
+
+#### SupportedOperationalCycles
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -71,16 +92,16 @@ At the moment the list of **standard cycle ids** is still under discussion.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
 
-It lists the values of operational cycle identifiers which are supported by the
+It lists the values of operational cycles which are supported by the
 appliance. It is used to know in advance and which are the values that the
-**OperationalCycleId** can assume.
+**OperationalCycle** can assume.
 
-The elements of the array belongs to the **standard mode id** and
-**vendor-defined mode id** ranges. In case there can be only element of one
-of the range. If the array is empty, OperationalModeId shall be set to 0xFFFF
+The elements of the array belongs to the **standard mode** and
+**vendor-defined mode** ranges. In case there can be only element of one
+of the range. If the array is empty, OperationalMode shall be set to 0xFFFF
 for "not supported".
 
-#### SelectableOperationalCycleIds
+#### SelectableOperationalCycles
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -88,20 +109,20 @@ for "not supported".
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It lists the values of operational cycle identifiers of the appliances which can
+It lists the values of operational cycles of the appliances which can
 be selected remotely. It is used to know in advance which are the values that
-can be used to set from remote the **OperationalCycleId** property using the
-**SetOperationalCycleId** method.
+can be used to set from remote the **OperationalCycle** property using the
+**SetOperationalCycle** method.
 
-The elements of the array belongs to the **standard cycle id** and
-**vendor-defined cycle id** ranges.
-If the array is empty the operational cycle identifier of the appliance can not
+The elements of the array belongs to the **standard cycle** and
+**vendor-defined cycle** ranges.
+If the array is empty the operational cycle of the appliance can not
 be set from remote.
 
-The elements **SelectableOperationalCycleIds** shall be a subset of the elements
-of **SupportedOperationalCycleIds**.
+The elements **SelectableOperationalCycles** shall be a subset of the elements
+of **SupportedOperationalCycles**.
 
-#### CyclePhaseId
+#### CyclePhase
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -109,21 +130,21 @@ of **SupportedOperationalCycleIds**.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It indicates the currently selected cycle phase identifier. The property
+It indicates the currently selected cycle phase. The property
 values are organized in two ranges.
 
-  * 0x00-0x7F --- **standard phase id** --- the meanings is shared among
+  * 0x00-0x7F --- **standard phase ** --- the meanings is shared among
     every appliance supporting the RobotCleaner interface
-  * 0x80-0xFF --- **vendor-defined phase id** --- the meanings depends on
+  * 0x80-0xFF --- **vendor-defined phase ** --- the meanings depends on
     manufacturer so different appliances can use the same values with different
     meanings
 
-The enumeration below lists cycles of **standard phase id**.
+The enumeration below lists cycles of **standard phase**.
 
   * **0** --- **Cleaning** : Clean the area.
   * **1** --- **Homing** : Come back to the home station.
 
-#### SupportedCyclePhaseIds
+#### SupportedCyclePhases
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -131,16 +152,14 @@ The enumeration below lists cycles of **standard phase id**.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
 
-It lists the values of cycle phase identifiers which are supported by the
+It lists the values of cycle phases which are supported by the
 appliance. It is used to know in advance and which are the values that the
-**CyclePhaseId** can assume.
+**CyclePhase** can assume.
 
-The elements of the array belongs to the **standard phase id** and
-**vendor-defined phase id** ranges. In case there can be only element of one of the
-range.
+The elements of the array belongs to the **standard phase** and
+**vendor-defined phase** ranges.
 If the array is empty the appliance doesn't communicate the cycle phase
-identifier value information to the controller.
-
+value information to the controller.
 
 #### TurboMode
 
@@ -151,10 +170,23 @@ identifier value information to the controller.
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 The Robot Cleaner runs more powerful giving cleaner results.
+The turbo mode is an additional feature for a powerful clean,
+so it can be applied to all operational cycles. If the device
+can’t enable/disable the turbo mode due to its internal state, then an
+appropriate error shall be returned.
 
   * **0** --- **Off** : turbo mode off
   * **1** --- **On** : turbo mode on
   * **0xFF** --- **Not Supported** : turbo mode not supported
+
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
+  operational mode.
+  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
+  value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### RepeatMode
 
@@ -165,43 +197,35 @@ The Robot Cleaner runs more powerful giving cleaner results.
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 The Robot Cleaner will continuously clean until the battery runs out.
+The repeat mode is an additional feature that
+repeats the cleaning in progress until the battery runs out, so it can be
+applied to all operational cycles. If the device can’t enable/disable
+the repeat mode due to its internal state, then an appropriate error
+shall be returned.
 
   * **0** --- **Off** : repeat mode off
   * **1** --- **On** : repeat mode on
   * **0xFF** --- **Not Supported** : repeat mode not supported
 
-### Methods
-
-#### SetOperationalCycleId (operationalCycleId)
-
-Set an operational cycle id. A robot cleaner starts its operational cycle
-immediately after setting or changing its target operational cycle id. If the
-device receives an invalid operational cycle id or can’t accept a valid
-operational cycle due to its internal state, then an appropriate error
-shall be returned.
-
-Input arguments:
-
-  * **operationalCycleId** --- uint16 --- an operational cycle id to set
-
-Errors raised by this method:
+Errors raised when setting this property:
 
   * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  operational mode.
   * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
   value is not acceptable due to internal state.
   * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
   control is disabled.
 
+### Methods
+
 #### GetOperationalCyclesDescription (languageTag) -> (cyclesDescription)
 
-Get added information about the cycles which are supported by the appliance.
+Get addtional information about the cycles which are supported by the appliance.
 It is used to communicate to controller the names and descriptions of the
-vendor-defined cycles supported by the appliance, so they can be available by the
-remote controller.
+vendor-defined cycles supported by the appliance, so they can be available by
+the remote controller.
 In principle standard cycles have standards names and descriptions which are
-defined at specification level, anyway the method can be give information
+defined at specification level.
 
 Input arguments:
 
@@ -210,8 +234,8 @@ Input arguments:
 
 Output arguments:
 
-  * **cyclesDescription** --- OperationalCycleDescriptor[] --- the list of cycle
-    descriptions, they contain only **vendor-defined cycle id**
+  * **cyclesDescription** --- OperationalCycleDescription[] --- the list of cycle
+    descriptions, they contain only **vendor-defined cycle**
 
 Errors raised by this method:
 
@@ -220,10 +244,10 @@ Errors raised by this method:
 
 #### GetCyclePhasesDescription (languageTag) -> (phasesDescription)
 
-Get added information about the phases which are supported by the appliance.
+Get addtional information about the phases which are supported by the appliance.
 It is used to communicate to controller the names and descriptions of the
-vendor-defined phases supported by the appliance, so they can be available by the
-remote controller.
+vendor-defined phases supported by the appliance, so they can be available by
+the remote controller.
 In principle standard phases have standard names and descriptions which are
 defined at specification level, anyway the method can be give information
 
@@ -234,54 +258,13 @@ Input arguments:
 
 Output arguments:
 
-  * **phasesDescription** --- CyclePhaseDescriptor[] --- the list of phase
-    descriptions, they contain only **vendor-defined phase id**
+  * **phasesDescription** --- CyclePhaseDescription[] --- the list of phase
+    descriptions, they contain only **vendor-defined phase**
 
 Errors raised by this method:
 
   * org.alljoyn.Error.LanguageNotSupported --- the language specified is not
     supported
-
-#### EnableTurboMode (turboMode)
-
-Enable/disable the turbo mode. The turbo mode is an additional feature for
-a powerful clean, so it can be applied to all operational cycles. If the device
-can’t enable/disable the turbo mode due to its internal state, then an
-appropriate error shall be returned.
-
-Input arguments:
-
-  * **turboMode** --- boolean --- true: enable, false: disable
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
-  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
-  value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-#### EnableRepeatMode (repeatMode)
-
-Enable/disable the repeat mode. The repeat mode is an additional feature that
-repeats the cleaning in progress until the battery runs out, so it can be
-applied to all operational cycles. If the device can’t enable/disable
-the repeat mode due to its internal state, then an appropriate error
-shall be returned.
-
-Input arguments:
-
-  * **repeatMode** --- boolean --- true: enable, false: disable
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
-  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
-  value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
-  control is disabled.
 
 ### Signals
 
@@ -289,22 +272,22 @@ No signals are emitted by this interface.
 
 ### Named Types
 
-#### struct OperationalCycleDescriptor
+#### struct OperationalCycleDescription
 
-This structure is used to give added information about a cycle, using its
-operational cycle id as reference.
+This structure is used to give additional information about a cycle, using its
+operational cycle as reference.
 
-  * **cycleId** --- uint16 --- operational cycle id
+  * **cycle** --- uint16 --- operational cycle
   * **name** --- string --- name of the operational cycle (e.g. "Zigzag", ...)
   * **description** --- string --- description of the operational cycle, it can
   be empty string in case there is no description
 
-#### struct CyclePhaseDescriptor
+#### struct CyclePhaseDescription
 
-This structure is used to give added information about a phase, using its
-cycle phase id as reference.
+This structure is used to give addtional information about a phase, using its
+cycle phase as reference.
 
-  * **phaseId** --- byte --- cycle phase id
+  * **phase** --- byte --- cycle phase
   * **name** --- string --- name of the cycle phase (e.g. "Cleaning", ...)
   * **description** --- string --- description of the cycle phase, it can
   be empty string in case there is no description

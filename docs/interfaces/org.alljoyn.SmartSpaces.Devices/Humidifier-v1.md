@@ -34,7 +34,13 @@ In those cases following shared interfaces are implemented:
 
 ### Properties
 
-No Properties are implemented by this interface.
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
 
 ### Methods
 
