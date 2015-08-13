@@ -12,15 +12,33 @@ This interface provides capabilites to control and monitor volume.
 
 #### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
+Interface version
+
 #### Volume
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Type       | byte                                                           |
-| Access     | read-only                                                      |
+| Access     | read-write                                                     |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 Speaker volume index of the device. Minimum volume is always 0.
+
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### StepValue
 
@@ -32,7 +50,7 @@ Speaker volume index of the device. Minimum volume is always 0.
 
 Step value of volume control.
 
-#### MaxValue
+#### MaxVolume
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -42,22 +60,35 @@ Step value of volume control.
 
 Maximum value allowed for Volume.
 
-#### Muted
+#### Mute
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Type       | byte                                                           |
-| Access     | read-only                                                      |
+| Access     | read-write                                                     |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The state of volume muted. If mute value is changed, changing value of volume
-property depends on device implementation.
+Volume mute state. If mute value is changed, changing value of volume property
+depends on device implementation.
 
 The property data type is an enumeration and its allowed value are listed below:
-  * 0x00 --- **Not muted** --- Volume is not muted
-  * 0x01 --- **Muted** --- Volume is muted
+  * 0x00 --- **Not mute** --- Volume not mute
+  * 0x01 --- **Mute** --- Volume mute
   * 0xFF --- **Not supported** --- Volume mute is not supported by the specific
-appliance.
+  appliance.
+
+The controller shall not set 0xFF(not supported).
+If the controller tries to set a value when the value is 0xFF,
+org.alljoyn.Error.FeatureNotAvailable shall be returned.
+
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
+  operational mode id.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 ### Methods
 
@@ -84,47 +115,6 @@ Input arguments: None.
 Output arguments: None.
 
 Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-#### ChangeVolume (volume)
-
-Change the volume. If the controller tries to set a target value which is out of
-range, then an appropriate error should be returned. In case that the Volume is
-in range defined by MaxValue, but it is not on the grid in terms of StepValue,
-the controllee can set an appropriate value without returning an error, or it
-can refuse the target value and return an appropriate error. If StepValue = 0,
-it means there is no step value information available for the controllee device.
-In this case, the controllee will go to an appropriate value that can be
-accepted without returning an error.
-
-Input arguments:
-
-  * **volume** --- byte --- target volume value
-
-Output arguments: None.
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-##### EnableMute(mute)
-
-Enable/Disable volume mute of device.
-
-Input arguments:
-  * **mute** --- boolean --- Enable/Disable volume mute
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
   * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
   if value is not acceptable due to internal state.
   * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
