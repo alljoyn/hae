@@ -25,7 +25,7 @@ The followings are minimum required shared interfaces for thermostat.
 
 ### Properties
 
-#### OperationalModeId
+#### Version
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -33,7 +33,21 @@ The followings are minimum required shared interfaces for thermostat.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It indicates the currently selected operational mode identifier.
+Interface version.
+
+#### OperationalMode
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
+It indicates the currently selected operational mode.
+An thermostat starts its operation mode immediately
+after setting or changing its target operation mode id. If the device receives
+an invalid operation mode id or can’t accept a valid operation mode id due to
+its internal state, then an appropriate error shall be returned.
 
 The property values are organized in two ranges
   * 0x0000-0x7FFF --- **standard mode id** : the meaning is shared among
@@ -59,7 +73,18 @@ The enumeration below lists modes of device operation.
     "not supported". If there is no supported operational mode ids,
     this value can be set as 0x7FFF.
 
-#### SupportedOperationalModeIds
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
+    operational mode.
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+    if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+    control is disabled.
+
+
+#### SupportedOperationalModes
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -70,16 +95,15 @@ The enumeration below lists modes of device operation.
 An array of supported operational mode ids. After getting the list of supported
 operational mode ids, a valid one should be chosen out of the list.
 
-It lists the values of operational mode identifiers which are supported by the
+It lists the values of operational modes which are supported by the
 appliance. It is used to know in advance and which are the values that the
-**OperationalModeId** can assume.
+**OperationalMode** can assume.
 
 The elements of the array belongs to the **standard mode id** and
-**vendor-defined mode id** ranges. In case there can be only element of one
-of the range. If the array is empty, OperationalModeId shall be set to 0x7FFF
-for "not supported".
+**vendor-defined mode id** ranges. If the array is empty, OperationalMode
+shall be set to 0x7FFF for "not supported".
 
-#### SelectableOperationalModeIds
+#### SelectableOperationalModes
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -87,45 +111,24 @@ for "not supported".
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-It lists the values of operational mode identifiers of the appliances which can
+It lists the values of operational modes of the appliances which can
 be selected remotely. It is used to know in advance which are the values that
-can be used to set from remote the **OperationalModeId** property using the
-**SetOperationalModeId** method.
+can be used to set from remote the **OperationalMode** property using the
+**SetOperationalMode** method.
 
 The elements of the array belongs to the **standard mode id** and
 **vendor-defined mode id** ranges.
-If the array is empty the operational mode identifier of the appliance can not
+If the array is empty the operational mode of the appliance can not
 be set from remote.
 
-The elements **SelectableOperationalModeIds** shall be a subset of the elements
-of **SupportedOperationalModeIds**.
+The elements **SelectableOperationalModes** shall be a subset of the elements
+of **SupportedOperationalModes**.
 
 ### Methods
 
-#### SetOperationModeId (operationModeId)
-
-Set an operation mode id. An thermostat starts its operation mode immediately
-after setting or changing its target operation mode id. If the device receives
-an invalid operation mode id or can’t accept a valid operation mode id due to
-its internal state, then an appropriate error shall be returned.
-
-Input arguments:
-
-  * **operationModeId** --- uint16 --- an operation mode id to set
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
-  operational mode id.
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
-  value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
 #### GetOperationalModesDescription (languageTag) -> (modesDescription)
 
-Get added information about the modes which are supported by the appliance.
+Get additional information about the modes which are supported by the appliance.
 It is used to communicate to controller the names and descriptions of the
 vendor-defined modes supported by the appliance, so they can be available by the
 remote controller.
@@ -159,7 +162,7 @@ No signals are emitted by this interface.
 This structure is used to give added information about a mode, using its
 operational mode id as reference.
 
-  * **modeId** --- uint16 --- operational mode id
+  * **mode** --- uint16 --- operational mode
   * **name** --- string --- name of the operational mode (e.g. "Heat", "Cool",
   ...)
   * **description** --- string --- description of the operational mode, it can
