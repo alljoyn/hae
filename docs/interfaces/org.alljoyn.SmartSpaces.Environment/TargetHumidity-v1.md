@@ -13,24 +13,42 @@ humidifier, dehumidifier, etc.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
+The interface version.
+
 #### TargetValue
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
 | Type       | byte                                                           |
-| Access     | read-only                                                      |
+| Access     | read-write                                                     |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-Target value for relative humidity. Relative humidity is the ratio of the
-partial pressure of water vapor to the equilibrium vapor pressure of water at
-the same temperature. If the controller tries to set a target value which is
-out of range, then an error should be returned. In case that the TargetValue is
-in range defined in MinValue and MaxValue, but it is not on the grid in terms of
-StepValue, the controllee can set an appropriate value without returning an
-error, or it can refuse to accept the TargetValue and return an appropriate
-error. If StepValue = 0, it means there is no step value information available
-for the controllee device. In this case, the controllee will go to an
-appropriate value that can be accepted without returning an error.
+Target value for relative humidity, expressed in percentage(0~100%). Relative
+humidity is the ratio of the partial pressure of water vapor to the equilibrium
+vapor pressure of water at the same temperature. If the controller tries to set
+a target value which is out of range, then an error should be returned. In case
+that the TargetValue is in range defined in MinValue and MaxValue, but it is not
+on the grid in terms of StepValue, the controllee can set an appropriate value
+without returning an error, or it can refuse to accept the TargetValue and
+return an appropriate error. If StepValue = 0, it means there is no step value
+information available for the controllee device. In this case, the controllee
+will go to an appropriate value that can be accepted without returning an error.
+
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
+  value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### MinValue
 
@@ -67,30 +85,7 @@ between MaxValue and MinValue should be a multiple of StepValue.
 
 ### Methods
 
-#### SetTargetHumidity (humidity)
-
-Set target value for relative humidity. Relative humidity is the ratio of the
-partial pressure of water vapor to the equilibrium vapor pressure of water at
-the same temperature. If the controller tries to set a target value which is out
-of range, then an error should be returned. In case that the TargetValue is in
-range defined in MinValue and MaxValue, but it is not on the grid in terms of
-StepValue, the controllee can set an appropriate value without returning an
-error, or it can refuse to accept the targetValue and return an appropriate
-error. If StepValue = 0, it means there is no step value information available
-for the controllee device. In this case, the controllee will go to an
-appropriate value that can be accepted without returning an error.
-
-Input arguments:
-
-  * **humidity** --- byte --- Target humidity value.
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpace.NotAcceptableDueToInternalState --- Returned if
-  value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpace.RemoteControlDisabled --- Returned if remote
-  control is disabled.
+No methods are exposed by this interface.
 
 ### Signals
 
