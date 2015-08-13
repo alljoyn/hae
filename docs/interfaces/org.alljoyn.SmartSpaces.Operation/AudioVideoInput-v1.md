@@ -1,7 +1,7 @@
 # org.alljoyn.SmartSpaces.Operation.AudioVideoInput version 1
 
 ## Theory of Operation
-This interface provides capabilites to control and monitor audio video
+This interface provides capabilities to control and monitor audio video
 input source of device such as TV or SetTopBox.
 
 ## Specification
@@ -13,7 +13,7 @@ input source of device such as TV or SetTopBox.
 
 ### Properties
 
-#### InputSourceId
+#### Version
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -21,8 +21,25 @@ input source of device such as TV or SetTopBox.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
+Interface version
+
+#### InputSourceId
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-write                                                     |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
 Activated input source id in the supported input source list. The value
 corresponds to the input source id in InputSource.
+
+Errors raised when setting this property:
+  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
+  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
+  if value is not acceptable due to internal state.
+  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
+  control is disabled.
 
 #### SupportedInputSources
 
@@ -36,20 +53,7 @@ The list of supported input sources for the given device.
 
 ### Methods
 
-#### ChangeInputSource (inputSourceId)
-
-Change the input source with InputSourceId.
-
-Input arguments:
-  * **inputSourceId** --- uint16 --- The value corresponds to the input source
-  id in InputSource.
-
-Errors raised by this method:
-  * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
+No methods are exposed by this interface.
 
 ### Signals
 
@@ -73,16 +77,20 @@ No signals are emitted by this interface.
     * SCART : 8
     * External Storage : 9
     * Network : 10
+    * Analog Audio : 11
+    * Phono : 12
+    * S/PDIF - Coaxial : 13
+    * S/PDIF - Optical : 14
   * **detectedState** --- byte --- The enumeration below lists detected state.
-    * Detected : 0
-    * Not detected : 1
-    * Unknown : 2
+    * Unknown : 0
+    * Detected : 1
+    * Not detected : 2
   * **portNumber** --- uint16 --- When the device has plural HDMI input port, it
     could be distinguished by port number.
     ex) HDMI2 : sourceType is 6, portNumber is 2.
-  * **representedName** --- string --- The represented name of input source is
-    a UTF-8 encoded string. The controller should display this field to
-    the end-user. ex) "HDMI-2", "RGB-PC"
+  * **friendlyName** --- string --- The friendly name of input source is a UTF-8
+    encoded string. The controller should display this field to the end-user.
+    ex) "HDMI-2", "RGB-PC"
 
 ### Interface Errors
 
@@ -99,3 +107,11 @@ message. The table below lists the possible errors raised by this interface.
 ## References
 
   * The XML definition of the [AudioVideoInput interface](AudioVideoInput-v1.xml)
+  * [CEA-770.2-D] Standard Definition TV Analog Component Video Interface
+  * Composite Analog Video Signal – NTSC for Studio Applications
+  * Digital Visual Interface, Revision 1.0
+  * High-Definition Multimedia Interface Version 1.4b
+  * DisplayPort 1.3
+  * [IEC 60933-1] Interconnections and matching values. Part 1: 21-pin connector
+    for video systems - Application No. 1
+  * [lEC 60958-1] Digital audio Interface. Part 1: General
