@@ -7,7 +7,7 @@
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
             <description language="en">Maximum value of moisture level</description>
         </property>
-        <property name="MoistureLevel" type="y" access="read">
+        <property name="MoistureLevel" type="y" access="readwrite">
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
             <description language="en">Current value of moisture level</description>
         </property>
@@ -15,12 +15,6 @@
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
             <description language="en">List of the values of moisture level which can be selected</description>
         </property>
-        <method name="SetMoistureLevel">
-            <description language="en">Set moisture level</description>
-            <arg name="level" type="y" direction="in">
-                <description language="en">Value to be set</description>
-            </arg>
-        </method>
         <method name="GetMoistureLevelInfo">
             <description language="en">Get moisture level info</description>
             <arg name="languageTag" type="s" direction="in">

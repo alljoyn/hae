@@ -21,6 +21,16 @@ instead of physical quantities.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+The interface version
+
 #### MaxMoistureLevel
 
 |            |                                                          |
@@ -36,11 +46,21 @@ Maximum value of moisture level.
 |            |                                                         |
 | ---------- | ------------------------------------------------------- |
 | Type       | byte                                                    |
-| Access     | read-only                                               |
+| Access     | read-write                                              |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
 
 Current value of moisture level. The valid values are in the range from 0
 (the lowest one) to **MaxMoistureLevel** (the highest one).
+
+Errors raised when setting this property:
+
+  * org.alljoyn.Error.InvalidValue --- if the level value is not one of the
+    **SelectableMoistureLevels** list
+  * org.alljoyn.SmartSpaces.Error.NotAcceptableDueToInternalState --- when the
+    level value is not accepted by the _producer_, because it is in a state
+    which doesn't allow the execution
+  * org.alljoyn.SmartSpaces.Error.RemoteControlDisabled --- when the remote
+    control is disabled
 
 #### SelectableMoistureLevels
 
@@ -62,27 +82,6 @@ The elements of the array shall be in ascending and order not bigger than
 **MaxMoistureLevel**.
 
 ### Methods
-
-#### SetMoistureLevel (level)
-
-Set the value of moisture level.
-If the _consumer_ tries to set value which is not supported (i.e. it is not in
-the list of **SelectableMoistureLevels** property), then an error should be
-returned.
-
-Input arguments:
-
-  * **level** --- byte --- the moisture level value to be set
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.InvalidValue --- if the level value is not one of the
-    **SelectableMoistureLevels** list
-  * org.alljoyn.SmartSpaces.Error.NotAcceptableDueToInternalState --- when the
-    level value is not accepted by the _producer_, because it is in a state
-    which doesn't allow the execution
-  * org.alljoyn.SmartSpaces.Error.RemoteControlDisabled --- when the remote
-    control is disabled
 
 #### GetMoistureLevelInfo (languageTag) -> (info)
 

@@ -13,6 +13,16 @@ humidity.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+The interface version.
+
 #### CurrentLevel
 
 |            |                                                                |

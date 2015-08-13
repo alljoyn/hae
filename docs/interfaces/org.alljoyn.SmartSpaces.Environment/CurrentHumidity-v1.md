@@ -13,6 +13,16 @@ relative humidity.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
+
+The interface version.
+
 #### CurrentValue
 
 |            |                                                                |
@@ -21,9 +31,9 @@ relative humidity.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The current relative humidity. Relative humidity is the
-ratio of the partial pressure of water vapor to the equilibrium vapor pressure
-of water at the same temperature.
+The current relative humidity, expressed in percentage(0~100%). Relative humidity
+is the ratio of the partial pressure of water vapor to the equilibrium vapor
+pressure of water at the same temperature.
 
 ### Methods
 
