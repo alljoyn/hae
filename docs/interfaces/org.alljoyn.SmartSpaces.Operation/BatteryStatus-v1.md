@@ -1,10 +1,10 @@
-# org.alljoyn.SmartSpaces.Operation.BatteryLevel version 1
+# org.alljoyn.SmartSpaces.Operation.BatteryStatus version 1
 
 ## Theory of Operation
 
-This interface provides capability to represent qualitative remaining
-battery level. Remaining battery can be displayed by qualitative level like
-"Low, Med, High".
+This interface provides capability to represent remaining battery status.
+The battery status would be displayed as quantitative remaining battery
+percentage or qualitative remaining battery level.
 
 ## Specification
 
@@ -15,7 +15,17 @@ battery level. Remaining battery can be displayed by qualitative level like
 
 ### Properties
 
-#### BatteryLevel
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
+Interface version
+
+#### BatteryValue
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -23,10 +33,12 @@ battery level. Remaining battery can be displayed by qualitative level like
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The current remaining battery level.
-The scope of value is 0 to MaxBatteryLevel.
+The current remaining battery value.
+If the MaxBatteryValue is 100, the BatteryValue means remaining battery
+percentage. And if the MaxBatteryValue is less than 100, this value means
+qualitative remaining battery level.
 
-#### MaxBatteryLevel
+#### MaxBatteryValue
 
 |            |                                                                |
 |------------|----------------------------------------------------------------|
@@ -34,7 +46,8 @@ The scope of value is 0 to MaxBatteryLevel.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
 
-Maximum value allowed for represented battery level.
+Maximum value allowed for the BatteryValue. This value is not allowed
+more than 100.
 
 ### Methods
 
@@ -42,7 +55,9 @@ Maximum value allowed for represented battery level.
 
 Get additional information about the battery levels in string format.
 The information strings associated with the battery level can be displayed
-on the controller side.
+on the controller side. This method can be used when this interface represents
+qualitative level of remaining battery. (When the MaxBatteryValue is less
+than 100).
 
 Input arguments:
 
@@ -55,13 +70,15 @@ Output arguments:
   associated with the battery levels, each element of the array refers
   to the level expressed by its index; the array can be:
     * empty: there are no string to communicate
-    * list a string for each element from 0 to **MaxBatteryLevel**
+    * list a string for each element from 0 to **MaxBatteryValue**
     examples of output are: "Low", "Med", "High"
 
 Errors raised by this method:
 
-  * org.alljoyn.Error.LanguageNotSupported --- The language
-  specified is not supported
+  * org.alljoyn.Error.FeatureNotAvailable --- Returend if the MaxBatteryValue
+  is 100.
+  * org.alljoyn.Error.LanguageNotSupported --- Returned if the language
+  specified is not supported.
 
 ### Signals
 
@@ -75,9 +92,10 @@ message. The table below lists the possible errors raised by this interface.
 
 |                          Error name             |                     Error                     |
 |-------------------------------------------------|---------------------------------------------- |
+| org.alljoyn.Error.FeatureNotAvailable           | Feature not supported                         |
 | org.alljoyn.Error.LanguageNotSupported          | The language specified is not supported       |
+
 
 ## References
 
-* The XML definition of the [BatteryLevel interface](BatteryLevel-v1.xml)
-
+  * The XML definition of the [BatteryStatus interface](BatteryStatus-v1.xml)
