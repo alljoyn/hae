@@ -46,6 +46,16 @@ commonly used for an air purifier with humidifying capability.
 
 ### Properties
 
+#### Version
+
+|            |                                                                |
+|------------|----------------------------------------------------------------|
+| Type       | uint16                                                         |
+| Access     | read-only                                                      |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
+
+The interface version number.
+
 #### TurboMode
 
 |            |                                                                |
