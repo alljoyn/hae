@@ -76,29 +76,7 @@ If **SupplySource** = **Pipe** or **Not Supported**, then **MaxLevel** shall be 
 
 ### Methods
 
-#### GetWaterLevelInfo (languageTag) -> (waterLevelInfo)
-
-Get added info about the water levels in string format. It is 
-used to communicate to controller the strings associated to the water 
-level supported values so it can display them.
-
-Input arguments:
-
-  * **languageTag** --- string --- languageTag to be used in the output 
-    strings using IETF language tags specified by RFC 5646.
-
-Output arguments:
-
-  * **waterLevelInfo** --- string[] --- the list of strings
-    associated to the water levels, each element of the array refers
-    to the level expressed by its index; the array can be:
-    * empty: there are no strings to communicate
-    * list a string for each element from 0 to **MaxLevel** 
-      examples of output are: "Empty", "Low", "Mid", "High", "Full"
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.LanguageNotSupported --- the language specified is not supported
+No methods are exposed by this interface.
 
 ### Signals
 

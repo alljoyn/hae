@@ -15,10 +15,5 @@
             <description language="en">Maximum level allowed for water level.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <method name="GetWaterLevelInfo">
-            <description language="en">Get added info about the water levels in string format.</description>
-            <arg name="languageTag" type="s" direction="in"/>
-            <arg name="waterLevelInfo" type="as" direction="out"/>
-        </method>
     </interface>
 </node>

@@ -15,10 +15,5 @@
             <description language="en">Maximum level allowed for represented air quality level.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
-        <method name="GetAirQualityLevelInfo">
-            <description language="en">Get added info about the air quality levels in string format.</description>
-            <arg name="languageTag" type="s" direction="in"/>
-            <arg name="airQualityLevelInfo" type="as" direction="out"/>
-        </method>
     </interface>
 </node>
