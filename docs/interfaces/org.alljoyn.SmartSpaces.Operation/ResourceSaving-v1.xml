@@ -9,7 +9,7 @@
             <description language="en">The current resource saving mode of the device</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <method name="EnableResourceSaving">
+        <method name="SetResourceSavingMode">
             <description language="en">Enables or disables the resource saving mode</description>
             <arg name="resourceSavingMode" type="b" direction="in"/>
         </method>
