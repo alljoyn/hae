@@ -16,6 +16,15 @@ resources are electricity, water and gas.
 
 ### Properties
 
+#### Version
+
+|                   |                                                         |
+|-------------------|---------------------------------------------------------|
+| Type              | uint16                                                  |
+| Access            | read-only                                               |
+| Annotation        | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
+
+
 #### ResourceSavingMode
 
 |            |                                                              |
@@ -29,7 +38,7 @@ holds TRUE if the device runs in the resource saving mode, FALSE otherwise.
 
 ### Methods
 
-#### EnableResourceSaving (resourceSavingMode)
+#### SetResourceSavingMode (resourceSavingMode)
 
 Enables or disables the resource saving mode.
 
@@ -43,9 +52,8 @@ Errors raised by this method:
   * org.alljoyn.SmartSpaces.Error.NotAcceptableDueToInternalState --- Indicates
     that the given value was not acceptable due to internal state.
   * org.alljoyn.SmartSpaces.Error.RemoteControlDisabled --- Indicates that
-    control
-    from a remote site is currently disabled.  See the RemoteControl property
-    in [the definition of common interface](/org.alljoyn.SmartSpaces/Common-v1) for
+    control from a remote site is currently disabled.  See the RemoteControl 
+    property in [the definition of common interface](/org.alljoyn.SmartSpaces/Common-v1) for
     further information.
 
 ### Interface Errors
