@@ -2,7 +2,10 @@
     <interface name="org.alljoyn.SmartSpaces.Environment.WaterLevel">
         <description language="en">This information provides level and supply source of water for an appliance.</description>
         <annotation name="org.alljoyn.Bus.Secure" value="true"/>
-        <property name="Version" type="q" access="read"/>
+        <property name="Version" type="q" access="read">
+            <description language="en">The interface version.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
         <property name="SupplySource" type="y" access="read">
             <description language="en">The supply source of water.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>

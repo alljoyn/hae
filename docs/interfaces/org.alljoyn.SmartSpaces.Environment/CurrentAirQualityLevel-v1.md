@@ -2,9 +2,9 @@
 
 ## Theory of Operation
 
-This information provides represented air quality level measured by an 
-appliance.
-Examples of appliances which may include this interface are air purifier and 
+This information provides represented air quality level measured by a 
+device.
+Examples of devices which may include this interface are air purifier and 
 air quality monitor.
 
 ## Specification
@@ -34,7 +34,7 @@ The interface version number.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false       |
 
-The air quality type.
+The measured air quality type.
 
 * **0** --- **PM2.5**
 * **1** --- **PM10**
@@ -54,7 +54,7 @@ The air quality type.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The qualitative representation of current relative air quality level.
+The qualitative representation of current air quality level.
 
 0 ~ MaxLevel:
 

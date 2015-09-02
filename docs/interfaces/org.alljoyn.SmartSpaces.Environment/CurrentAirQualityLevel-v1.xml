@@ -2,7 +2,10 @@
     <interface name="org.alljoyn.SmartSpaces.Environment.AirQualityLevel">
         <description language="en">This information provides represented air quality level measured by an appliance.</description>
         <annotation name="org.alljoyn.Bus.Secure" value="true"/>
-        <property name="Version" type="q" access="read"/>
+        <property name="Version" type="q" access="read">
+            <description language="en">The interface version.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
         <property name="AirQualityType" type="y" access="read">
             <description language="en">The air quality type.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
