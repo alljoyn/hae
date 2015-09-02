@@ -47,7 +47,7 @@ The supply source of water.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The current relative level of water in the tank.
+The current level of water in the tank.
 If **SupplySource** = **Pipe** or **Not Supported**, then **Level** shall be always 
 **0**, which means there is practically no information available about the 
 current water level.
