@@ -18,10 +18,5 @@
             <description language="en">Represent enabled/disabled state of the auto mode.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <method name="GetWindStrengthInfo">
-            <description language="en">Invoke this method to get information about wind strength in string format</description>
-            <arg name="languageTag" type="s" direction="in"/>
-            <arg name="info" type="as" direction="out"/>
-        </method>
     </interface>
 </node>

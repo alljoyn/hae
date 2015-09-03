@@ -95,7 +95,7 @@ The property data type is an enumeration and its allowed value are listed below:
   appliance.
 
 Errors raised when setting this property:
-  
+
   * org.alljoyn.Error.InvalidValue --- Returned if value is not valid.
   * org.alljoyn.Error.FeatureNotAvailable --- Returend if there is no selectable
   operational mode id.
@@ -106,29 +106,7 @@ Errors raised when setting this property:
 
 ### Methods
 
-#### GetMoistureOutputRateInfo (languageTag) -> (info)
-
-Get added information about the moisture output rate which are supported by
-the appliance. It is used to communicate to controller the names and
-descriptions of rates supported by the appliance, so they can be available by
-the remote controller.
-
-Input arguments:
-
-  * **languageTag** --- string --- language to be used in the output strings
-  using IETF language tags specified by RFC 5646.
-
-Output arguments:
-
-  * **info** --- string[] --- the list of moisture output rate
-     * empty: there are no string to communicate
-     * list a string for each element from 0 to **MaxMoistureOutputRate**
-     examples of output are: "low", "med", "high"
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.LanguageNotSupported --- The language specified is not
-    supported.
+No methods are implemented by this interface.
 
 ### Signals
 
@@ -144,7 +122,6 @@ message. The table below lists the possible errors raised by this interface.
 |---------------------------------------------------------------|----------------------------------------------------|
 | org.alljoyn.Error.FeatureNotAvailable                         | Feature not supported                              |
 | org.alljoyn.Error.InvalidValue                                | Invalid value                                      |
-| org.alljoyn.Error.LanguageNotSupported                        | The language specified is not supported            |
 | org.alljoyn.SmartSpaces.Error.NotAcceptableDueToInternalState | The value is not acceptable due to internal state  |
 | org.alljoyn.SmartSpaces.Error.RemoteControlDisabled           | Remote control disabled                            |
 

@@ -26,14 +26,5 @@
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
             <description language="en">List of the values of humidity level which can be selected</description>
         </property>
-        <method name="GetHumidityLevelInfo">
-            <description language="en">Get humidity level info</description>
-            <arg name="languageTag" type="s" direction="in">
-                <description language="en">Language to be used in the output strings</description>
-            </arg>
-            <arg name="info" type="as" direction="out">
-                <description language="en">Humidity level info strings</description>
-            </arg>
-        </method>
     </interface>
 </node>
