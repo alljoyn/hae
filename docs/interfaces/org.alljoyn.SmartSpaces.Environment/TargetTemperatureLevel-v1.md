@@ -85,31 +85,7 @@ The elements of the array shall be in ascending and order not bigger than
 
 ### Methods
 
-#### GetTemperatureLevelInfo (languageTag) -> (info)
-
-Get information about the temperature levels in string format.
-It is used to communicate to _consumer_ the strings associated to the
-temperature level supported values, so it can display them.
-
-Input arguments:
-
-  * **languageTag** --- string --- language to be used in the output strings
-    using IETF language tags specified by RFC 5646.
-
-Output arguments:
-
-  * **info** --- string[] --- the list of strings associated to the temperature
-    levels, each element of the array refers to the level expressed by its
-    index; the array can be:
-      * empty: there are no string to communicate
-      * list a string for each element from 0 to **MaxTemperatureLevel**
-    examples of output are:
-      1. "cold", "warm", "hot", "very hot"
-      2.  "30 °C", "60 °C", "70 °C" ,"90 °C"
-
-Errors raised by this method:
-
-  * org.alljoyn.LanguageNotSupported --- the language specified is not supported
+No methods are implemented by this interface.
 
 ### Signals
 
