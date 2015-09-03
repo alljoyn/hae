@@ -18,14 +18,5 @@
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
             <description language="en">List of the values of temperature level which can be selected</description>
         </property>
-        <method name="GetTemperatureLevelInfo">
-            <description language="en">Get temperature level info</description>
-            <arg name="languageTag" type="s" direction="in">
-                <description language="en">Language to be used in the output strings</description>
-            </arg>
-            <arg name="info" type="as" direction="out">
-                <description language="en">Temperature level info strings</description>
-            </arg>
-        </method>
     </interface>
 </node>

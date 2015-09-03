@@ -100,29 +100,7 @@ Errors raised when setting this property:
 
 ### Methods
 
-#### GetWindStrengthInfo (languageTag) -> (info)
-
-Get added information about the wind strength which are supported by
-the appliance. It is used to communicate to controller the names and
-descriptions of rates supported by the appliance, so they can be available by
-the remote controller.
-
-Input arguments:
-
-  * **languageTag** --- string --- language to be used in the output strings
-  using IETF language tags specified by RFC 5646.
-
-Output arguments:
-
-  * **info** --- string[] --- the list of wind strength
-     * empty: there are no string to communicate
-     * list a string for each element from 0 to **MaxWindStrength**
-     examples of output are: "low", "med", "high"
-
-Errors raised by this method:
-
-  * org.alljoyn.Error.LanguageNotSupported --- The language specified is not
-    supported.
+No methods are implemented by this interface.
 
 ### Signals
 
