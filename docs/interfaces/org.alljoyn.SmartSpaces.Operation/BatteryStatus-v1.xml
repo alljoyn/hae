@@ -14,10 +14,5 @@
             <description language="en">Maximum value allowed for represented battery value</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
-        <method name="GetBatteryLevelsInfo">
-            <description language="en">Invoke this method to get information about the battery levels in string format</description>
-            <arg name="languageTag" type="s" direction="in"/>
-            <arg name="info" type="as" direction="out"/>
-        </method>
     </interface>
 </node>
