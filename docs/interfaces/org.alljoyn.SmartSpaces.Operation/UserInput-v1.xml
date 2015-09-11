@@ -1,0 +1,30 @@
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.SmartSpaces.Operation.UserInput">
+        <description language="en">This interface provides capabilities to receive user input event from controller device.</description>
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
+        <struct name="InputEvent">
+            <field name="type" type="q"/>
+            <field name="code" type="q"/>
+            <field name="value" type="i"/>
+        </struct>
+        <struct name="SupportedInputEvent">
+            <field name="type" type="q"/>
+            <field name="code" type="q"/>
+            <field name="min" type="i"/>
+            <field name="max" type="i"/>
+        </struct>
+        <property name="Version" type="q" access="read">
+            <description language="en">Interface version</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <property name="SupportedEvents" type="[SupportedInputEvent]" access="read">
+            <description language="en">List of supported input events by a device</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
+        </property>
+        <method name="InputEvents">
+            <description language="en">Invoke this method to send the user input events from controller device</description>
+            <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
+            <arg name="inputEvents" type="[InputEvent]" direction="in"/>
+        </method>
+    </interface>
+</node>
