@@ -1,14 +1,14 @@
-## Theory of Operation
+## Theory of Operation version 1
 
 This document describes the theory of operation how the Home Appliances and
 Entertainment (HAE) Service Framework should work.
 
 ### Overview
 
-HAE service framework defines a common set of standard interface definitions
-to be shared for AllJoyn represenation of HAE devices and provides a common open
-source implementation. These standard interfaces abstacts common capabilities
-across device vendors and across device types. The followings are benefits of
+HAE service framework defines a common set of standard interfaces to be shared 
+for AllJoyn representation of HAE devices and provides a common open source 
+implementation. These standard interfaces abstact common capabilities across 
+device vendors and across device types. The followings are benefits of
 this service framework.
 
 ##### Cross-vendor interoperability
@@ -84,28 +84,29 @@ _org.alljoyn.SmartSpaces_ prefix is omitted for simplicity.
 
 | Device Type        | Id |  Description | Minimum required interfaces |
 |--------------------|----|--------------|----------------------|
-|Root                | 0  | It is introduced to indicate where is the AllJoyn root bus object which represent the entire device HAE service framework announces. It doesn't carry any informtion about device type specifics. | None |
-|Refrigerator        | 1  | Device that stores food at temperatures which are a few degrees above the freezing point of water.| Operation.DoorStatus |
-|Freezer             | 2  | Device that stores food at temperatures which are a few degrees below the freezing point of water (typically about -18 &deg;C), so the food itself is safe indefinitely.| Operation.DoorStatus |
-|Ice Maker           | 3  | Device that makes ice. It exists as a sub-unit inside a refrigerator container or as a standalone-device.| Operation.IceMakingCycle |
-|Air Conditioner     | 4  | Device that alters the properties of air (primarily temperature and humidity) to more comfortable conditions. | Operation.OnOff, Operation.HvacMode, Environmet.TargetTemperature, Environment.CurrentTemperature |
-|Thermostat          | 5  | Control unit that senses the temperature of a system so that the system's temperature is maintained near a desired set point. The thermostat does this by switching heating or cooling devices on or off or regulating the flow of a heat transfer fluid as needed to maintain the correct temperature.| Operation.OnOff, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
-|Humidifier          | 6  | Device that increases air humidity (moisture) in a single room or an entire building.| Operation.OnOff |
-|Dehumidifier        | 7  | Device that decreases air humidity (moisture) in a single room or an entire building.| Operation.OnOff, Environment.TargetHumidity, Environment.CurrentHumidity |
-|Air Purifier        | 8  | Device that has a filter that removes dust from the air.| Operation.OnOff |
-|Electric Fan        | 9  | Traditional style fan usually with blades visible from outside.| Operation.OnOff |
-|Air Quality Monitor | 10 | Device that checks and reports the air quality.| Operation.OnOff |
-|Clothes Washer      | 11 | Device that washes laundry such as clothing and sheets.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Clothes Dryer       | 12 | Device that removes moisture from a load of clothing and other textiles usually shortly after they are washed in a washer.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Clothes Washer-Dryer| 13 | Device that executes the operations of both a washer and a dryer in a single cavity.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Dish Washer         | 14 | Device that clean dishes and eating utensils.| Operation.OnOff, Operation.CycleControl, Operation.DishWashingCycle |
-|Robot Cleaner       | 15 | An autonomous robotic vacuum cleaner that has intelligent programming and a limited vacuum cleaning system. | Operation.OnOff, Operation.CycleControl, Operation.RobotCleaningCycle |
-|Oven                | 16 | Device that roasts and heats food in a complete stove. | Operation.OnOff, Operation.CycleControl, Operation.OvenCycle |
-|Cooker Hood         | 17 | Device that usually hangs above the stove or cooktop and it is used to removes airborne grease, combustion products, fumes, smoke, odours, heat, and steam from the air by evacuation of the air and filtration. | Operation.OnOff, Operation.HvacMode, Environment.WindStrength |
-|Cooktop             | 18 | Device with a flat framework used to place pots to be heated so the food inside is cooked. | Operation.HeatingZone |
-|FoodProbe           | 19 | Device used for checking the preparation of foods (typically the meat) to ensure that the appropriate and safe internal temperature has been achieved. Some probes are inserted into the food, other are just placed close to it. | Environment.TargetTemperature |
-|Television          | 20 | Device that receives broadcast programs and show the video and audio contents with its integrated display and speaker. | Operation.OnOff, Operation.AudioVolume |
-|SetTopBox           | 21 | Device that receives audio and visual contents such as broadcasting program and network streaming and convert them for showing on a display device such as TV. | Operation.OnOff |
+|Root                | 0  | It is introduced to locate the HAE root bus object which represent the entire device HAE service framework announces. It doesn't carry any informtion about device type specifics. | None |
+|Other               | 1  | It is a type for a device that implements the service framework defined interface(s), but doesn't necessarily have to be recognized as a specific type of device. As an example, for a simple contact sensor which reports open/closed status of a larger objects such as a door or a window on which it is attached, the information about its implemented interface could be enough. | None |
+|Refrigerator        | 2  | Device that stores food at temperatures which are a few degrees above the freezing point of water.| Operation.ClosedStatus |
+|Freezer             | 3  | Device that stores food at temperatures which are a few degrees below the freezing point of water (typically about -18 &deg;C), so the food itself is safe indefinitely.| Operation.ClosedStatus |
+|Ice Maker           | 4  | Device that makes ice. It exists as a sub-unit inside a refrigerator container or as a standalone-device.| None |
+|Air Conditioner     | 5  | Device that alters the properties of air (primarily temperature and humidity) to more comfortable conditions. | Operation.OnOff, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
+|Thermostat          | 6  | Control unit that senses the temperature of a system so that the system's temperature is maintained near a desired set point. The thermostat does this by switching heating or cooling devices on or off or regulating the flow of a heat transfer fluid as needed to maintain the correct temperature.| Operation.OnOff, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
+|Humidifier          | 7  | Device that increases air humidity (moisture) in a single room or an entire building.| Operation.OnOff |
+|Dehumidifier        | 8  | Device that decreases air humidity (moisture) in a single room or an entire building.| Operation.OnOff, Environment.TargetHumidity, Environment.CurrentHumidity |
+|Air Purifier        | 9  | Device that has a filter that removes dust from the air.| Operation.OnOff |
+|Electric Fan        | 10 | Traditional style fan usually with blades visible from outside.| Operation.OnOff |
+|Air Quality Monitor | 11 | Device that checks and reports the air quality.| None |
+|Clothes Washer      | 12 | Device that washes laundry such as clothing and sheets.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
+|Clothes Dryer       | 13 | Device that removes moisture from a load of clothing and other textiles usually shortly after they are washed in a washer.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
+|Clothes Washer-Dryer| 14 | Device that executes the operations of both a washer and a dryer in a single cavity.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
+|Dish Washer         | 15 | Device that clean dishes and eating utensils.| Operation.OnOff, Operation.CycleControl, Operation.DishWashingCycle |
+|Robot Cleaner       | 16 | An autonomous robotic vacuum cleaner that has intelligent programming and a limited vacuum cleaning system. | Operation.OnOff, Operation.CycleControl, Operation.RobotCleaningCycle |
+|Oven                | 17 | Device that roasts and heats food in a complete stove. | Operation.OnOff, Operation.CycleControl, Operation.OvenCycle |
+|Cooker Hood         | 18 | Device that usually hangs above the stove or cooktop and it is used to removes airborne grease, combustion products, fumes, smoke, odours, heat, and steam from the air by evacuation of the air and filtration. | Operation.OnOff, Operation.HvacMode, Environment.WindStrength |
+|Cooktop             | 19 | Device with a flat framework used to place pots to be heated so the food inside is cooked. | Operation.HeatingZone |
+|FoodProbe           | 20 | Device used for checking the preparation of foods (typically the meat) to ensure that the appropriate and safe internal temperature has been achieved. Some probes are inserted into the food, other are just placed close to it. | Environment.TargetTemperature |
+|Television          | 21 | Device that receives broadcast programs and show the video and audio contents with its integrated display and speaker. | Operation.OnOff, Operation.Channel, Operation.AudioVolume |
+|SetTopBox           | 22 | Device that receives audio and visual contents such as broadcasting program and network streaming and convert them for showing on a display device such as TV. | Operation.OnOff |
 
 ### Service Framework's Custom Metadata Fields
 
@@ -126,7 +127,7 @@ to About and Config metadata, respectively.
 The fields with a yes value in the Announced column will also be published
 via the Announce signal.
 
-#### Additioanal Configuration Map Fields for Configuration Service
+#### Additional Configuration Map Fields for Configuration Service
 
 | Field name          | Mandatory | Localized | Signature | Description  |
 |---------------------|-----------|-----------|-----------|--------------|
@@ -135,7 +136,7 @@ via the Announce signal.
 ### AllJoyn Representation Model for HAE Devices
 
 Following the AllJoyn bus object structure, a real HAE device will expose
-its interaction capabilites via implemented AllJoyn interfaces. Depending
+its interaction capabilities via implemented AllJoyn interfaces. Depending
 on its actual complexity, the real device will have one or more HAE devices
 in its AllJoyn representation. By using the additional metadata field,
 org.AllJoyn.SmartSpaces.DeviceDescription, in About announcement,
@@ -143,7 +144,7 @@ the AllJoyn bus objects corresponding to all HAE devices used for AllJoyn
 representation of real device shall be identified. Every bus object doesn't
 necessarily have to be identified with its associated device type. Children
 objects whose device types are not identified will inherit their parent's
-device type.
+device type. The bus object paths can be arbitrarily chosen.
 
 #### Simple Device Model
 
@@ -230,18 +231,9 @@ type identifier and bus object patch. For the air conditioner and refrigerator
 examples described in _Figure 3_ and _Figure 4_, the following values will
 be signaled as DeviceDescription respectively.
 
-* DeviceDescription = { <0, "/A">, <4, "/A"> }
-* DeviceDescription = { <0, "/A">, <1, "/A/Alpha">, <2, "/A/Beta">, <3, "/A/Gamma"> }
-
-The controller can recognize hierarchy and capabilities of the HAE device via
-the DeviceTypeDescription information in the discovery phase.
-For example, if the DeviceTypeDescription includes air conditioner device type
-corresponding to the root bus object, a controller can be aware of this device
-as a simple air conditioner. If the root bus object is corresponding to
-the Root device type, a controller can recognize this device as a complex
-device, and if the root device has three children device types such as
-a refrigerator, a freezer and an ice maker, a controller can recognize that
-this device is comprised of a refrigerator, a freezer and an ice maker.
+* DeviceDescription = { <0, "/A">, <5, "/A"> } for the example air conditioner
+* DeviceDescription = { <0, "/A">, <2, "/A/Alpha">, <3, "/A/Beta">, <4, "/A/Gamma"> }
+                      for the example refrigerator
 
 #### Discovery Call Flow
 
@@ -252,11 +244,12 @@ the presence of the DeviceDescription metadata field in About announcemnt
 shall be used for discovery of the HAE service framework instead.
 
 _Figure 5_ illustrates a typical discovery call flow for HAE service framework.
-As already explained, checing to see About announcement supports the HAE service
-framework will be the first step in discovery. After that, the controller will
-examine the DeviceDescription metadata field to see if the controllee supports
-HAE device(s) of interest. As a further step, the controller can check if
-the discovered HAE device(s) supports interfaces of interest.
+As already explained, checking to see if About announcement supports the HAE 
+service framework will be the first step in discovery process. After that, 
+the controller will examine the DeviceDescription metadata field to see 
+if the controllee supports HAE device(s) of interest. As a further step, 
+the controller can check if the discovered HAE device(s) supports interfaces 
+of interest.
 
 ![](hae_discovery_call_flow.png)
 
