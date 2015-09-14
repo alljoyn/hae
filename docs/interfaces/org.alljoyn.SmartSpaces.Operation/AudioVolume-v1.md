@@ -78,33 +78,7 @@ Errors raised when setting this property:
 
 ### Methods
 
-#### UpVolume ()
-
-Up volume to the next available value.
-
-Input arguments: None.
-
-Output arguments: None.
-
-Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-#### DownVolume ()
-
-Down volume to the next available value.
-
-Input arguments: None.
-
-Output arguments: None.
-
-Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
+No methods are exposed by this interface.
 
 #### Signals
 

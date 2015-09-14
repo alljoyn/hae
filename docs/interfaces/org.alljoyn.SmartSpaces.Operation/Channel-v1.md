@@ -75,34 +75,6 @@ Errors raised by this method:
   * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
   if value is not acceptable due to internal state.
 
-#### UpChannel ()
-
-Move up to the next available channel.
-
-Input arguments: None.
-
-Output arguments: None.
-
-Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
-#### DownChannel ()
-
-Move down to the next available channel.
-
-Input arguments: None.
-
-Output arguments: None.
-
-Errors raised by this method:
-  * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
-  if value is not acceptable due to internal state.
-  * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
-  control is disabled.
-
 ### Signals
 
 #### ChannelListChanged
