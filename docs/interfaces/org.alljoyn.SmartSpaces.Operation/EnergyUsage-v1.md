@@ -17,9 +17,7 @@
 | Access            | read-only                                               |
 | Annotation        | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
 
-
-
-#### RepresentedPower
+#### CurrentPower
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
@@ -30,7 +28,7 @@
 Holds the instantaneous power consumption of the device in Watts. 
 7fff ffff ffff ffff (NaN) indicates an unknown value.
 
-#### UsedEnergy
+#### CumulativeEnergy
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
@@ -44,9 +42,9 @@ the value to 0.
 
 ### Methods
 
-#### ResetUsedEnergy ()
+#### ResetEnergy ()
 
-Resets the value of UsedEnergy to 0.
+Resets the value of CumulativeEnergy to 0.
 
 Errors raised by this method:
   * org.alljoyn.SmartSpaces.Error.RemoteControlDisabled --- Indicates that
