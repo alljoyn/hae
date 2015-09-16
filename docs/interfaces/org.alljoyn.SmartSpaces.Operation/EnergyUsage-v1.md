@@ -17,9 +17,7 @@
 | Access            | read-only                                               |
 | Annotation        | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
 
-
-
-#### RepresentedPower
+#### CurrentPower
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
@@ -30,7 +28,7 @@
 Holds the instantaneous power consumption of the device in Watts. 
 7fff ffff ffff ffff (NaN) indicates an unknown value.
 
-#### UsedEnergy
+#### CumulativeEnergy
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
@@ -44,15 +42,16 @@ the value to 0.
 
 ### Methods
 
-#### ResetUsedEnergy ()
+#### ResetEnergy ()
 
-Resets the value of UsedEnergy to 0.
+Resets the value of CumulativeEnergy to 0.
 
 Errors raised by this method:
   * org.alljoyn.SmartSpaces.Error.RemoteControlDisabled --- Indicates that
     control request from a remote site is currently disabled.  See the
-    RemoteControl property in [the definition of common interface](/org.alljoyn.SmartSpaces/Common-v1)
-    for further information.
+    RemoteControl property in the [RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation/RemoteControllability-v1) for 
+further information.
+
 
 ### Named Types
 
@@ -68,5 +67,6 @@ The table below shows the possible raised by this inteface.
 
 ## References
 
-  * [The definition of common interface](/org.alljoyn.SmartSpaces/Common-v1)
+  * [The definition of RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation/RemoteControllability-v1)
   * [The XML definition of the EnergyUsage](EnergyUsage-v1.xml)
+  * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
