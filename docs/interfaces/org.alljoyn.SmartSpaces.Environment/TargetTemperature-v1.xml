@@ -6,21 +6,38 @@
             <description language="en">The interface version</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="TargetValue" type="d" access="readwrite">
+        <property name="TargetValues" type="{s:d}" access="read">
             <description language="en">Target temperature expressed in Celsius</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="MinValue" type="d" access="read">
+        <property name="MinValues" type="{s:d}" access="read">
             <description language="en">Minimum value of target temperature</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="MaxValue" type="d" access="read">
+        <property name="MaxValues" type="{s:d}" access="read">
             <description language="en">Maximum value of target temperature</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="StepValue" type="d" access="read">
+        <property name="StepValues" type="{s:d}" access="read">
             <description language="en">Step value allowed for the TargetTemperature setting</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
+        <property name="UpperActiveSetPoint" type="s" access="readwrite">
+            <description language="en">Step value allowed for the TargetTemperature setting</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="LowerActiveSetpoint" type="s" access="readwrite">
+            <description language="en">Step value allowed for the TargetTemperature setting</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <method name="SetTargetTemperature">
+            <description language="en">Adjust the setpoint to new temperature in degrees Celcius</description>
+            <arg name="key" type="s" direction="in">
+                <description language="en">Setpoint to change</description>
+            </arg>
+            <arg name="degC" type="d" direction="in">
+                <description language="en">New control point for system</description>
+            </arg>
+        </method>
     </interface>
 </node>
