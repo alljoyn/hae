@@ -24,7 +24,7 @@ Horizontal/VerticalAutoMode supports to control wind direction automatically.
 
 Interface version
 
-#### HorizontalWind
+#### HorizontalDirection
 
 |                  |                                                          |
 |------------------|----------------------------------------------------------|
@@ -52,7 +52,7 @@ Errors raised when setting this property:
 |------------------|----------------------------------------------------------|
 | Type             | uint16                                                   |
 | Access           | read-only                                                |
-| Annotation       | org.freedesktop.DBus.Property.EmitsChangedSignal = false |
+| Annotation       | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
 
 Maximum value allowed for a target horizontal wind direction. 0 means that
 device doesn't support to set and represent horizontal wind direction.
@@ -86,14 +86,14 @@ org.alljoyn.Error.FeatureNotAvailable shall be returned.
 
 Errors raised when setting this property:
 
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if a contrller tries to
+  * org.alljoyn.Error.FeatureNotAvailable --- Returned if a controller tries to
   set this property when HorizontalAutoMode is not supported.
   * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
     if value is not acceptable due to internal state.
   * org.alljoyn.Error.SmartSpaces.RemoteControlDisabled --- Returned if remote
     control is disabled.
 
-#### VerticalWind
+#### VerticalDirection
 
 |                  |                                                          |
 |------------------|----------------------------------------------------------|
@@ -103,9 +103,7 @@ Errors raised when setting this property:
 
 Vertical wind direction of a device. 0 means the lowest position. VerticalMax
 means the highest position. An error code shall be returned if a setpoint value
-is greater than VerticalMax. Step value for VerticalWind is always 1. All
-directions are based on the user's view, where the user is at the front of an
-object which contains this interface.
+is greater than VerticalMax.
 
 Errors raised when setting this property:
 
@@ -121,7 +119,7 @@ Errors raised when setting this property:
 |------------------|----------------------------------------------------------|
 | Type             | uint16                                                   |
 | Access           | read-only                                                |
-| Annotation       | org.freedesktop.DBus.Property.EmitsChangedSignal = false |
+| Annotation       | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
 
 Maximum value allowed for a target vertical wind direction. 0 means that device
 doesn't support to set and represent vertical wind direction.
@@ -156,7 +154,7 @@ org.alljoyn.Error.FeatureNotAvailable shall be returned.
 
 Errors raised when setting this property:
 
-  * org.alljoyn.Error.FeatureNotAvailable --- Returend if a contrller tries to
+  * org.alljoyn.Error.FeatureNotAvailable --- Returned if a controller tries to
   set this property when VerticalAutoMode is not supported.
   * org.alljoyn.Error.SmartSpaces.NotAcceptableDueToInternalState --- Returned
     if value is not acceptable due to internal state.
@@ -187,3 +185,5 @@ below lists the possible errors raised by this interface.
 ### References
 
   * The XML definition of the [WindDirection interface](WindDirection-v1.xml)
+  * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
+  * The definition of the [RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation/RemoteControllability-v1)
