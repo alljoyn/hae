@@ -21,7 +21,7 @@ conditioner, refrigerator, oven, etc. The temperature is expressed in celsius.
 | Access     | read-only                                                      |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
-The interface version.The EmitsChangedSignal value of this property can be 
+The interface version.The EmitsChangedSignal value of this property can be
 updated to "const" once that feature is available in Core.
 
 #### SupportedSetPoints
@@ -104,7 +104,9 @@ Output arguments:
 * **targetTemperatures**  ---TargetTemperature[] --- List of target temperatures
 
 Errors raised by this method:
-* org.alljoyn.Error.InvalidValue --- if there is(are) invalid key(s) in the input arguments.
+* org.alljoyn.Error.InvalidValue --- if there is(are) invalid key(s) in the 
+input arguments.  If multiple temperatures are requested and there is an invalid
+key, none will be returned.
 
 #### SetTargetTemperatures(targetTemperatures)
 
@@ -119,6 +121,8 @@ shall be then set to the limit of the range.
 If the controller tries to set a target value which doesn't match with the 
 granularity of the current step, the device shall round TargetValue using a
 device specific algorithm.
+If an invalid key is included, none of the requested changes shall be made, even
+if some of them are valid. 
 
 Errors raised by this method:
 * org.alljoyn.Error.InvalidValue --- if there is(are) invalid key(s) in the input arguments.
