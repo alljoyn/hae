@@ -36,7 +36,7 @@ use case is outside the scope of AllJoyn HAE).
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
-| Type       | uint16                                               |
+| Type       | uint16                                                   |
 | Access     | read-only                                                |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
 
@@ -47,7 +47,7 @@ to convert percentage into days remaining. using the formula:
 * DaysRemaining: = ExpectedLifeDays*LifeRemaining.
 
 0xFFFF indicate no life estimate available.  0 indicates less than 1 day.  
-Should change to const once that feature is available in Core.
+
 
 #### IsCleanable
 
