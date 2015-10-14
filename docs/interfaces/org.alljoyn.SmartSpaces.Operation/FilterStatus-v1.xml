@@ -6,7 +6,7 @@
             <description language="en">The Interface Version</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="ExpectedLifeDays" type="q" access="read">
+        <property name="ExpectedLifeInDays" type="q" access="read">
             <description language="en">Day a new filter will last.  Used to convert percentage into days remaining.  If 0xFFFF there is no predicted life.  If 0 the life is less than 1 day</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
