@@ -36,9 +36,9 @@ use case is outside the scope of AllJoyn HAE).
 
 |            |                                                          |
 |------------|----------------------------------------------------------|
-| Type       | uint16                                               |
+| Type       | uint16                                                   |
 | Access     | read-only                                                |
-| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false |
 
 ExpectedLifeInDays is the manufacturers expected time between cleaning/
 replacement.  This is the design life of the recommended filter, and can be used 
