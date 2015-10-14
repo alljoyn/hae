@@ -1,10 +1,9 @@
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
+    <interface name="org.alljoyn.SmartSpaces.Environment.TargetTemperatureCooling">
+        <description language="en">This interface provides a capability to set target temperature to maintain below</description>
+        <annotation name="org.alljoyn.Bus.Secure" value="true"/>
         <property name="Version" type="q" access="read">
             <description language="en">Interface version</description>
-            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
-        </property>
-        <property name="IsHeatingTarget" type="b" access="read">
-            <description language="en">If this is a heating (keep temperature above) or cooling (keep temperature below) setpoint.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
         <property name="TargetValue" type="d" access="readwrite">

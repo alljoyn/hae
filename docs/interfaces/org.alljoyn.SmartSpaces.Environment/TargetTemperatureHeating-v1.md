@@ -1,11 +1,11 @@
 # org.alljoyn.SmartSpaces.Environment.TargetTemperature version 1
 
 ## Theory of Operation
-This interface is for setting target temperature of the HAE devices such as air
-conditioner, refrigerator, oven, etc. The temperature is expressed in celsius.
+This interface is for setting target temperature of the HAE devices such as a
+space heater, oven, etc. The temperature is expressed in degrees celsius.
 This is for the active temperature based on the device state. For example an 
 oven may have a number of temperatures in memory for fish, lasagna, chicken etc 
-or a thermostat for different days of the week and ties of day.  Only the one 
+or a thermostat for different days of the week and times of day.  Only the one 
 currently being used to Target a specific temperature in the appliance is 
 exposed by this interface.
 
@@ -28,23 +28,6 @@ exposed by this interface.
 
 The interface version.  The EmitsChangedSignal annotation of this property
 should change to const once that feature is available in core.
-
-#### IsHeatingTarget
-
-|            |                                                                |
-|------------|----------------------------------------------------------------|
-| Type       | boolean                                                        |
-| Access     | read-only                                                      |
-| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
-
-If this target is a temperature the device is actively trying to maintain above
-by wwarming.  This could be on an oven, space heater etc.  The value is true.  If
-it is a cooling temperature as in a refrigerator or airconditioner the value is 
-false.  Cooling is used fairly loosly, if a fan is set to come on when the room 
-is greater than 23C, that is a cooling target. If an appliance needs bot each 
-must be implemented on a separate endpoint.
-The EmitsChangedSignal annotation of this property should change to const once 
-that feature is available in core.
 
 #### TargetValue
 
@@ -81,7 +64,6 @@ control is disabled.
 Minimum value of target temperature, expressed in Celsius.
 If no minimum value is available this wil read 7fff ffff ffff ffff (NaN).
 
-
 #### MaxValue
 
 |            |                                                                |
@@ -92,8 +74,6 @@ If no minimum value is available this wil read 7fff ffff ffff ffff (NaN).
 
 Maximum value of target temperature, expressed in Celsius.
 If no maximum value is available this wil read 7fff ffff ffff ffff (NaN).
-
-
 
 #### StepValue
 
@@ -130,8 +110,9 @@ message. The table below lists the possible errors raised by this interface.
 
 ## References
 
-* The XML definition of the [TargetTemperature interface](TargetTemperature-v1.xml)
-* The [RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation/RemoteControllability-v1)
+* The XML definition of the [TargetTemperatureHeating](TargetTemperatureHeating-v1.xml) interface.
+* The TargetTemperatureCooling (TargetTemperatureCooling-v1) interface.
+* The [RemoteControllability](/org.alljoyn.SmartSpaces.Operation/RemoteControllability-v1) interface.
 * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
 
 
