@@ -1,4 +1,4 @@
-# org.alljoyn.SmartSpaces.Operation.HeatingZone version 1
+# org.alljoyn.SmartSpaces.Operation.CooktopHeatingZone version 1
 
 ## Theory of Operation
 
@@ -71,6 +71,6 @@ No unique errors are associated with this interface.
 
 ## References
 
-  * The XML definition of the [HeatingZone interface](HeatingZone-v1.xml)
+  * The XML definition of the [CooktopHeatingZone interface](CooktopHeatingZone-v1.xml)
   * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
 
