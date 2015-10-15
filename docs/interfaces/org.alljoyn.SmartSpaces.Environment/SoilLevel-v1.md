@@ -1,9 +1,13 @@
-# org.alljoyn.SmartSpaces.Environment.TargetSoilLevel version 1
+# org.alljoyn.SmartSpaces.Environment.SoilLevel version 1
 
 ## Theory of Operation
 
-This interface provides the capability to set a target level of soil in Clothes
-Washers or Clothes Washer-Dryers.
+This interface provides the capability to set the level of soil in Clothes
+Washers or Clothes Washer-Dryers. It refers to the level of dirtiness of clothes
+before the washing process: some washer can set it so the washing process is
+executed in more or less intensive way (e.g. when the the clothes are very dirty
+or just slightly dirty).
+
 The values are usually associated to descriptive labels which are out of the
 scope of this interface.
 
@@ -75,7 +79,7 @@ cycles can have a different list of selectable soil levels). It is used to know
 in advance which are the values of **TargetLevel** property that can be set by
 _consumer_.
 
-If the array is empty the target soil level can be only monitored.
+If the array is empty the soil level can be only monitored.
 
 The elements of the array shall be in ascending order and not bigger than
 **MaxLevel**.
@@ -102,6 +106,6 @@ message. The table below lists the possible errors raised by this interface.
 
 ## References
 
-  * The XML definition of the [TargetSoilLevel interface](TargetSoilLevel-v1.xml)
+  * The XML definition of the [SoilLevel interface](SoilLevel-v1.xml)
   * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
   * The definition of the [RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation.RemoteControllability-v1)

@@ -1,9 +1,9 @@
-# org.alljoyn.SmartSpaces.Environment.TargetSpinSpeedLevel version 1
+# org.alljoyn.SmartSpaces.Environment.SpinSpeedLevel version 1
 
 ## Theory of Operation
 
-This interface provides the capability to set a target level of spin speed in
-Clothes Washers or Clothes Washer-Dryers.
+This interface provides the capability to set the level of spin speed in Clothes
+Washers or Clothes Washer-Dryers.
 The values are usually associated to descriptive labels or physical quantities
 (usually expressed in RPM).
 
@@ -48,7 +48,7 @@ feature is available.
 | Access     | read-write                                              |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
 
-Target value of speen spid level. The valid values are in the range from 0 (the
+Target value of spin speed level. The valid values are in the range from 0 (the
 lowest one) to **MaxLevel** (the highest one).
 
 Errors raised when setting this property:
@@ -75,7 +75,7 @@ cycles can have a different list of selectable spin speed levels). It is used to
 know in advance which are the values of **TargetLevel** property that can be set
 by _consumer_.
 
-If the array is empty the target spin speed level can be only monitored.
+If the array is empty the spin speed level can be only monitored.
 
 The elements of the array shall be in ascending order and not bigger than
 **MaxLevel**.
@@ -102,6 +102,6 @@ message. The table below lists the possible errors raised by this interface.
 
 ## References
 
-  * The XML definition of the [TargetSpinSpeedLevel interface](TargetSpinSpeedLevel-v1.xml)
+  * The XML definition of the [SpinSpeedLevel interface](SpinSpeedLevel-v1.xml)
   * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
   * The definition of the [RemoteControllability interface](/org.alljoyn.SmartSpaces.Operation.RemoteControllability-v1)
