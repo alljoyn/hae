@@ -10,8 +10,25 @@
             <description language="en">The instantaneous power consumption of the device in W.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
+        <property name="PowerPrecision" type="d" access="read">
+            <description language="en">The precision of the CurrentPower property.  i.e. the number of watts the
+                actual power consumption must change before CurrentPower is updated.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="PowerUpdateRate" type="q" access="read">
+            <description language="en">The minimum time between updates of the CurrentPower property</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
         <property name="CumulativeEnergy" type="d" access="read">
-            <description language="en">The cumlative power consumption of the device in kWHr.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
+            <description language="en">The cumulative power consumption of the device in kWHr.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="EnergyPrecision" type="d" access="read">
+            <description language="en">The precision of the CumulativeEnergy property.  i.e. the number of kWh the actual energy consumption must change before CumulativeEnergy is updated.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="EnergyUpdateRate" type="q" access="read">
+            <description language="en">The minimum time between updates of the CumulativeEnergy property</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
         <method name="ResetCumulativeEnergy">
