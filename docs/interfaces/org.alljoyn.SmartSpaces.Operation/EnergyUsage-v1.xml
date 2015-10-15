@@ -1,17 +1,21 @@
 <node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.allseenalliance.org/schemas/introspect.xsd">
     <interface name="org.alljoyn.SmartSpaces.Operation.EnergyUsage">
-        <description language="en">Interface that exposes information on Power and Energy consumption of the device.</description>
+        <description language="en">Interface that exposes information on Energy consumption of the device.</description>
         <annotation name="org.alljoyn.Bus.Secure" value="true" />
         <property name="Version" type="q" access="read">
             <description language="en">The version of this interface</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="CurrentPower" type="d" access="read">
-            <description language="en">The instantaneous power consumption of the device in W.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
+        <property name="CumulativeEnergy" type="d" access="read">
+            <description language="en">The cumulative power consumption of the device in kWHr.</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
-        <property name="CumulativeEnergy" type="d" access="read">
-            <description language="en">The cumlative power consumption of the device in kWHr.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
+        <property name="Precision" type="d" access="read">
+            <description language="en">The precision of the CumulativeEnergy property.  i.e. the number of kWHr the actual energy consumption must change before CumulativeEnergy is updated.</description>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+        </property>
+        <property name="EnergyUpdateRate" type="q" access="read">
+            <description language="en">The minimum time between updates of the CumulativeEnergy property in milliseconds</description>
             <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
         </property>
         <method name="ResetCumulativeEnergy">
