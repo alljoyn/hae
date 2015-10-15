@@ -23,10 +23,16 @@
 |------------|----------------------------------------------------------|
 | Type       | double                                                   |
 | Access     | read-only                                                |
-| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false |
 
 Holds the instantaneous power consumption of the device in Watts.
 7fff ffff ffff ffff (NaN) indicates an unknown value.
+
+The fact that the "EmitsChangedSignal" is false means that the "org.freedesktop.
+DBus.PropertiesChanged" is not guaranteed to be emitted if the property changes
+the signal will be emitted by the _producer_ when it determines the change to be
+significant based on the characteristics of the appliance.  This applies to 
+CumulativeEnergy also.
 
 #### CumulativeEnergy
 
@@ -34,7 +40,7 @@ Holds the instantaneous power consumption of the device in Watts.
 |------------|----------------------------------------------------------|
 | Type       | double                                                   |
 | Access     | read-only                                                |
-| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true  |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = false |
 
 Holds the cumulative energy consumption of the device in kWh.
 7fff ffff ffff ffff (NaN) indicates an unknown value.  ResetCumulativeEnergy resets

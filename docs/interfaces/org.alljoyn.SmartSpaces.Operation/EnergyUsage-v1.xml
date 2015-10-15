@@ -8,11 +8,11 @@
         </property>
         <property name="CurrentPower" type="d" access="read">
             <description language="en">The instantaneous power consumption of the device in W.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
-            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
         <property name="CumulativeEnergy" type="d" access="read">
             <description language="en">The cumlative power consumption of the device in kWHr.  7fff ffff ffff ffff (NaN) indicates an unknown value.</description>
-            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
+            <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="false"/>
         </property>
         <method name="ResetCumulativeEnergy">
             <description language="en">Resets the value of CumulativeEnergy to 0</description>
