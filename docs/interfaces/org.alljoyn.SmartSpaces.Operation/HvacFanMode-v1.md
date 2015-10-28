@@ -3,13 +3,13 @@
 ## Theory of Operation
 
 This interface controls the fan mode of  a  home appliance used to 
-alter the properties of air(primarily temperature and humidity) to more 
+alter the properties of air (primarily temperature and humidity) to more 
 comfortable conditions.
 If the control is physically part of the device it is typically called an air 
 conditioner or heater.  If the control is remote from the appliance it is 
 typically called a thermostat.  A controller can recognize this device as an air 
 conditioner or thermostat by the DeviceDescription metatdata field.
-This interface is used instead of an "OnOff" control becuase of ambiguity in 
+This interface is used instead of an "OnOff" control because of ambiguity in 
 what the On/Off on the interface would control, and because of the need for an 
 intermittent mode.
 
@@ -31,7 +31,7 @@ intermittent mode.
 | Access     | read-only                                               |
 | Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true |
 
-The interface version.  The EmitsChangedSignal of this is property should be 
+The interface version.  The EmitsChangedSignal of this property should be 
 "const" once that feature is implemented in core.
 
 #### Mode
@@ -46,7 +46,7 @@ It indicates the currently selected operational mode identifier.
 
   * **0** --- **Auto** : Fan runs as required by the appliance to support heating 
 and cooling operations.  
-  * **1** --- **Circulation** : Fan runs randomly for a balance of energy
+  * **1** --- **Circulation** : Fan runs intermittently for a balance of energy
 savings and air circulation
   * **2** --- **Continuous** : Fan runs continuously.
 .
@@ -68,7 +68,7 @@ remote control is disabled.   See the RemoteControl property in the
 |------------|----------------------------------------------------------------|
 | Type       | uint16[]                                                       |
 | Access     | read-only                                                      |
-| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true       |
+| Annotation | org.freedesktop.DBus.Property.EmitsChangedSignal = true        |
 
 An array of supported  modes. After getting the list of supported modes, a valid 
 one should be chosen out of the list.  It lists the values that the **Mode** can 
