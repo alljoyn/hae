@@ -11,7 +11,7 @@ separate interface for each one.  The _consumer_ is an application that is
 interested in the state of the opening.  Possibly to provide an email or push 
 notification to a consumer it is open at an unexpected time or for an excessive 
 duration.  (The consumer notification portion of the use case is outside the 
-scope of AllJoyn HAE).
+scope of AllJoyn HAE.)
 
 ## Specification
 
