@@ -26,7 +26,7 @@ the appliances can be organized in two categories:
     fridges, freezers, ...)
 
 The operational state of **Non-Cyclic Operations Devices** can be just on and
-off, so is fully described in the **org.alljoyn.SmartSpaces.Operation.OnOff**
+off, so is fully described in the **org.alljoyn.SmartSpaces.Operation.OnOffStatus**
 interface.
 On the other hand **Cyclic Operations Devices** has more complex operational
 state, so the on/off management is integrated with the features described below
@@ -276,6 +276,6 @@ from appliance.
 ## References
 
   * The XML definition of the [CycleControl interface](CycleControl-v1.xml)
-  * The definition of the [OnOff interface](OnOff-v1)
+  * The definition of the [OnOffStatus interface](/org.alljoyn.SmartSpaces.Operation/OnOffStatus-v1)
   * The theory of operation of the HAE service framework [Theory of Operation](/org.alljoyn.SmartSpaces/theory-of-operation-v1)
   * The definition of the [RemoteControllability interface](RemoteControllability-v1)
