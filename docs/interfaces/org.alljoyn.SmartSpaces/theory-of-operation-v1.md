@@ -5,9 +5,9 @@ Entertainment (HAE) Service Framework should work.
 
 ### Overview
 
-HAE service framework defines a common set of standard interfaces to be shared 
-for AllJoyn representation of HAE devices and provides a common open source 
-implementation. These standard interfaces abstact common capabilities across 
+HAE service framework defines a common set of standard interfaces to be shared
+for AllJoyn representation of HAE devices and provides a common open source
+implementation. These standard interfaces abstact common capabilities across
 device vendors and across device types. The followings are benefits of
 this service framework.
 
@@ -89,24 +89,24 @@ _org.alljoyn.SmartSpaces_ prefix is omitted for simplicity.
 |Refrigerator        | 2  | Device that stores food at temperatures which are a few degrees above the freezing point of water.| Operation.ClosedStatus |
 |Freezer             | 3  | Device that stores food at temperatures which are a few degrees below the freezing point of water (typically about -18 &deg;C), so the food itself is safe indefinitely.| Operation.ClosedStatus |
 |Ice Maker           | 4  | Device that makes ice. It exists as a sub-unit inside a refrigerator container or as a standalone-device.| None |
-|Air Conditioner     | 5  | Device that alters the properties of air (primarily temperature and humidity) to more comfortable conditions. | Operation.OnOff, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
-|Thermostat          | 6  | Control unit that senses the temperature of a system so that the system's temperature is maintained near a desired set point. The thermostat does this by switching heating or cooling devices on or off or regulating the flow of a heat transfer fluid as needed to maintain the correct temperature.| Operation.OnOff, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
-|Humidifier          | 7  | Device that increases air humidity (moisture) in a single room or an entire building.| Operation.OnOff |
-|Dehumidifier        | 8  | Device that decreases air humidity (moisture) in a single room or an entire building.| Operation.OnOff, Environment.TargetHumidity, Environment.CurrentHumidity |
-|Air Purifier        | 9  | Device that has a filter that removes dust from the air.| Operation.OnOff |
-|Electric Fan        | 10 | Traditional style fan usually with blades visible from outside.| Operation.OnOff |
+|Air Conditioner     | 5  | Device that alters the properties of air (primarily temperature and humidity) to more comfortable conditions. | Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
+|Thermostat          | 6  | Control unit that senses the temperature of a system so that the system's temperature is maintained near a desired set point. The thermostat does this by switching heating or cooling devices on or off or regulating the flow of a heat transfer fluid as needed to maintain the correct temperature.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.HvacMode, Environment.TargetTemperature, Environment.CurrentTemperature |
+|Humidifier          | 7  | Device that increases air humidity (moisture) in a single room or an entire building.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl |
+|Dehumidifier        | 8  | Device that decreases air humidity (moisture) in a single room or an entire building.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Environment.TargetHumidity, Environment.CurrentHumidity |
+|Air Purifier        | 9  | Device that has a filter that removes dust from the air.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl |
+|Electric Fan        | 10 | Traditional style fan usually with blades visible from outside.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl |
 |Air Quality Monitor | 11 | Device that checks and reports the air quality.| At least one between Environment.CurrentAirQuality and Environment.CurrentAirQualityLevel |
-|Clothes Washer      | 12 | Device that washes laundry such as clothing and sheets.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Clothes Dryer       | 13 | Device that removes moisture from a load of clothing and other textiles usually shortly after they are washed in a washer.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Clothes Washer-Dryer| 14 | Device that executes the operations of both a washer and a dryer in a single cavity.| Operation.OnOff, Operation.CycleControl, Operation.LaundryCycle |
-|Dish Washer         | 15 | Device that clean dishes and eating utensils.| Operation.OnOff, Operation.CycleControl, Operation.DishWashingCycle |
-|Robot Cleaner       | 16 | An autonomous robotic vacuum cleaner that has intelligent programming and a limited vacuum cleaning system. | Operation.OnOff, Operation.CycleControl, Operation.RobotCleaningCycle |
-|Oven                | 17 | Device that roasts and heats food in a complete stove. | Operation.OnOff, Operation.CycleControl, Operation.OvenCycle |
-|Cooker Hood         | 18 | Device that usually hangs above the stove or cooktop and it is used to removes airborne grease, combustion products, fumes, smoke, odours, heat, and steam from the air by evacuation of the air and filtration. | Operation.OnOff, Operation.HvacMode, Environment.WindStrength |
+|Clothes Washer      | 12 | Device that washes laundry such as clothing and sheets.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.CycleControl, Operation.LaundryCycle |
+|Clothes Dryer       | 13 | Device that removes moisture from a load of clothing and other textiles usually shortly after they are washed in a washer.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.CycleControl, Operation.LaundryCycle |
+|Clothes Washer-Dryer| 14 | Device that executes the operations of both a washer and a dryer in a single cavity.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.CycleControl, Operation.LaundryCycle |
+|Dish Washer         | 15 | Device that clean dishes and eating utensils.| Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.CycleControl, Operation.DishWashingCycle |
+|Robot Cleaner       | 16 | An autonomous robotic vacuum cleaner that has intelligent programming and a limited vacuum cleaning system. | Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.CycleControl, Operation.RobotCleaningCycle |
+|Oven                | 17 | Device that roasts and heats food in a complete stove. | Operation.OnOffStatus, Operation.CycleControl, Operation.OvenCycle |
+|Cooker Hood         | 18 | Device that usually hangs above the stove or cooktop and it is used to removes airborne grease, combustion products, fumes, smoke, odours, heat, and steam from the air by evacuation of the air and filtration. | Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.HvacMode, Operation.FanSpeedLevel |
 |Cooktop             | 19 | Device with a flat framework used to place pots to be heated so the food inside is cooked. | Operation.HeatingZone |
 |FoodProbe           | 20 | Device used for checking the preparation of foods (typically the meat) to ensure that the appropriate and safe internal temperature has been achieved. Some probes are inserted into the food, other are just placed close to it. | Environment.TargetTemperature, Operation.InsertionStatus |
-|Television          | 21 | Device that receives broadcast programs and show the video and audio contents with its integrated display and speaker. | Operation.OnOff, Operation.Channel, Operation.AudioVolume |
-|SetTopBox           | 22 | Device that receives audio and visual contents such as broadcasting program and network streaming and convert them for showing on a display device such as TV. | Operation.OnOff |
+|Television          | 21 | Device that receives broadcast programs and show the video and audio contents with its integrated display and speaker. | Operation.OnOffStatus, Operation.OnControl, Operation.OffControl, Operation.Channel, Operation.AudioVolume |
+|SetTopBox           | 22 | Device that receives audio and visual contents such as broadcasting program and network streaming and convert them for showing on a display device such as TV. | Operation.OnOffStatus, Operation.OnControl, Operation.OffControl |
 
 ### Service Framework's Custom Metadata Fields
 
@@ -244,11 +244,11 @@ the presence of the DeviceDescription metadata field in About announcemnt
 shall be used for discovery of the HAE service framework instead.
 
 _Figure 5_ illustrates a typical discovery call flow for HAE service framework.
-As already explained, checking to see if About announcement supports the HAE 
-service framework will be the first step in discovery process. After that, 
-the controller will examine the DeviceDescription metadata field to see 
-if the controllee supports HAE device(s) of interest. As a further step, 
-the controller can check if the discovered HAE device(s) supports interfaces 
+As already explained, checking to see if About announcement supports the HAE
+service framework will be the first step in discovery process. After that,
+the controller will examine the DeviceDescription metadata field to see
+if the controllee supports HAE device(s) of interest. As a further step,
+the controller can check if the discovered HAE device(s) supports interfaces
 of interest.
 
 ![](hae_discovery_call_flow.png)
