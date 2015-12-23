@@ -1,17 +1,22 @@
 #/usr/bin/python
 
 # usage:
-# create interface files:
+# create hae interface files:
 # python make_interface.py -n TargetTemperature -c Environment
-# delete interface files:
+# delete hae interface files:
 # python make_interface.py -n TargetTemperature -c Environment -d
+
+# create vendor defined interface files:
+# python make_interface.py -n Test -v
+# delete vendor defined interface fiels:
+# python make_interface.py -n Test -v -d
 
 import os
 import argparse
 import datetime
 
 interfaceTypeMap = {
-    'Hid':                   'HID_INTERFACE',
+    'Hid':                    'HID_INTERFACE',
     'AirQuality' :            'CURRENT_AIR_QUALITY_INTERFACE',
     'AirQualityLevel' :       'CURRENT_AIR_QUALITY_LEVEL_INTERFACE',
     'CurrentHumidity' :       'CURRENT_HUMIDITY_INTERFACE',
@@ -60,8 +65,13 @@ interfaceTypeMap = {
 categoryList = ['Operation', 'Environment', 'UserInterfaceSettings']
 
 def get_xml(name, category):
-    xml = ""
-    f = open('xml/org.alljoyn.SmartSpaces.' + category + '/' + name + '-v1.xml')
+    xml = ''
+    filepath = 'xml/org.alljoyn.SmartSpaces.' + category + '/' + name + '-v1.xml'
+    if os.path.isfile(filepath) == False:
+        print 'Failed: There is no xml file('+ filepath +')'
+        return
+
+    f = open(filepath)
     while True:
         line = f.readline()
         if not line: break
@@ -71,6 +81,13 @@ def get_xml(name, category):
         xml += '\"'+ line + '\"\n'
     f.close()
     return xml
+
+def get_interface_type(name):
+    if vendorDefined == False:
+        return interfaceTypeMap.get(name)
+
+    return 'VENDOR_DEFIEND_INTERFACE'
+
 
 def create_file(name, category, infile, outfile):
 
@@ -85,9 +102,14 @@ def create_file(name, category, infile, outfile):
         if not os.path.isdir(dir):
             raise
 
-    xml = get_xml(name, category)
+    xml = ""
+    if vendorDefined == False:
+        xml = get_xml(name, category)
+        if not xml:
+            return
+
     matching = {
-        '{interface_type}'     : interfaceTypeMap.get(name),
+        '{interface_type}'     : get_interface_type(name),
         '{interface_name}'     : name,
         '{interface_nameu}'    : name.upper(),
         '{interface_category}' : category.lower(),
@@ -128,22 +150,36 @@ def delete_file(file_path):
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-n', '--name', action='store', dest='name', required=True, help='interface name(e.g., TargetTemperature')
-parser.add_argument('-c', '--category', action='store', dest='category', required=True, help='interface category(e.g., operatoin, environment')
+parser.add_argument('-c', '--category', action='store', dest='category', help='interface category(e.g., operatoin, environment')
 parser.add_argument('-d', '--delete', action='store_true', dest='delete', default=False, help='delete files related interface')
+parser.add_argument('-v', '--vendor', action='store_true', dest='vendor', default=False, help='create vendor defined interface')
 
 args = parser.parse_args()
 
-inc_folder = "../inc/alljoyn/hae/interfaces/" + args.category.lower() + "/"
-src_folder = '../src/interfaces/' + args.category.lower() + '/'
 
 def main():
-    if args.name not in interfaceTypeMap.keys():
+    global vendorDefined
+    vendorDefined= args.vendor
+
+    if vendorDefined == False and args.name not in interfaceTypeMap.keys():
         print 'Failed: check the name of interface(case sensitive).'
         return
 
-    if args.category not in ['Operation', 'Environment', 'UserInterfaceSettings']:
+    if vendorDefined == False and args.category not in ['Operation', 'Environment', 'UserInterfaceSettings']:
         print 'Failed: check the name of category(case sensitive).'
         return
+
+    global inc_folder, src_folder
+    if vendorDefined == True:
+        template_folder='./vendor_defined_interface_template/'
+        inc_folder='./vendor_defined/'
+        src_folder='./vendor_defined/'
+        category='VendorDefined'
+    else:
+        template_folder='./interface_template/'
+        inc_folder = "../inc/alljoyn/hae/interfaces/" + args.category.lower() + "/"
+        src_folder = '../src/interfaces/' + args.category.lower() + '/'
+        category = args.category
 
     if args.delete == True:
         if delete_confirm() == True:
@@ -158,15 +194,15 @@ def main():
             delete_file(src_folder + args.name + 'IntfControllerImpl.h')
             delete_file(src_folder + args.name + 'IntfControllerImpl.cc')
     else:
-        create_file(args.name, args.category, 'TemplateInterface.h', inc_folder + args.name + 'Interface.h')
-        create_file(args.name, args.category, 'TemplateIntfControllee.h', inc_folder + args.name + 'IntfControllee.h')
-        create_file(args.name, args.category, 'TemplateIntfControlleeListener.h', inc_folder + args.name + 'IntfControlleeListener.h')
-        create_file(args.name, args.category, 'TemplateIntfController.h', inc_folder + args.name + 'IntfController.h')
-        create_file(args.name, args.category, 'TemplateIntfControllerListener.h', inc_folder + args.name + 'IntfControllerListener.h')
-        create_file(args.name, args.category, 'TemplateInterface.cc', src_folder + args.name + 'Interface.cc')
-        create_file(args.name, args.category, 'TemplateIntfControlleeImpl.h', src_folder + args.name + 'IntfControlleeImpl.h')
-        create_file(args.name, args.category, 'TemplateIntfControlleeImpl.cc', src_folder + args.name + 'IntfControlleeImpl.cc')
-        create_file(args.name, args.category, 'TemplateIntfControllerImpl.h', src_folder + args.name + 'IntfControllerImpl.h')
-        create_file(args.name, args.category, 'TemplateIntfControllerImpl.cc', src_folder + args.name + 'IntfControllerImpl.cc')
+        create_file(args.name, category, template_folder + 'TemplateInterface.h', inc_folder + args.name + 'Interface.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfControllee.h', inc_folder + args.name + 'IntfControllee.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfControlleeListener.h', inc_folder + args.name + 'IntfControlleeListener.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfController.h', inc_folder + args.name + 'IntfController.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfControllerListener.h', inc_folder + args.name + 'IntfControllerListener.h')
+        create_file(args.name, category, template_folder + 'TemplateInterface.cc', src_folder + args.name + 'Interface.cc')
+        create_file(args.name, category, template_folder + 'TemplateIntfControlleeImpl.h', src_folder + args.name + 'IntfControlleeImpl.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfControlleeImpl.cc', src_folder + args.name + 'IntfControlleeImpl.cc')
+        create_file(args.name, category, template_folder + 'TemplateIntfControllerImpl.h', src_folder + args.name + 'IntfControllerImpl.h')
+        create_file(args.name, category, template_folder + 'TemplateIntfControllerImpl.cc', src_folder + args.name + 'IntfControllerImpl.cc')
 
 main()
