@@ -136,3 +136,34 @@ cd <root dir of source>/services/hae/cpp/code_template
 python make_interface.py -n InterfaceName -c Category -d
 </pre>
 
+How to add vendor defined interface
+------------------------------------
+  1. Generate the skeleton codes using make_interface.py script.
+  2. Copy all files to your application folder
+  3. Fill the codes for properties, methods and signals in all files generated.
+
+    * create skeleton codes for vendor defined interface
+<pre>
+cd <root dir of source>/services/hae/cpp/code_template
+python make_interface.py -n InterfaceName -v
+(InterfaceName is case sensitive.)
+[example]
+python make_interface.py -n Test -v
+Created: ./vendor_defined/TestInterface.h
+Created: ./vendor_defined/TestIntfControllee.h
+Created: ./vendor_defined/TestIntfControlleeListener.h
+Created: ./vendor_defined/TestIntfController.h
+Created: ./vendor_defined/TestIntfControllerListener.h
+Created: ./vendor_defined/TestInterface.cc
+Created: ./vendor_defined/TestIntfControlleeImpl.h
+Created: ./vendor_defined/TestIntfControlleeImpl.cc
+Created: ./vendor_defined/TestIntfControllerImpl.h
+Created: ./vendor_defined/TestIntfControllerImpl.cc
+</pre>
+
+    * delete files related vendor defined interface
+<pre>
+cd <root dir of source>/services/hae/cpp/code_template
+python make_interface.py -n InterfaceName -v -d
+</pre>
+
