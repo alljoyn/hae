@@ -20,7 +20,7 @@ env['_ALLJOYN_HAE_'] = True
 env['OBJDIR_SERVICES_HAE'] = env['OBJDIR'] + '/services/hae'
 
 # Make config library and header file paths available to the global environment
-env.Append(LIBPATH = '$DISTDIR/hae/lib');
+env.Replace(LIBPATH = '$DISTDIR/hae/lib');
 env.Append(CPPPATH = '$DISTDIR/hae/inc');
 
 if not env.has_key('_ALLJOYN_ABOUT_') and os.path.exists('../../core/alljoyn/services/about/SConscript'):
@@ -36,6 +36,7 @@ hae_env = env.Clone()
 
 for b in hae_env['bindings']:
     if os.path.exists('%s/SConscript' % b):
+        env.Append(LIBPATH = '$DISTDIR/%s/lib' % b);
         hae_env.VariantDir('$OBJDIR_SERVICES_HAE/%s' % b, b, duplicate = 0)
 
 hae_env.SConscript(['$OBJDIR_SERVICES_HAE/%s/SConscript' % b for b in env['bindings'] if os.path.exists('%s/SConscript' % b) ],
