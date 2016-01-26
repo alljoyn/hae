@@ -23,6 +23,12 @@ if not hae_env.has_key('_ALLJOYNCORE_'):
     if hae_env['OS'] == 'openwrt':
         hae_env.AppendUnique(LIBS = [ 'stdc++', 'pthread' ])
 
+#allow dynamic casts in HAE"
+flags = hae_env['CXXFLAGS']
+if '-fno-rtti' in flags:
+    flags.remove('-fno-rtti')
+hae_env['CXXFLAGS'] = flags
+
 # Make hae dist a sub-directory of the alljoyn dist.  This avoids any conflicts with alljoyn dist targets.
 hae_env['HAE_DISTDIR'] = hae_env['DISTDIR'] + '/hae'
 

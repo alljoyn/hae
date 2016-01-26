@@ -20,8 +20,14 @@ env['_ALLJOYN_HAE_'] = True
 env['OBJDIR_SERVICES_HAE'] = env['OBJDIR'] + '/services/hae'
 
 # Make config library and header file paths available to the global environment
-env.Append(LIBPATH = '$DISTDIR/hae/lib');
+env.Append(LIBPATH = '$DISTDIR/hae/lib')
 env.Append(CPPPATH = '$DISTDIR/hae/inc');
+
+if 'c' not in env['bindings']:
+    list = env['LIBPATH']
+    if '$DISTDIR/hae/lib' in list:
+        list.remove('$DISTDIR/c/lib')
+        env['LIBPATH'] = list
 
 if not env.has_key('_ALLJOYN_ABOUT_') and os.path.exists('../../core/alljoyn/services/about/SConscript'):
     env.SConscript('../../core/alljoyn/services/about/SConscript')
