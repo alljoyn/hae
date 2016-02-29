@@ -53,6 +53,11 @@ QStatus AudioVideoInputIntfControlleeImpl::Init()
 
 QStatus AudioVideoInputIntfControlleeImpl::SetInputSourceId(const uint16_t inputSourceId)
 {
+    if (m_supportedInputSources.find(inputSourceId) == m_supportedInputSources.end()) {
+        QCC_LogError(ER_INVALID_DATA, ("%s: InputSourceId is not exist in SupportedInputSources.", __func__));
+        return ER_INVALID_DATA;
+    }
+
     if (m_inputSourceId != inputSourceId) {
         MsgArg val;
         val.typeId = ALLJOYN_UINT16;
@@ -66,6 +71,11 @@ QStatus AudioVideoInputIntfControlleeImpl::SetInputSourceId(const uint16_t input
 QStatus AudioVideoInputIntfControlleeImpl::SetSupportedInputSources(const InputSources& supportedInputSources)
 {
     bool diff = false;
+    QStatus status = CheckSupportedInputSources(supportedInputSources);
+
+    if (status != ER_OK) {
+        return status;
+    }
 
     if (m_supportedInputSources.size() != supportedInputSources.size()) {
         diff = true;
@@ -92,7 +102,7 @@ QStatus AudioVideoInputIntfControlleeImpl::SetSupportedInputSources(const InputS
         }
     }
 
-    if(diff) {
+    if (diff) {
         MsgArg args[supportedInputSources.size()];
         MsgArg val;
         InputSources::const_iterator citer;
@@ -198,6 +208,11 @@ QStatus AudioVideoInputIntfControlleeImpl::OnSetProperty(const String propName, 
             return status;
         }
         uint16_t inputSourceId = val.v_uint16;
+        if (m_supportedInputSources.find(inputSourceId) == m_supportedInputSources.end()) {
+            status = ER_INVALID_DATA;
+            QCC_LogError(status, ("%s: InputSourceId is not exist in SupportedInputSources.", __func__));
+            return status;
+        }
         status = m_interfaceListener.OnSetInputSourceId(inputSourceId);
         if (status != ER_OK) {
             QCC_LogError(status, ("%s: failed to set property value", __func__));
@@ -233,6 +248,30 @@ void AudioVideoInputIntfControlleeImpl::OnMethodHandler(const InterfaceDescripti
     }
 }
 
+QStatus AudioVideoInputIntfControlleeImpl::CheckSupportedInputSources(const InputSources& supportedInputSources)
+{
+    InputSources::const_iterator citer;
+    int i=0;
+
+    for (citer = supportedInputSources.begin(); citer != supportedInputSources.end(); citer++) {
+        if (citer->second.sourceType < MIN_AUDIO_VIDEO_INPUT_SOURCE_TYPE
+            || citer->second.sourceType > MAX_AUDIO_VIDEO_INPUT_SOURCE_TYPE) {
+            QCC_LogError(ER_FAIL, ("%s: Invaild sourceType", __func__));
+            break;
+        } else if (citer->second.signalPresence != AUDIO_VIDEO_INPUT_SIGNAL_PRESENCE_UNKNOWN
+                   && citer->second.signalPresence != AUDIO_VIDEO_INPUT_SIGNAL_PRESENCE_PRESENT
+                   && citer->second.signalPresence != AUDIO_VIDEO_INPUT_SIGNAL_PRESENCE_ABSENT) {
+            QCC_LogError(ER_FAIL, ("%s: Invaild signalPresence", __func__));
+            break;
+        }
+    }
+
+    if (citer != supportedInputSources.end()) {
+        return ER_FAIL;
+    }
+
+    return ER_OK;
+}
 
 } //namespace services
 } //namespace ajn
