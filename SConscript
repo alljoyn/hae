@@ -17,7 +17,7 @@ import os
 Import('env')
 
 env['_ALLJOYN_HAE_'] = True
-env['OBJDIR_SERVICES_HAE'] = env['OBJDIR'] + '/services/hae'
+env['OBJDIR_SERVICES_HAE'] ='#' + env['OBJDIR'] + '/services/hae'
 
 # Make config library and header file paths available to the global environment
 env.Append(LIBPATH = '$DISTDIR/hae/lib')
@@ -39,7 +39,7 @@ if not env.has_key('_ALLJOYN_ABOUT_') and os.path.exists('../../core/alljoyn/ser
     env.SConscript('../../core/alljoyn/services/about/SConscript')
 
 if 'cpp' in env['bindings'] and not env.has_key('_ALLJOYNCORE_') and os.path.exists('../../core/alljoyn/alljoyn_core/SConscript'):
-   env.SConscript('../../core/alljoyn/alljoyn_core/SConscript')
+    env.SConscript('../../core/alljoyn/alljoyn_core/SConscript')
 
 if 'java' in env['bindings'] and not env.has_key('_ALLJOYN_JAVA_') and os.path.exists('../../core/alljoyn/alljoyn_java/SConscript'):
    env.SConscript('../../core/alljoyn/alljoyn_java/SConscript')
@@ -51,6 +51,6 @@ hae_env = env.Clone()
 for b in hae_env['bindings']:
     if os.path.exists('%s/SConscript' % b):
 # if SDKROOT set will build from core build instead of include library if no library copied into include
-        hae_env.Append(LIBPATH = '$../../core/alljoyn/build/$OS/$CPU/$VARIANT/dist/%s/lib' % b)
+        hae_env.Append(LIBPATH = '#../../core/alljoyn/build/$OS/$CPU/$VARIANT/dist/%s/lib' % b)
         hae_env.VariantDir('$OBJDIR_SERVICES_HAE/%s' % b, b, duplicate = 0)
         hae_env.SConscript(['$OBJDIR_SERVICES_HAE/%s/SConscript' % b for b in env['bindings'] ], exports = ['hae_env'])
