@@ -39,7 +39,7 @@ if not env.has_key('_ALLJOYN_ABOUT_') and os.path.exists('../../core/alljoyn/ser
     env.SConscript('../../core/alljoyn/services/about/SConscript')
 
 if 'cpp' in env['bindings'] and not env.has_key('_ALLJOYNCORE_') and os.path.exists('../../core/alljoyn/alljoyn_core/SConscript'):
-   env.SConscript('../../core/alljoyn/alljoyn_core/SConscript')
+    env.SConscript('../../core/alljoyn/alljoyn_core/SConscript')
 
 if 'java' in env['bindings'] and not env.has_key('_ALLJOYN_JAVA_') and os.path.exists('../../core/alljoyn/alljoyn_java/SConscript'):
    env.SConscript('../../core/alljoyn/alljoyn_java/SConscript')
