@@ -278,7 +278,7 @@ void OvenCyclePhaseIntfControlleeImpl::OnGetCyclePhasesDescription(const Interfa
             {
                 int numReturned = listOfDescriptions.size();
                 OvenCyclePhaseInterface::CyclePhaseDescriptions::const_iterator citer;
-                MsgArg args[numReturned];
+                MsgArg *args = new MsgArg[numReturned];
                 MsgArg retArgs[1];
                 int i=0;
 
@@ -289,6 +289,7 @@ void OvenCyclePhaseIntfControlleeImpl::OnGetCyclePhasesDescription(const Interfa
                 status = retArgs[0].Set("a(yss)", i, args);
                 retArgs[0].Stabilize();
                 status = m_busObject.ReplyMethodCall(msg, retArgs, ArraySize(retArgs));
+                delete [] args;
             }
             else
             {
