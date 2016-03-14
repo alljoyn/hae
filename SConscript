@@ -47,7 +47,8 @@ env.Append(CPPFLAGS=['-Wno-unused-variable', '-Wno-unused-parameter'])
 
 hae_env = env.Clone()
 hae_env.Append(LIBPATH = '$DISTDIR/hae/lib')
-hae_env.Append(CPPPATH = '$DISTDIR/hae/inc');
+hae_env.Append(CPPPATH = '$DISTDIR/hae/inc')
+hae_env.Append(CPPFLAGS = '-pedantic');
 
 for b in hae_env['bindings']:
     if os.path.exists('%s/SConscript' % b):
