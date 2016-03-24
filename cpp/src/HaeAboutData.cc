@@ -14,11 +14,14 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
+#include <sstream>
 #include <assert.h>
 #include <alljoyn/hae/LogModule.h>
 #include <alljoyn/hae/HaeAboutData.h>
 #include <alljoyn/hae/DeviceTypeDescription.h>
 #include <HaeAboutKeys.h>
+#include <qcc/StringSource.h>
+#include <qcc/XmlElement.h>
 
 //#include "HaeAboutCustomFields.h"
 using ajn::services::HaeAboutKeys;
@@ -51,6 +54,81 @@ HaeAboutData::HaeAboutData(const MsgArg arg, const char* language) :
 
 HaeAboutData::~HaeAboutData()
 {
+}
+
+QStatus HaeAboutData::CreateFromXml(const char* aboutDataXml)
+{
+    printf("Here in HAE const char* function\n");
+    return CreateFromXml(qcc::String(aboutDataXml));
+}
+    
+QStatus HaeAboutData::CreateFromXml(const qcc::String& aboutDataXml)
+{
+    printf("Here in HAE qcc function\n");
+    qcc::String  deviceDescriptionOpen ="<" + DEVICE_TYPE_DESCRIPTION + ">";
+    qcc::String  deviceDescriptionClose ="</" + DEVICE_TYPE_DESCRIPTION + ">";
+    size_t deviceBegin = aboutDataXml.find(deviceDescriptionOpen);
+    size_t deviceEnd = aboutDataXml.find( deviceDescriptionClose ) + deviceDescriptionClose.length();
+    
+    qcc::String deviceDescriptionXml = aboutDataXml.substr( deviceBegin, deviceEnd - deviceBegin);
+    qcc::String aboutDataNoTypeXml = aboutDataXml.substr( 0 , deviceBegin) + aboutDataXml.substr( deviceEnd, aboutDataXml.length()- deviceEnd);
+    
+    printf("**********\n  %s \n***********\n %s \n**************\n", deviceDescriptionXml.c_str(), aboutDataNoTypeXml.c_str());
+
+    QStatus status = AboutData::CreateFromXml(aboutDataNoTypeXml);
+    printf("Create from XML returned status %i \n", status);
+    //Expect Error becuase No Device Type Description
+    if (status != ER_ABOUT_ABOUTDATA_MISSING_REQUIRED_FIELD  ){
+        QCC_LogError(status, ("%s: unexpected return from AboutData::CreateFromXml.", __func__));
+    } else{
+        qcc::StringSource source(aboutDataXml);
+        qcc::XmlParseContext pc(source);
+        printf("XmlParseContext created with address[%p]\n", &pc);
+        QStatus parseStatus = qcc::XmlElement::Parse(pc);
+        if (parseStatus != ER_OK) {
+            QCC_LogError(parseStatus, ("%s: unable to parse DeviceTypeDescriptionXml.", __func__));
+            status = ER_ABOUT_ABOUTDATA_MISSING_REQUIRED_FIELD;//not required because it should already be this value
+        } else {
+            
+            printf("XmlParsed with status[%i] \n", parseStatus);
+            const qcc::XmlElement* root = pc.GetRoot();
+            
+            printf(" *********\n %s \n***********\n", root->Generate().c_str());
+            
+            qcc::String descriptionXmlTag = "Description";
+            qcc::String descriptionXmlTypeTag = "device_type";
+            qcc::String descriptionXmlPathTag = "object_path";
+            qcc::String path = "AboutData/"+DEVICE_TYPE_DESCRIPTION+"/"+descriptionXmlTag;
+            printf("Looking for child [%s]\n", DEVICE_TYPE_DESCRIPTION.c_str());
+            const qcc::XmlElement* deviceChild = root->GetChild(DEVICE_TYPE_DESCRIPTION);
+            if(NULL == deviceChild){
+                printf("Unable to find Device Type Desription");
+            } else {
+                printf("Found Child = \n %s \n",deviceChild->Generate().c_str());
+                const qcc::XmlElement* descriptionChild = deviceChild->GetChild(descriptionXmlTag);
+                if(NULL == descriptionChild){
+                    printf("Unable to find Descriptions");
+                } else {
+                    printf("Found Child = \n %s \n",descriptionChild->Generate().c_str());
+                    qcc::String codeText =descriptionChild->GetChild(descriptionXmlTypeTag)->GetContent();
+                    qcc::String pathText =descriptionChild->GetChild(descriptionXmlPathTag)->GetContent();
+                    printf("Found Content Type %s with path %s \n", codeText.c_str(), pathText.c_str());
+                    
+                    std::stringstream convert(codeText.c_str());
+                    uint code;
+                    if (!(convert>>code)){
+                        printf("Could not convert device type [%s] to a number\n", codeText.c_str());
+                    } else {
+                        DeviceTypeDescription description;
+                        description.AddDeviceType((DeviceType)code , pathText);
+                        status = SetDeviceTypeDescription(&description);
+                                   
+                    }
+                }
+            }
+        }
+    }    
+    return status;
 }
 
 QStatus HaeAboutData::SetCountryOfProduction(const char* country, const char* language)
