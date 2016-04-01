@@ -199,7 +199,7 @@ QStatus DishWashingCyclePhaseIntfControlleeImpl::SetCyclePhase(const uint8_t cyc
         MsgArg arg;
         arg.typeId = ALLJOYN_BYTE;
         arg.v_byte = cyclePhase;
-        m_busObject.EmitPropChanged(GetInterfaceName().c_str(), s_prop_CyclePhase.c_str(), arg, 0, ALLJOYN_FLAG_GLOBAL_BROADCAST);
+        m_busObject.EmitPropChanged(GetInterfaceName().c_str(), s_prop_CyclePhase.c_str(), arg, SESSION_ID_ALL_HOSTED, ALLJOYN_FLAG_GLOBAL_BROADCAST);
         m_cyclePhase = cyclePhase;
     }
     return ER_OK;
