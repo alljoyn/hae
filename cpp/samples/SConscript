@@ -36,7 +36,8 @@ sample_dirs = [
     'ACControllee',
     'RobotCleanerControllee',
     'CookTopControllee',
-    'LaundryControllee'
+    'LaundryControllee',
+    'TimerSimulator'
     ]
 
 exports = { 'env': local_env }
