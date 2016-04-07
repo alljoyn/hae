@@ -204,6 +204,17 @@ void HidIntfControlleeImpl::OnInjectEvents(const InterfaceDescription::Member* m
             inputEvents.push_back(inputEvent);
         }
         m_interfaceListener.OnInjectEvents(inputEvents);
+
+        QStatus status = m_busObject.ReplyMethodCall(msg, ER_OK);
+        if (ER_OK != status) {
+            QCC_LogError(status, ("%s: Error sending reply.", __func__));
+        }
+    }
+    else {
+        QStatus status = m_busObject.ReplyMethodCall(msg, ER_BAD_ARG_1);
+        if (ER_OK != status) {
+            QCC_LogError(status, ("%s: Error sending reply.", __func__));
+        }
     }
 }
 
