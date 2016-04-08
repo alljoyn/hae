@@ -265,45 +265,36 @@ void OvenCyclePhaseIntfControlleeImpl::OnGetCyclePhasesDescription(const Interfa
     if (numArgs == 1)
     {
         qcc::String lang(args[0].v_string.str);
-        if(lang.compare("en"))
+        CyclePhaseDescriptions listOfDescriptions;
+        ErrorCode errorCode = NOT_ERROR;
+        status = m_interfaceListener.OnGetCyclePhasesDescriptions(lang, listOfDescriptions, errorCode);
+        if(status == ER_OK)
         {
-            status = ER_LANGUAGE_NOT_SUPPORTED;
-            QCC_LogError(status, ("%s: language not suppoerted", __func__));
-            m_busObject.ReplyMethodCall(msg, status);
+            int numReturned = listOfDescriptions.size();
+            OvenCyclePhaseInterface::CyclePhaseDescriptions::const_iterator citer;
+            MsgArg *args = new MsgArg[numReturned];
+            MsgArg retArgs[1];
+            int i=0;
+
+            for(citer = listOfDescriptions.begin(); citer != listOfDescriptions.end(); citer++, i++) {
+                status = args[i].Set("(yss)", (uint8_t)citer->phase, citer->name.c_str(), citer->description.c_str());
+                args[i].Stabilize();
+            }
+            status = retArgs[0].Set("a(yss)", i, args);
+            retArgs[0].Stabilize();
+            status = m_busObject.ReplyMethodCall(msg, retArgs, ArraySize(retArgs));
+            delete [] args;
         }
         else
         {
-            CyclePhaseDescriptions listOfDescriptions;
-            ErrorCode errorCode = NOT_ERROR;
-            status = m_interfaceListener.OnGetCyclePhasesDescriptions(lang, listOfDescriptions, errorCode);
-            if(status == ER_OK)
+            if (errorCode == NOT_ERROR)
             {
-                int numReturned = listOfDescriptions.size();
-                OvenCyclePhaseInterface::CyclePhaseDescriptions::const_iterator citer;
-                MsgArg *args = new MsgArg[numReturned];
-                MsgArg retArgs[1];
-                int i=0;
-
-                for(citer = listOfDescriptions.begin(); citer != listOfDescriptions.end(); citer++, i++) {
-                    status = args[i].Set("(yss)", (uint8_t)citer->phase, citer->name.c_str(), citer->description.c_str());
-                    args[i].Stabilize();
-                }
-                status = retArgs[0].Set("a(yss)", i, args);
-                retArgs[0].Stabilize();
-                status = m_busObject.ReplyMethodCall(msg, retArgs, ArraySize(retArgs));
-                delete [] args;
+                QCC_LogError(status, ("%s: status is not ER_OK, but errorCode was not set.", __func__));
+                m_busObject.ReplyMethodCall(msg, status);
             }
             else
             {
-                if (errorCode == NOT_ERROR)
-                {
-                    QCC_LogError(status, ("%s: status is not ER_OK, but errorCode was not set.", __func__));
-                    m_busObject.ReplyMethodCall(msg, status);
-                }
-                else
-                {
-                    m_busObject.ReplyMethodCall(msg, HaeInterface::GetInterfaceErrorName(errorCode).c_str(),HaeInterface::GetInterfaceErrorMessage(errorCode).c_str());
-                }
+                m_busObject.ReplyMethodCall(msg, HaeInterface::GetInterfaceErrorName(errorCode).c_str(),HaeInterface::GetInterfaceErrorMessage(errorCode).c_str());
             }
         }
     }

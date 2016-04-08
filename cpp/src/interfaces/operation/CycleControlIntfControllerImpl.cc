@@ -228,6 +228,7 @@ void CycleControlIntfControllerImpl::EndOfCycleEmitted(const InterfaceDescriptio
 {
     cout << "# CycleControlIntfControllerImpl::EndOfCycleEmitted" <<endl;
     qcc::String path = String(srcPath);
+    cout << "srcPath : " << path.c_str() << endl;
     m_interfaceListener.OnEndOfCycle(path);
 }
 

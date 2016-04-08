@@ -64,7 +64,6 @@ void SoilLevelIntfControllerImpl::PropertiesChanged(ProxyBusObject& obj, const c
 {
     MsgArg* entries;
     size_t numEntries;
-
     changed.Get("a{sv}", &numEntries, &entries);
     for (size_t i = 0; i < numEntries; ++i) {
         const char* propName;
@@ -90,8 +89,10 @@ void SoilLevelIntfControllerImpl::PropertiesChanged(ProxyBusObject& obj, const c
 
             cout << "Selectable Levels: " << endl;
             for (size_t i = 0; i < numVals; ++i) {
+                cout << (int)vals[i] << " ";
                 levels.push_back(vals[i]);
             }
+            cout << endl;
             m_interfaceListener.SelectableLevelsPropertyChanged(obj.GetPath(), levels);
         }
     }
@@ -178,8 +179,10 @@ void SoilLevelIntfControllerImpl::GetSelectableLevelsPropertyCB(QStatus status, 
 
     cout << "Selectable Levels: " << endl;
     for (size_t i = 0; i < numVals; ++i) {
+        cout << vals[i] << " ";
         levels.push_back(vals[i]);
     }
+    cout << endl;
 
     m_interfaceListener.GetSelectableLevelsPropertyCallback(status,obj->GetPath(), levels, context);
 }

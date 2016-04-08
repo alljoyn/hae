@@ -462,7 +462,6 @@ void IntegratedControllee::SetInitialProperty()
         CycleControlInterface::SupportedOperationalCommands comm;
         comm.push_back(CycleControlInterface::CycleControlOperationalCommand::OPERATIONAL_COMMAND_START);
         comm.push_back(CycleControlInterface::CycleControlOperationalCommand::OPERATIONAL_COMMAND_STOP);
-        comm.push_back(CycleControlInterface::CycleControlOperationalCommand::OPERATIONAL_COMMAND_PAUSE);
         comm.push_back(CycleControlInterface::CycleControlOperationalCommand::OPERATIONAL_COMMAND_RESUME);
         m_cycleControlIntfControllee->SetSupportedCommands(comm);
 
@@ -555,7 +554,7 @@ void IntegratedControllee::SetInitialProperty()
 
     if (m_soilLevelIntfControllee) {
         uint8_t initialMaxLvl = 5;
-        uint8_t targetLevel = 0;
+        uint8_t targetLevel = 3;
 
         std::vector<uint8_t> selectableLevels;
         for (uint8_t i = 0; i < initialMaxLvl; i++)
@@ -568,7 +567,7 @@ void IntegratedControllee::SetInitialProperty()
 
     if (m_spinSpeedLevelIntfControllee) {
         uint8_t initialMaxLvl = 5;
-        uint8_t targetLevel = 0;
+        uint8_t targetLevel = 3;
 
         std::vector<uint8_t> selectableLevels;
         for (uint8_t i = 0; i < initialMaxLvl; i++)

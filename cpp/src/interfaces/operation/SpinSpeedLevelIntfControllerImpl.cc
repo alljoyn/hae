@@ -90,8 +90,10 @@ void SpinSpeedLevelIntfControllerImpl::PropertiesChanged(ProxyBusObject& obj, co
 
             cout << "Selectable Levels: " << endl;
             for (size_t i = 0; i < numVals; ++i) {
+                cout << (int)vals[i] << " ";
                 levels.push_back(vals[i]);
             }
+            cout << endl;
             m_interfaceListener.SelectableLevelsPropertyChanged(obj.GetPath(), levels);
         }
     }
@@ -177,9 +179,10 @@ void SpinSpeedLevelIntfControllerImpl::GetSelectableLevelsPropertyCB(QStatus sta
 
     cout << "Selectable Levels: " << endl;
     for (size_t i = 0; i < numVals; ++i) {
+        cout << vals[i] << " ";
         levels.push_back(vals[i]);
     }
-
+    cout << endl;
     m_interfaceListener.GetSelectableLevelsPropertyCallback(status,obj->GetPath(), levels, context);
 }
 

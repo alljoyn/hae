@@ -201,6 +201,7 @@ QStatus SoilLevelIntfControlleeImpl::SetTargetLevel(uint8_t targetLevel)
         MsgArg arg;
         arg.typeId = ALLJOYN_BYTE;
         arg.v_byte = targetLevel;
+        cout << "Emitting prop changed targetLevel" << endl;
         m_busObject.EmitPropChanged(GetInterfaceName().c_str(), s_prop_TargetLevel.c_str(), arg, SESSION_ID_ALL_HOSTED, ALLJOYN_FLAG_GLOBAL_BROADCAST);
         m_targetLevel = targetLevel;
     }
