@@ -74,7 +74,7 @@ public:
     }
 };
 
-TEST_F(HAETest, HAE_v1_15)
+TEST_F(HAETest, HAE_v1_HeatingZoneTest)
 {
     WaitForControllee(HEATING_ZONE_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {

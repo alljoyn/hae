@@ -16,20 +16,20 @@
 
 #include "HaeTest.h"
 
-#include <alljoyn/hae/interfaces/operation/LaundryCyclePhaseIntfController.h>
-#include <alljoyn/hae/interfaces/operation/LaundryCyclePhaseIntfControllerListener.h>
+#include <alljoyn/hae/interfaces/operation/OvenCyclePhaseIntfController.h>
+#include <alljoyn/hae/interfaces/operation/OvenCyclePhaseIntfControllerListener.h>
 using namespace std;
-class LaundryCyclePhaseListener : public LaundryCyclePhaseIntfControllerListener
+class OvenCyclePhaseListener : public OvenCyclePhaseIntfControllerListener
 {
 public:
     qcc::Event m_event;
     qcc::Event m_eventSignal;
     QStatus m_status;
     uint8_t m_cyclePhase;
-    LaundryCyclePhaseInterface::SupportedCyclePhases m_supportedCyclePhases;
+    OvenCyclePhaseInterface::SupportedCyclePhases m_supportedCyclePhases;
     uint8_t m_cyclePhaseSignal;
-    LaundryCyclePhaseInterface::SupportedCyclePhases m_supportedCyclePhasesSignal;
-    LaundryCyclePhaseInterface::CyclePhaseDescriptions m_phasesDescriptions;
+    OvenCyclePhaseInterface::SupportedCyclePhases m_supportedCyclePhasesSignal;
+    OvenCyclePhaseInterface::CyclePhaseDescriptions m_phasesDescriptions;
     qcc::String m_errorName;
     qcc::String m_errorMessage;
 
@@ -43,7 +43,7 @@ public:
         m_event.SetEvent();
     }
 
-    virtual void OnResponseGetSupportedCyclePhases(QStatus status, const qcc::String& objectPath, const LaundryCyclePhaseInterface::SupportedCyclePhases& listOfCyclePhases, void* context)
+    virtual void OnResponseGetSupportedCyclePhases(QStatus status, const qcc::String& objectPath, const OvenCyclePhaseInterface::SupportedCyclePhases& listOfCyclePhases, void* context)
     {
         m_errorName = "";
         m_errorMessage = "";
@@ -59,40 +59,39 @@ public:
         m_eventSignal.SetEvent();
     }
 
-    virtual void OnSupportedCyclePhasesPropertyChanged(const qcc::String& objectPath, const LaundryCyclePhaseInterface::SupportedCyclePhases& listOfCyclePhases)
+    virtual void OnSupportedCyclePhasesPropertyChanged(const qcc::String& objectPath, const OvenCyclePhaseInterface::SupportedCyclePhases& listOfCyclePhases)
     {
         m_supportedCyclePhasesSignal = listOfCyclePhases;
         m_eventSignal.SetEvent();
     }
 
-    virtual void OnResponseGetCyclePhasesDescriptions(QStatus status, const qcc::String& objectPath, const LaundryCyclePhaseInterface::CyclePhaseDescriptions& listOfCycleDescriptions,
+    virtual void OnResponseGetCyclePhasesDescriptions(QStatus status, const qcc::String& objectPath, const OvenCyclePhaseInterface::CyclePhaseDescriptions& listOfCycleDescriptions,
                                                       void* context, const char* errorName, const char* errorMessage)
     {
         m_errorName = errorName;
         m_errorMessage = errorMessage;
 
         m_phasesDescriptions = listOfCycleDescriptions;
+        m_status = status;
         if(status != ER_OK)
         {
             m_errorMessage = errorMessage;
             m_errorName = errorName;
         }
-
-        m_status = status;
         m_event.SetEvent();
     }
 };
 
-TEST_F(HAETest, HAE_v1_17)
+TEST_F(HAETest, HAE_v1_OvenCyclePhaseTest)
 {
-    WaitForControllee(LAUNDRY_CYCLE_PHASE_INTERFACE);
+    WaitForControllee(OVEN_CYCLE_PHASE_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {
         TEST_LOG_OBJECT_PATH(m_interfaces[i].objectPath);
 
-        LaundryCyclePhaseListener listener;
-        HaeInterface* interface = m_controller->CreateInterface(LAUNDRY_CYCLE_PHASE_INTERFACE, m_interfaces[i].busName,
+        OvenCyclePhaseListener listener;
+        HaeInterface* interface = m_controller->CreateInterface(OVEN_CYCLE_PHASE_INTERFACE, m_interfaces[i].busName,
                                                                 qcc::String(m_interfaces[i].objectPath.c_str()), m_interfaces[i].sessionId, listener);
-        LaundryCyclePhaseIntfController* controller = static_cast<LaundryCyclePhaseIntfController*>(interface);
+        OvenCyclePhaseIntfController* controller = static_cast<OvenCyclePhaseIntfController*>(interface);
         QStatus status = ER_FAIL;
 
         TEST_LOG_1("Get initial values for all properties.");

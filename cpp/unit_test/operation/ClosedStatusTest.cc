@@ -16,51 +16,53 @@
 
 #include "HaeTest.h"
 
-#include <alljoyn/hae/interfaces/operation/RemoteControllabilityIntfController.h>
-#include <alljoyn/hae/interfaces/operation/RemoteControllabilityIntfControllerListener.h>
+#include <alljoyn/hae/interfaces/operation/ClosedStatusIntfController.h>
+#include <alljoyn/hae/interfaces/operation/ClosedStatusIntfControllerListener.h>
 
-class RemoteControllabilityListener : public RemoteControllabilityIntfControllerListener
+class ClosedStatusListener : public ClosedStatusIntfControllerListener
 {
 public:
     qcc::Event m_event;
     qcc::Event m_eventSignal;
     QStatus m_status;
-    bool m_isControllable;
-    bool m_isControllableSignal;
+    bool m_isClosed;
+    bool m_isClosedSignal;
     qcc::String m_errorName;
     qcc::String m_errorMessage;
 
 
 
-    virtual void GetIsControllablePropertyCallback(QStatus status, const qcc::String& objectPath, const bool isControllable, void* context)
+
+    virtual void GetIsClosedPropertyCallback(QStatus status, const qcc::String& objectPath, const bool isClosed, void* context)
     {
         m_status = status;
-        m_isControllable = isControllable;
+        m_isClosed = isClosed;
         m_event.SetEvent();
     }
-    virtual void IsControllalbePropertyChanged(const qcc::String& objectPath, const bool isControllable)
+
+    virtual void IsClosedPropertyChanged(const qcc::String& objectPath, const bool isClosed)
     {
-        m_isControllableSignal = isControllable;
+        m_isClosedSignal = isClosed;
         m_eventSignal.SetEvent();
     }
 };
 
-TEST_F(HAETest, HAE_v1_23)
+TEST_F(HAETest, HAE_v1_ClosedStatusTest)
 {
-    WaitForControllee(REMOTE_CONTROLLABILITY_INTERFACE);
+    WaitForControllee(CLOSED_STATUS_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {
         TEST_LOG_OBJECT_PATH(m_interfaces[i].objectPath);
 
-        RemoteControllabilityListener listener;
-        HaeInterface* interface = m_controller->CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, m_interfaces[i].busName,
+        ClosedStatusListener listener;
+        HaeInterface* interface = m_controller->CreateInterface(CLOSED_STATUS_INTERFACE, m_interfaces[i].busName,
                                                                 qcc::String(m_interfaces[i].objectPath.c_str()), m_interfaces[i].sessionId, listener);
-        RemoteControllabilityIntfController* controller = static_cast<RemoteControllabilityIntfController*>(interface);
+        ClosedStatusIntfController* controller = static_cast<ClosedStatusIntfController*>(interface);
         QStatus status = ER_FAIL;
 
         TEST_LOG_1("Get initial values for all properties.")
         {
-            TEST_LOG_2("Retrieve the IsControllable property.")
-            status = controller->GetIsControllable();
+            TEST_LOG_2("Retrieve the IsClosed property.")
+            status = controller->GetIsClosed();
             EXPECT_EQ(status, ER_OK);
             EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
             listener.m_event.ResetEvent();

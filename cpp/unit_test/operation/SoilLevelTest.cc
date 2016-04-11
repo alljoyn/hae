@@ -17,10 +17,10 @@
 #include "HaeTest.h"
 #include <algorithm>
 
-#include <alljoyn/hae/interfaces/operation/SpinSpeedLevelIntfController.h>
-#include <alljoyn/hae/interfaces/operation/SpinSpeedLevelIntfControllerListener.h>
+#include <alljoyn/hae/interfaces/operation/SoilLevelIntfController.h>
+#include <alljoyn/hae/interfaces/operation/SoilLevelIntfControllerListener.h>
 
-class SpinSpeedLevelListener : public SpinSpeedLevelIntfControllerListener
+class SoilLevelListener : public SoilLevelIntfControllerListener
 {
 public:
     qcc::Event m_event;
@@ -85,16 +85,16 @@ public:
     }
 };
 
-TEST_F(HAETest, HAE_v1_28)
+TEST_F(HAETest, HAE_v1_SoilLevelTest)
 {
-    WaitForControllee(SPIN_SPEED_LEVEL_INTERFACE);
+    WaitForControllee(SOIL_LEVEL_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {
         TEST_LOG_OBJECT_PATH(m_interfaces[i].objectPath);
 
-        SpinSpeedLevelListener listener;
-        HaeInterface* interface = m_controller->CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, m_interfaces[i].busName, qcc::String(m_interfaces[i].objectPath.c_str()),
+        SoilLevelListener listener;
+        HaeInterface* interface = m_controller->CreateInterface(SOIL_LEVEL_INTERFACE, m_interfaces[i].busName, qcc::String(m_interfaces[i].objectPath.c_str()),
                                                                 m_interfaces[i].sessionId, listener);
-        SpinSpeedLevelIntfController* controller = static_cast<SpinSpeedLevelIntfController*>(interface);
+        SoilLevelIntfController* controller = static_cast<SoilLevelIntfController*>(interface);
         QStatus status = ER_FAIL;
 
         TEST_LOG_1("Get initial values for all properties.")
@@ -156,7 +156,8 @@ TEST_F(HAETest, HAE_v1_28)
             EXPECT_EQ(listener.m_targetLevel, initTargetLevel);
 
             TEST_LOG_2("Set the TargetLevel property to value outside SelectableLevels.")
-            status = controller->SetTargetLevel(listener.m_selectableLevels[0] - 1);
+            // status = controller->SetTargetLevel(listener.m_selectableLevels[0] - 1);
+            status = controller->SetTargetLevel(20);
             EXPECT_EQ(status, ER_OK);
             EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
             listener.m_event.ResetEvent();
@@ -178,6 +179,7 @@ TEST_F(HAETest, HAE_v1_28)
             if (listener.m_selectableLevels.size() > 1) {
                 const uint8_t validTargetLevel = listener.m_selectableLevels[1];
                 status = controller->SetTargetLevel(validTargetLevel);
+
                 EXPECT_EQ(status, ER_OK);
                 EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
                 listener.m_event.ResetEvent();

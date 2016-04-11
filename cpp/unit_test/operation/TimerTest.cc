@@ -135,7 +135,7 @@ public:
 
 };
 
-TEST_F(HAETest, HAE_v1_30)
+TEST_F(HAETest, HAE_v1_TimerTest)
 {
     WaitForControllee(TIMER_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {
@@ -192,12 +192,23 @@ TEST_F(HAETest, HAE_v1_30)
             EXPECT_EQ(listener.m_status, ER_OK);
         }
 
-        TEST_LOG_1("Set properties to invalid value.")
+        TEST_LOG_1("Call methods with valid params.")
         {
-        }
+            TEST_LOG_2("Call SetTargetTimerToStart method with 100.");
+            uint32_t validTimeToStart = 100;
+            status = controller->SetTargetTimeToStart(validTimeToStart);
+            EXPECT_EQ(status, ER_OK);
+            EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
+            listener.m_event.ResetEvent();
+            EXPECT_EQ(listener.m_status, ER_OK);
 
-        TEST_LOG_1("Set properties to valid value.")
-        {
+            TEST_LOG_2("Call SetTargetTimerToStop method with 200.");
+            uint32_t validTimeToStop = 200;
+            status = controller->SetTargetTimeToStop(validTimeToStop);
+            EXPECT_EQ(status, ER_OK);
+            EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
+            listener.m_event.ResetEvent();
+            EXPECT_EQ(listener.m_status, ER_OK);
         }
     }
 }

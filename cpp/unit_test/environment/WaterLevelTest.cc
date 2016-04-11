@@ -74,7 +74,7 @@ public:
     }
 };
 
-TEST_F(HAETest, HAE_v1_31)
+TEST_F(HAETest, HAE_v1_WaterLevelTest)
 {
     WaitForControllee(WATER_LEVEL_INTERFACE);
     for (size_t i = 0; i < m_interfaces.size(); i++) {
