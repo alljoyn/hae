@@ -184,7 +184,7 @@ TEST_F(HAETest, HAE_v1_14)
 
             TEST_LOG_2("Set the AutoMode property to 0xFF(not supported).");
             {
-                uint8_t autoMode = listener.m_autoMode;
+                bool autoMode = listener.m_autoMode;
                 status = controller->SetAutoMode(0xFF);
                 EXPECT_EQ(status, ER_OK);
                 EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
@@ -208,7 +208,7 @@ TEST_F(HAETest, HAE_v1_14)
 
             TEST_LOG_2("Set the AutoMode property to 0x02.");
             {
-                uint8_t autoMode = listener.m_autoMode;
+                bool autoMode = listener.m_autoMode;
                 status = controller->SetAutoMode(0x02);
                 EXPECT_EQ(status, ER_OK);
                 EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
@@ -236,7 +236,7 @@ TEST_F(HAETest, HAE_v1_14)
         {
             TEST_LOG_2("If MaxFanSpeedLevel > 1, set the FanSpeedLevel property to 2.");
             if (listener.m_maxFanSpeedLevel > 1) {
-                uint8_t validFanSpeedLevel = 2;
+                int validFanSpeedLevel = 2;
                 status = controller->SetFanSpeedLevel(validFanSpeedLevel);
                 EXPECT_EQ(status, ER_OK);
                 EXPECT_EQ(ER_OK, qcc::Event::Wait(listener.m_event, TIMEOUT));
