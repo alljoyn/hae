@@ -147,6 +147,22 @@ ControlleeSample::~ControlleeSample()
 {
 }
 
+
+void ControlleeSample::InitSample()
+{
+    m_rootCommands = new ControlleeCommands(this);
+    if (!m_rootCommands) {
+        printf("ControlleeCommands creation failed.\n");
+        delete m_controllee;
+    }
+    PushCommands(m_rootCommands);
+}
+
+HaeInterface* ControlleeSample::CreateInterface(const HaeInterfaceType type, const qcc::String& objectPath, InterfaceControlleeListener& listener)
+{
+    return m_controllee->CreateInterface(type, objectPath, listener);
+}
+
 QStatus ControlleeSample::Init()
 {
     QStatus status = ER_OK;
@@ -169,15 +185,6 @@ QStatus ControlleeSample::Init()
         printf("HaeControllee creation failed. (%s)\n", QCC_StatusText(status));
         return status;
     }
-    m_rootCommands = new ControlleeCommands(this);
-    if (!m_rootCommands) {
-        status = ER_OUT_OF_MEMORY;
-        printf("ControlleeCommands creation failed. (%s)\n", QCC_StatusText(status));
-        delete m_controllee;
-        return status;
-    }
-    PushCommands(m_rootCommands);
-
     InitSample();
 
     CreateInterfaces();
