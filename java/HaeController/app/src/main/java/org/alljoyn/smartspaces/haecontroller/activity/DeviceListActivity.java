@@ -1,0 +1,124 @@
+/*
+ * Copyright AllSeen Alliance. All rights reserved.
+ *
+ *    Permission to use, copy, modify, and/or distribute this software for any
+ *    purpose with or without fee is hereby granted, provided that the above
+ *    copyright notice and this permission notice appear in all copies.
+ *
+ *    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ *    WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ *    MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ *    ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ *    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ *    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+package org.alljoyn.smartspaces.haecontroller.activity;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.alljoyn.smartspaces.haecontroller.R;
+import org.alljoyn.smartspaces.haecontroller.logic.Device;
+import org.alljoyn.smartspaces.haecontroller.adapter.DeviceInfoAdapter;
+import org.alljoyn.smartspaces.haecontroller.logic.DeviceManager;
+import org.alljoyn.smartspaces.haecontroller.logic.IntentKeys;
+import org.alljoyn.smartspaces.haecontroller.logic.MessageType;
+
+import java.util.Collection;
+import java.util.UUID;
+
+public class DeviceListActivity extends Activity {
+    private final static String TAG = "HAE_DeviceListActivity";
+
+    private BroadcastReceiver receiver = null;
+    private IntentFilter filter = new IntentFilter();
+
+    private DeviceInfoAdapter deviceAdapter = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_item_list);
+
+        ListView deviceListView = (ListView) findViewById(R.id.item_list);
+        TextView title = (TextView) findViewById(R.id.navtitleback_title_text);
+        title.setText("DeviceList");
+        findViewById(R.id.navtitleback_title_arrorw).setVisibility(View.GONE);
+
+        deviceAdapter = new DeviceInfoAdapter(this);
+
+        deviceListView.setAdapter(this.deviceAdapter);
+
+        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Intent intent = new Intent(DeviceListActivity.this, InterfaceListActivity.class);
+                intent.putExtra(IntentKeys.DEVICE_ID, DeviceListActivity.this.deviceAdapter.getItem(position).getId());
+                DeviceListActivity.this.startActivity(intent);
+            }
+        });
+
+        this.receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                if (action.equals(MessageType.ON_DEVICE_ADDED)) {
+                    UUID deviceId = (UUID) intent.getSerializableExtra(IntentKeys.DEVICE_ID);
+                    Log.d(TAG, "OnDeviceAdded : " + deviceId.toString());
+                    Toast.makeText(DeviceListActivity.this, "Device is Added : " + deviceId.toString(), Toast.LENGTH_SHORT).show();
+                    Device device = DeviceManager.getInstance().getDevice(deviceId);
+                    deviceAdapter.add(device);
+                    deviceAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        loadDeviceInfoList();
+        this.filter.addAction(MessageType.ON_DEVICE_ADDED);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.receiver != null) {
+            unregisterReceiver(this.receiver);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.receiver != null) {
+            registerReceiver(this.receiver, this.filter);
+        }
+    }
+
+    private void loadDeviceInfoList() {
+        new AsyncTask<Void, Void, Collection<Device>>() {
+
+            @Override
+            protected Collection<Device> doInBackground(Void... params) {
+                return DeviceManager.getInstance().getDevices();
+            }
+
+            @Override
+            protected void onPostExecute(Collection<Device> devices) {
+                if (devices != null)
+                    DeviceListActivity.this.deviceAdapter.addAll(devices);
+            }
+        }.execute();
+    }
+}

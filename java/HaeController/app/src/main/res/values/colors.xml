@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nav_menu_item_bkgd_reg">#00000000</color>
+    <color name="nav_menu_item_bkgd_press">#fffd72ff</color>
+    <color name="darker_gray">#ff333333</color>
+    <color name="dark_gray">#ff666666</color>
+    <color name="gray">#ff4d4d4d</color>
+    <color name="red">#ffc7004c</color>
+    <color name="light_gray">#ffaaaaaa</color>
+    <color name="lighter_gray">#ffcccccc</color>
+    <color name="manage_device_seperator">#ffc2c2c2</color>
+    <color name="item_color">#0c505050</color>
+    <color name="item_color2">#ffc2c2c2</color>
+</resources>
