@@ -24,7 +24,7 @@ if local_env['BR'] == 'on':
 
 if local_env.get('UINPUT') == 'on':
 	# Add uinput integration in samples
-    local_env.Prepend(CPPDEFINES = [ 'UINPUT' ])
+    local_env.Prepend(CPPDEFINES = [ 'BUILD_UINPUT' ])
 
 # Sample programs
 

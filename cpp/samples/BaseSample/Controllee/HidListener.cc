@@ -20,7 +20,7 @@
 // Integration of UInput functionalities
 // Default activation status = OFF
 // To activate it : scons BINDINGS=... UINPUT=on
-#ifdef UINPUT
+#ifdef BUILD_UINPUT
 #include "UInput.h"
 #endif
 
