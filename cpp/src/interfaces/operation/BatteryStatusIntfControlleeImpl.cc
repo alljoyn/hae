@@ -55,7 +55,7 @@ QStatus BatteryStatusIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus BatteryStatusIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus BatteryStatusIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -110,7 +110,7 @@ QStatus BatteryStatusIntfControlleeImpl::OnGetProperty(const String propName, Ms
     return status;
 }
 
-QStatus BatteryStatusIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus BatteryStatusIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

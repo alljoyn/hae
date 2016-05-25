@@ -52,7 +52,7 @@ QStatus RemoteControllabilityIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus RemoteControllabilityIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus RemoteControllabilityIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -107,7 +107,7 @@ QStatus RemoteControllabilityIntfControlleeImpl::OnGetProperty(const String prop
     return status;
 }
 
-QStatus RemoteControllabilityIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus RemoteControllabilityIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

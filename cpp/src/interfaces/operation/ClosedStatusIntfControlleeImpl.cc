@@ -63,7 +63,7 @@ QStatus ClosedStatusIntfControlleeImpl::SetIsClosed(const bool isClosed)
     return ER_OK;
 
 }
-QStatus ClosedStatusIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus ClosedStatusIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -114,7 +114,7 @@ QStatus ClosedStatusIntfControlleeImpl::OnGetProperty(const String propName, Msg
     return status;
 }
 
-QStatus ClosedStatusIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus ClosedStatusIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

@@ -58,7 +58,7 @@ QStatus TargetTemperatureIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus TargetTemperatureIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus TargetTemperatureIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -150,7 +150,7 @@ QStatus TargetTemperatureIntfControlleeImpl::OnGetProperty(const String propName
     return status;
 }
 
-QStatus TargetTemperatureIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus TargetTemperatureIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

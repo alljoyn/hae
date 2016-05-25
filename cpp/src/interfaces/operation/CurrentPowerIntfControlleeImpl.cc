@@ -50,7 +50,7 @@ QStatus CurrentPowerIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus CurrentPowerIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus CurrentPowerIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -119,7 +119,7 @@ QStatus CurrentPowerIntfControlleeImpl::OnGetProperty(const String propName, Msg
     return status;
 }
 
-QStatus CurrentPowerIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus CurrentPowerIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

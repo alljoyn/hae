@@ -67,7 +67,7 @@ QStatus AlertsIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus AlertsIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus AlertsIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -145,7 +145,7 @@ QStatus AlertsIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& v
     return status;
 }
 
-QStatus AlertsIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus AlertsIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -179,7 +179,9 @@ QStatus AlertsIntfControlleeImpl::SetAlerts(const Alerts& alerts)
     bool listChanged = false;
 
     if(m_alerts.size() != alerts.size())
+    {
         listChanged = true;
+    }
     else
     {
         for (size_t i = 0; i < alerts.size(); i ++)

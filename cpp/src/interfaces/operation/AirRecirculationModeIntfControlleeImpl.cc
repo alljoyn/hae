@@ -63,7 +63,7 @@ QStatus AirRecirculationModeIntfControlleeImpl::SetIsRecirculating(const bool is
     return ER_OK;
 }
 
-QStatus AirRecirculationModeIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus AirRecirculationModeIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -102,7 +102,7 @@ QStatus AirRecirculationModeIntfControlleeImpl::OnGetProperty(const String propN
     return status;
 }
 
-QStatus AirRecirculationModeIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus AirRecirculationModeIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

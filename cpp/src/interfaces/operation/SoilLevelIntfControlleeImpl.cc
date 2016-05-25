@@ -53,7 +53,7 @@ QStatus SoilLevelIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus SoilLevelIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus SoilLevelIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -126,7 +126,7 @@ QStatus SoilLevelIntfControlleeImpl::OnGetProperty(const String propName, MsgArg
     return status;
 }
 
-QStatus SoilLevelIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus SoilLevelIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
     if(!s_prop_TargetLevel.compare(propName)) {
@@ -219,8 +219,9 @@ QStatus SoilLevelIntfControlleeImpl::SetSelectableLevels(const std::vector<uint8
         }
     }
 
-    if (!isValid)
+    if (!isValid) {
         return ER_INVALID_DATA;
+    }
 
     MsgArg arg;
     uint8_t* vals = new uint8_t[selectableLevels.size()];

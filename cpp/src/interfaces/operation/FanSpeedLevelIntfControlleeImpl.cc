@@ -53,7 +53,7 @@ QStatus FanSpeedLevelIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus FanSpeedLevelIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus FanSpeedLevelIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -126,7 +126,7 @@ QStatus FanSpeedLevelIntfControlleeImpl::OnGetProperty(const String propName, Ms
     return status;
 }
 
-QStatus FanSpeedLevelIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus FanSpeedLevelIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

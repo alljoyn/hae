@@ -51,7 +51,7 @@ QStatus ResourceSavingIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus ResourceSavingIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus ResourceSavingIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -92,7 +92,7 @@ QStatus ResourceSavingIntfControlleeImpl::OnGetProperty(const String propName, M
     return status;
 }
 
-QStatus ResourceSavingIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus ResourceSavingIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

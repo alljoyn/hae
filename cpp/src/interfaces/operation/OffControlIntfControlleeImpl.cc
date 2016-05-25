@@ -56,7 +56,7 @@ QStatus OffControlIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus OffControlIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus OffControlIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -70,7 +70,7 @@ QStatus OffControlIntfControlleeImpl::OnGetProperty(const String propName, MsgAr
     return status;
 }
 
-QStatus OffControlIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus OffControlIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

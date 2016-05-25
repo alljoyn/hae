@@ -57,7 +57,7 @@ QStatus EnergyUsageIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus EnergyUsageIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus EnergyUsageIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -130,7 +130,7 @@ QStatus EnergyUsageIntfControlleeImpl::OnGetProperty(const String propName, MsgA
     return status;
 }
 
-QStatus EnergyUsageIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus EnergyUsageIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     return ER_BUS_NO_SUCH_PROPERTY;
 }

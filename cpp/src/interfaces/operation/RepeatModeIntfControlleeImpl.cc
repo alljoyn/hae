@@ -53,7 +53,7 @@ QStatus RepeatModeIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus RepeatModeIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus RepeatModeIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -84,7 +84,7 @@ QStatus RepeatModeIntfControlleeImpl::OnGetProperty(const String propName, MsgAr
     return status;
 }
 
-QStatus RepeatModeIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus RepeatModeIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

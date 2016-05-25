@@ -55,7 +55,7 @@ QStatus RobotCleaningCyclePhaseIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus RobotCleaningCyclePhaseIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus RobotCleaningCyclePhaseIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -129,7 +129,7 @@ QStatus RobotCleaningCyclePhaseIntfControlleeImpl::OnGetProperty(const String pr
     return status;
 }
 
-QStatus RobotCleaningCyclePhaseIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus RobotCleaningCyclePhaseIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     return ER_BUS_NO_SUCH_PROPERTY;
 }

@@ -124,7 +124,7 @@ QStatus AudioVideoInputIntfControlleeImpl::SetSupportedInputSources(const InputS
     return ER_OK;
 }
 
-QStatus AudioVideoInputIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus AudioVideoInputIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -201,7 +201,7 @@ QStatus AudioVideoInputIntfControlleeImpl::OnGetProperty(const String propName, 
     return status;
 }
 
-QStatus AudioVideoInputIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus AudioVideoInputIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

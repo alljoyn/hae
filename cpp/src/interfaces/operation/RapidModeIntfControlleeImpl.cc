@@ -51,7 +51,7 @@ QStatus RapidModeIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus RapidModeIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus RapidModeIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -95,7 +95,7 @@ QStatus RapidModeIntfControlleeImpl::OnGetProperty(const String propName, MsgArg
     return status;
 }
 
-QStatus RapidModeIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus RapidModeIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

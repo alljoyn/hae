@@ -55,7 +55,7 @@ QStatus CurrentTemperatureIntfControlleeImpl::Init()
     return status;
 }
 
-QStatus CurrentTemperatureIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus CurrentTemperatureIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -130,7 +130,7 @@ QStatus CurrentTemperatureIntfControlleeImpl::OnGetProperty(const String propNam
     return status;
 }
 
-QStatus CurrentTemperatureIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus CurrentTemperatureIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     return ER_BUS_NO_SUCH_PROPERTY;
 }

@@ -80,7 +80,7 @@ QStatus ChannelIntfControlleeImpl::SetTotalNumberOfChannels(const uint16_t total
     return ER_OK;
 }
 
-QStatus ChannelIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus ChannelIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -138,7 +138,7 @@ QStatus ChannelIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& 
     return status;
 }
 
-QStatus ChannelIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus ChannelIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 

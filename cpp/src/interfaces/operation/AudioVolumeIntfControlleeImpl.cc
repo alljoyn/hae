@@ -97,7 +97,7 @@ QStatus AudioVolumeIntfControlleeImpl::SetMaxVolume(const uint8_t maxVolume)
     return ER_OK;
 }
 
-QStatus AudioVolumeIntfControlleeImpl::OnGetProperty(const String propName, MsgArg& val)
+QStatus AudioVolumeIntfControlleeImpl::OnGetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
@@ -170,7 +170,7 @@ QStatus AudioVolumeIntfControlleeImpl::OnGetProperty(const String propName, MsgA
     return status;
 }
 
-QStatus AudioVolumeIntfControlleeImpl::OnSetProperty(const String propName, MsgArg& val)
+QStatus AudioVolumeIntfControlleeImpl::OnSetProperty(const String& propName, MsgArg& val)
 {
     QStatus status = ER_OK;
 
