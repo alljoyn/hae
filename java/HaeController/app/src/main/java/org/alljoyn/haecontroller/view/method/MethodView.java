@@ -18,6 +18,7 @@ package org.alljoyn.haecontroller.view.method;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,17 +37,17 @@ public class MethodView extends LinearLayout {
 
     private static final int PARAM_RESULT = 1;
 
-    private Method method = null;
+    protected Method method = null;
 
     protected Object busObject = null;
 
     private TextView nameView;
-    private ViewGroup resultLayout;
-    private TextView paramView;
+    protected ViewGroup resultLayout;
+    protected TextView paramView;
     private TextView resultView;
     private Button submitBtn;
     private Object[] params;
-    private String[] paramNames = null;
+    protected String[] paramNames = null;
     private int position = -1;
 
     public MethodView(Context context, Object obj, String methodName, String... paramNames) {
