@@ -32,11 +32,17 @@ import org.alljoyn.haecontroller.activity.operation.CurrentPowerActivity;
 import org.alljoyn.haecontroller.activity.operation.CyclePhaseActivity;
 import org.alljoyn.haecontroller.activity.operation.EnergyUsageActivity;
 import org.alljoyn.haecontroller.activity.operation.FanSpeedLevelActivity;
+//import org.alljoyn.haecontroller.activity.operation.HeatingZoneActivity;
 import org.alljoyn.haecontroller.activity.operation.OffControlActivity;
 import org.alljoyn.haecontroller.activity.operation.OnControlActivity;
 import org.alljoyn.haecontroller.activity.operation.OnOffStatusActivity;
 import org.alljoyn.haecontroller.activity.operation.RepeatModeActivity;
 import org.alljoyn.haecontroller.activity.operation.ResourceSavingActivity;
+import org.alljoyn.haecontroller.activity.operation.ClosedStatusActivity;
+import org.alljoyn.haecontroller.activity.operation.RemoteControllabilityActivity;
+import org.alljoyn.haecontroller.activity.operation.RapidModeActivity;
+import org.alljoyn.haecontroller.activity.environment.WaterLevelActivity;
+//import org.alljoyn.haecontroller.activity.operation.SoilLevelActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,5 +68,12 @@ public class InterfaceActivityMap {
         put("org.alljoyn.SmartSpaces.Operation.RepeatMode", RepeatModeActivity.class);
         put("org.alljoyn.SmartSpaces.Operation.ResourceSaving", ResourceSavingActivity.class);
         put("org.alljoyn.SmartSpaces.Operation.RobotCleaningCyclePhase", CyclePhaseActivity.class);
+        put("org.alljoyn.SmartSpaces.Operation.ClosedStatus", ClosedStatusActivity.class);
+        put("org.alljoyn.SmartSpaces.Operation.RemoteControllability", RemoteControllabilityActivity.class);
+        put("org.alljoyn.SmartSpaces.Operation.RapidMode", RapidModeActivity.class);
+        put("org.alljoyn.SmartSpaces.Environment.WaterLevel", WaterLevelActivity.class);
+       // put("org.alljoyn.SmartSpaces.Operation.HeatingZone", HeatingZoneActivity.class);
+       // put("org.alljoyn.SmartSpaces.Operation.SoilLevel", SoilLevelActivity.class);
+
     }};
 }
