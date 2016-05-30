@@ -29,15 +29,16 @@ import android.widget.TextView;
 
 import org.alljoyn.bus.BusException;
 import org.alljoyn.bus.Variant;
-import org.alljoyn.haecontroller.view.PropertyView;
-import org.alljoyn.smartspaces.EnumBase;
 import org.alljoyn.haecontroller.R;
 import org.alljoyn.haecontroller.util.HaeUtil;
+import org.alljoyn.haecontroller.view.PropertyView;
+import org.alljoyn.smartspaces.EnumBase;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
-public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyView {
+public class ReadWriteByteArrayPropertyView<T> extends PropertyView {
     private static final String TAG = "HAE_ReadWriteProperty";
 
     private Method supportedGetter = null;
@@ -51,12 +52,11 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
     protected ArrayAdapter<T> valuesAdapter;
     protected AdapterView.OnItemSelectedListener listener = null;
 
-    public SupportedEnumPropertyView(Context context, Object obj, String propertyName, String supportedEnumPropertyName, Class<T> clazz) {
+    public ReadWriteByteArrayPropertyView(Context context, Object obj, String propertyName, String supportedArrayPropertyName) {
         super(context, obj, propertyName, null);
-        this.supportedName = supportedEnumPropertyName;
-        this.clazz = clazz;
+        this.supportedName = supportedArrayPropertyName;
         try {
-            this.supportedGetter = obj.getClass().getMethod("get" + supportedEnumPropertyName);
+            this.supportedGetter = obj.getClass().getMethod("get" + supportedArrayPropertyName);
         } catch (NoSuchMethodException e) {
             this.supportedGetter = null;
         }
@@ -95,17 +95,18 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
         }
 
         if (name.equals(this.supportedName)) {
-            setSupportedEnumView(obj);
+            setSupportedArrayView(obj);
         } else
             super.onPropertiesChangedSignal(name, value);
     }
 
-    private void setSupportedEnumView(Object enumList) {
+    private void setSupportedArrayView(Object enumList) {
         if (enumList != null) {
-            SupportedEnumPropertyView.this.valuesAdapter.clear();
+            ReadWriteByteArrayPropertyView.this.valuesAdapter.clear();
             for (Object obj : HaeUtil.toObjectArray(enumList)) {
-                T item = (T) HaeUtil.findEnum(obj, SupportedEnumPropertyView.this.clazz);
-                SupportedEnumPropertyView.this.valuesAdapter.add(item);
+                //check T cast
+                T item = (T)obj;
+                ReadWriteByteArrayPropertyView.this.valuesAdapter.add(item);
             }
         }
         if (this.currentValue != null) {
@@ -115,7 +116,7 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
 
     @Override
     public void setValueView(Object value) {
-        T item = (T)HaeUtil.findEnum(value, this.clazz);
+        T item = (T)value;
         if (item != null && this.valuesAdapter.getCount() > 0) {
             this.valuesView.setSelection(this.valuesAdapter.getPosition(item));
         }
@@ -124,7 +125,7 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
             this.listener = new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    SupportedEnumPropertyView.this.setProperty(SupportedEnumPropertyView.this.valuesAdapter.getItem(position).toValue());
+                    ReadWriteByteArrayPropertyView.this.setProperty(ReadWriteByteArrayPropertyView.this.valuesAdapter.getItem(position));
                 }
 
                 @Override
@@ -146,11 +147,11 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
             protected Object doInBackground(Void... voids) {
                 Object returnObj = null;
                 try {
-                    if (SupportedEnumPropertyView.this.supportedGetter != null) {
-                        Class<?>[] paramTypes = SupportedEnumPropertyView.this.supportedGetter.getParameterTypes();
+                    if (ReadWriteByteArrayPropertyView.this.supportedGetter != null) {
+                        Class<?>[] paramTypes = ReadWriteByteArrayPropertyView.this.supportedGetter.getParameterTypes();
                         Object[] params = new Object[paramTypes.length];
                         int idx = 0;
-                        returnObj = supportedGetter.invoke(SupportedEnumPropertyView.this.busObject);
+                        returnObj = supportedGetter.invoke(ReadWriteByteArrayPropertyView.this.busObject);
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -162,7 +163,7 @@ public class SupportedEnumPropertyView<T extends EnumBase<T>> extends PropertyVi
 
             @Override
             protected void onPostExecute(Object o) {
-                setSupportedEnumView(o);
+                setSupportedArrayView(o);
             }
         }.execute();
     }
