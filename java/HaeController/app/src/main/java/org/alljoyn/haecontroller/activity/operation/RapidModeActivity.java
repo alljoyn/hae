@@ -19,18 +19,12 @@ package org.alljoyn.haecontroller.activity.operation;
 import android.view.View;
 
 import org.alljoyn.haecontroller.activity.InterfaceActivity;
-import org.alljoyn.haecontroller.view.method.MethodView;
-import org.alljoyn.haecontroller.view.property.SupportedVendorValuesAndEnumPropertyView;
-import org.alljoyn.smartspaces.operation.DishWashingCyclePhase;
+import org.alljoyn.haecontroller.view.property.ReadWriteBoolPropertyView;
 
-public class CyclePhaseActivity extends InterfaceActivity {
+public class RapidModeActivity extends InterfaceActivity {
     @Override
-    protected void generatePropertyView(InterfaceActivity.CustomView properties, CustomView methods) {
-
-        View cycleView = new SupportedVendorValuesAndEnumPropertyView(this, this.intf, "CyclePhase", null, 1, 0, "SupportedCyclePhases", DishWashingCyclePhase.CyclePhase.class, "GetVendorPhasesDescription", "en");
-        properties.addView(cycleView);
-
-        View getVendorPhasesDescriptionView = new MethodView(this, this.intf, "GetVendorPhasesDescription", "languageTag");
-        methods.addView(getVendorPhasesDescriptionView);
+    protected void generatePropertyView(CustomView properties, CustomView methods) {
+        View rapidModeView = new ReadWriteBoolPropertyView(this, this.intf, "RapidMode");
+        properties.addView(rapidModeView);
     }
 }

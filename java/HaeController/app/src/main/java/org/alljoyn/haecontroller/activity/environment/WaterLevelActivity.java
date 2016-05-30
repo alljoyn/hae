@@ -14,23 +14,24 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package org.alljoyn.haecontroller.activity.operation;
+package org.alljoyn.haecontroller.activity.environment;
 
 import android.view.View;
 
 import org.alljoyn.haecontroller.activity.InterfaceActivity;
-import org.alljoyn.haecontroller.view.method.MethodView;
-import org.alljoyn.haecontroller.view.property.SupportedVendorValuesAndEnumPropertyView;
-import org.alljoyn.smartspaces.operation.DishWashingCyclePhase;
+import org.alljoyn.haecontroller.view.property.MinMaxPropertyView;
+import org.alljoyn.haecontroller.view.property.ReadOnlyEnumPropertyView;
+import org.alljoyn.haecontroller.view.property.ReadOnlyValuePropertyView;
+import org.alljoyn.smartspaces.environment.WaterLevel;
 
-public class CyclePhaseActivity extends InterfaceActivity {
+public class WaterLevelActivity extends InterfaceActivity {
     @Override
-    protected void generatePropertyView(InterfaceActivity.CustomView properties, CustomView methods) {
+    protected void generatePropertyView(CustomView properties, CustomView methods) {
+        View supplySourceView = new ReadOnlyEnumPropertyView(this, this.intf, "SupplySource", WaterLevel.SupplySource.class);
+        properties.addView(supplySourceView);
 
-        View cycleView = new SupportedVendorValuesAndEnumPropertyView(this, this.intf, "CyclePhase", null, 1, 0, "SupportedCyclePhases", DishWashingCyclePhase.CyclePhase.class, "GetVendorPhasesDescription", "en");
-        properties.addView(cycleView);
-
-        View getVendorPhasesDescriptionView = new MethodView(this, this.intf, "GetVendorPhasesDescription", "languageTag");
-        methods.addView(getVendorPhasesDescriptionView);
+        View levelView = new MinMaxPropertyView(this, this.intf, "CurrentLevel", null, null, "MaxLevel", null);
+        properties.addView(levelView);
     }
 }
+

@@ -19,18 +19,20 @@ package org.alljoyn.haecontroller.activity.operation;
 import android.view.View;
 
 import org.alljoyn.haecontroller.activity.InterfaceActivity;
-import org.alljoyn.haecontroller.view.method.MethodView;
-import org.alljoyn.haecontroller.view.property.SupportedVendorValuesAndEnumPropertyView;
-import org.alljoyn.smartspaces.operation.DishWashingCyclePhase;
+import org.alljoyn.haecontroller.view.property.ReadOnlyValuePropertyView;
+import org.alljoyn.haecontroller.view.property.ReadWriteByteArrayPropertyView;
+import org.alljoyn.haecontroller.view.property.SupportedValuesPropertyView;
 
-public class CyclePhaseActivity extends InterfaceActivity {
+public class SpinSpeedLevelActivity extends InterfaceActivity {
     @Override
-    protected void generatePropertyView(InterfaceActivity.CustomView properties, CustomView methods) {
+    protected void generatePropertyView(CustomView properties, CustomView methods) {
+        View maxLevelView = new ReadOnlyValuePropertyView(this, this.intf, "MaxLevel", null);
+        properties.addView(maxLevelView);
 
-        View cycleView = new SupportedVendorValuesAndEnumPropertyView(this, this.intf, "CyclePhase", null, 1, 0, "SupportedCyclePhases", DishWashingCyclePhase.CyclePhase.class, "GetVendorPhasesDescription", "en");
-        properties.addView(cycleView);
+      //  View levelView = new SupportedValuesPropertyView(this, this.intf, "TargetLevel", null, "SelectableLevels");
+     //   properties.addView(levelView);
 
-        View getVendorPhasesDescriptionView = new MethodView(this, this.intf, "GetVendorPhasesDescription", "languageTag");
-        methods.addView(getVendorPhasesDescriptionView);
+        View levelView = new ReadWriteByteArrayPropertyView(this, this.intf, "TargetLevel", "SelectableLevels");
+        properties.addView(levelView);
     }
 }

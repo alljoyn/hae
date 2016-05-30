@@ -19,18 +19,13 @@ package org.alljoyn.haecontroller.activity.operation;
 import android.view.View;
 
 import org.alljoyn.haecontroller.activity.InterfaceActivity;
-import org.alljoyn.haecontroller.view.method.MethodView;
-import org.alljoyn.haecontroller.view.property.SupportedVendorValuesAndEnumPropertyView;
-import org.alljoyn.smartspaces.operation.DishWashingCyclePhase;
+import org.alljoyn.haecontroller.view.property.ReadOnlyEnumPropertyView;
+import org.alljoyn.smartspaces.operation.ClosedStatus;
 
-public class CyclePhaseActivity extends InterfaceActivity {
+public class ClosedStatusActivity extends InterfaceActivity {
     @Override
-    protected void generatePropertyView(InterfaceActivity.CustomView properties, CustomView methods) {
-
-        View cycleView = new SupportedVendorValuesAndEnumPropertyView(this, this.intf, "CyclePhase", null, 1, 0, "SupportedCyclePhases", DishWashingCyclePhase.CyclePhase.class, "GetVendorPhasesDescription", "en");
-        properties.addView(cycleView);
-
-        View getVendorPhasesDescriptionView = new MethodView(this, this.intf, "GetVendorPhasesDescription", "languageTag");
-        methods.addView(getVendorPhasesDescriptionView);
+    protected void generatePropertyView(CustomView properties, CustomView methods) {
+        View closedStatusView = new ReadOnlyEnumPropertyView(this, this.intf, "IsClosed", ClosedStatus.Status.class);
+        properties.addView(closedStatusView);
     }
 }
