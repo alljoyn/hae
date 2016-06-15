@@ -250,6 +250,9 @@ QStatus TargetHumidityIntfControlleeImpl::SetTargetValue(const uint8_t value)
 
 QStatus TargetHumidityIntfControlleeImpl::SetMinValue(const uint8_t value)
 {
+    uint8_t maxValue = GetMaxValue();
+    if(value > maxValue)
+        return ER_FAIL;
     if (m_MinValue != value) {
         MsgArg val;
         val.typeId = ALLJOYN_BYTE;
@@ -263,6 +266,9 @@ QStatus TargetHumidityIntfControlleeImpl::SetMinValue(const uint8_t value)
 
 QStatus TargetHumidityIntfControlleeImpl::SetMaxValue(const uint8_t value)
 {
+    uint8_t minValue = GetMinValue();
+    if(value < minValue)
+        return ER_FAIL;
     if (m_MaxValue != value) {
         MsgArg val;
         val.typeId = ALLJOYN_BYTE;
