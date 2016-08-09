@@ -20,7 +20,6 @@
 #include <qcc/String.h>
 #include <alljoyn/Status.h>
 #include <alljoyn/hae/interfaces/operation/TimerInterface.h>
-
 namespace ajn {
 namespace services {
 
